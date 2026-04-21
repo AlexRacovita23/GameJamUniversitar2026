@@ -14,7 +14,10 @@ public class CraftingBootstrapper : MonoBehaviour
         var resolver = new RecipeResolver(allRecipes);
 
         foreach (var item in startingItems)
+        {
             inventory.AddItem(item);
+            inventory.AddItem(item);
+        }
 
         menuUI.Init(inventory, table, resolver);
     }

@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: CraftedItem1
   m_EditorClassIdentifier: Assembly-CSharp::ItemData
   itemName: CraftedItem1
-  icon: {fileID: 0}
+  icon: {fileID: 21300000, guid: e7fed030bb1a0de4282da012a62a2ac9, type: 3}

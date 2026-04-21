@@ -1,5 +1,5 @@
 using UnityEngine;
-
+using UnityEngine.UI;
 public class CraftingMenuUI : MonoBehaviour
 {
     [SerializeField] private InventoryPanelUI inventoryPanel;
@@ -18,7 +18,7 @@ public class CraftingMenuUI : MonoBehaviour
         _resolver = resolver;
 
         inventoryPanel.Init(inventory, OnItemDraggedToTable);
-        tablePanel.Init(table, OnItemRemovedFromTable);
+        tablePanel.Init(table, resolver, OnItemRemovedFromTable);
         craftButton.onClick.AddListener(OnCraftPressed);
     }
 
