@@ -8,7 +8,7 @@ public class InventoryPanelUI : MonoBehaviour
     [SerializeField] private RectTransform zone;
 
     private Inventory _inventory;
-    private Action<ItemData> _onItemDroppedHere;
+    private Action<DraggableItem> _onItemDroppedHere;
     private DropZone _dropZone;
     private MatLayoutManager _layoutManager;
 
@@ -20,15 +20,14 @@ public class InventoryPanelUI : MonoBehaviour
         _layoutManager = GetComponentInParent<MatLayoutManager>();
     }
 
-    public void Init(Inventory inventory, Action<ItemData> onItemDroppedHere)
+    public void Init(Inventory inventory, Action<DraggableItem> onItemDroppedHere)
     {
         _inventory = inventory;
         _onItemDroppedHere = onItemDroppedHere;
         _dropZone.OnItemDropped += HandleDrop;
-        Refresh();
     }
 
-    public void Refresh()
+    public void RandomLayout()
     {
         foreach (var slot in _slotMap.Values)
             Destroy(slot.gameObject);
@@ -45,7 +44,6 @@ public class InventoryPanelUI : MonoBehaviour
             slot.Init(item, count);
 
             RectTransform slotRect = slot.GetComponent<RectTransform>();
-
             Vector2 pos = _layoutManager.GetValidPosition(slotRect, zone, placedRects);
             slotRect.localPosition = pos;
 
@@ -53,10 +51,51 @@ public class InventoryPanelUI : MonoBehaviour
             _slotMap[item] = slot;
         }
 
-        RefreshOtherItemsLists();
+        RebuildOtherItemsLists();
     }
 
-    private void RefreshOtherItemsLists()
+    public void SoftRefresh()
+    {
+        var toRemove = new List<ItemData>();
+        foreach (var kvp in _slotMap)
+        {
+            int count = _inventory.GetCount(kvp.Key);
+            if (count <= 0)
+                toRemove.Add(kvp.Key);
+            else
+                kvp.Value.SetCount(count);
+        }
+
+        foreach (var item in toRemove)
+        {
+            Destroy(_slotMap[item].gameObject);
+            _slotMap.Remove(item);
+        }
+
+        foreach (var kvp in _inventory.Items)
+        {
+            if (!_slotMap.ContainsKey(kvp.Key))
+            {
+                DraggableItem slot = Instantiate(itemSlotPrefab, zone);
+                slot.Init(kvp.Key, kvp.Value);
+
+                RectTransform slotRect = slot.GetComponent<RectTransform>();
+
+                var existingRects = new List<RectTransform>();
+                foreach (var s in _slotMap.Values)
+                    existingRects.Add(s.GetComponent<RectTransform>());
+
+                Vector2 pos = _layoutManager.GetValidPosition(slotRect, zone, existingRects);
+                slotRect.localPosition = pos;
+
+                _slotMap[kvp.Key] = slot;
+            }
+        }
+
+        RebuildOtherItemsLists();
+    }
+
+    private void RebuildOtherItemsLists()
     {
         var allRects = new List<RectTransform>();
         foreach (var slot in _slotMap.Values)
@@ -70,9 +109,9 @@ public class InventoryPanelUI : MonoBehaviour
         }
     }
 
-    private void HandleDrop(ItemData item)
+    private void HandleDrop(DraggableItem draggable)
     {
-        _onItemDroppedHere?.Invoke(item);
+        _onItemDroppedHere?.Invoke(draggable);
     }
 
     private void OnDestroy()

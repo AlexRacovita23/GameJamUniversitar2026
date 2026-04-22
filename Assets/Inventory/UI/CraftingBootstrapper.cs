@@ -9,16 +9,19 @@ public class CraftingBootstrapper : MonoBehaviour
 
     private void Awake()
     {
-        var inventory = new Inventory();
+
+    }
+    private void Start()
+    {
         var table = new CraftingTable();
         var resolver = new RecipeResolver(allRecipes);
 
         foreach (var item in startingItems)
         {
-            inventory.AddItem(item);
-            inventory.AddItem(item);
+            Inventory.Instance.AddItem(item);
+            Inventory.Instance.AddItem(item);
         }
 
-        menuUI.Init(inventory, table, resolver);
+        menuUI.Init(Inventory.Instance, table, resolver);
     }
 }

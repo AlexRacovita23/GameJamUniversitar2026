@@ -12,7 +12,6 @@ public class DraggableItem : MonoBehaviour,
 
     public ItemData Data { get; private set; }
     public List<RectTransform> OtherItems { get; set; } = new();
-
     public bool WasAcceptedByDropZone { get; set; } = false;
 
     private Transform _originalParent;
@@ -36,7 +35,7 @@ public class DraggableItem : MonoBehaviour,
     public void SetCount(int count)
     {
         if (countLabel != null)
-            countLabel.text = $"x{count}";
+            countLabel.text = count > 1 ? $"x{count}" : "";
     }
 
     public void OnBeginDrag(PointerEventData e)
@@ -44,9 +43,9 @@ public class DraggableItem : MonoBehaviour,
         _originalParent = transform.parent;
         _originalLocalPosition = transform.localPosition;
         WasAcceptedByDropZone = false;
+
         Canvas rootCanvas = GetComponentInParent<Canvas>().rootCanvas;
         transform.SetParent(rootCanvas.transform, true);
-
         _canvasGroup.blocksRaycasts = false;
     }
 
@@ -57,14 +56,48 @@ public class DraggableItem : MonoBehaviour,
 
     public void OnEndDrag(PointerEventData e)
     {
-        if (WasAcceptedByDropZone)
-        {
-            _canvasGroup.blocksRaycasts = true;
-            return;
-        }
-
-        transform.SetParent(_originalParent);
-        transform.localPosition = _originalLocalPosition;
         _canvasGroup.blocksRaycasts = true;
+
+        if (WasAcceptedByDropZone)
+            return;
+
+        transform.SetParent(_originalParent, true);
+
+        RectTransform parentRect = _originalParent as RectTransform;
+        if (parentRect != null)
+        {
+            Vector2 localPos;
+            RectTransformUtility.ScreenPointToLocalPointInRectangle(
+                parentRect,
+                e.position,
+                e.pressEventCamera,
+                out localPos
+            );
+
+            Vector2 half = _rectTransform.sizeDelta * 0.5f;
+            float clampedX = Mathf.Clamp(localPos.x, parentRect.rect.xMin + half.x, parentRect.rect.xMax - half.x);
+            float clampedY = Mathf.Clamp(localPos.y, parentRect.rect.yMin + half.y, parentRect.rect.yMax - half.y);
+            Vector2 clamped = new Vector2(clampedX, clampedY);
+
+            _rectTransform.localPosition = clamped;
+
+            bool overlaps = false;
+            foreach (var other in OtherItems)
+            {
+                if (other == null) continue;
+                if (RectOverlapChecker.Overlaps(_rectTransform, other))
+                {
+                    overlaps = true;
+                    break;
+                }
+            }
+
+            if (overlaps)
+                transform.localPosition = _originalLocalPosition;
+        }
+        else
+        {
+            transform.localPosition = _originalLocalPosition;
+        }
     }
 }

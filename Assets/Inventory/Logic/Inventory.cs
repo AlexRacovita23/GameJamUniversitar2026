@@ -1,9 +1,23 @@
 using System.Collections.Generic;
+using UnityEngine;
 
-public class Inventory
+public class Inventory : MonoBehaviour
 {
+    public static Inventory Instance { get; private set; }
+
     private Dictionary<ItemData, int> _items = new();
     public IReadOnlyDictionary<ItemData, int> Items => _items;
+
+    private void Awake()
+    {
+        if (Instance != null && Instance != this)
+        {
+            Destroy(gameObject);
+            return;
+        }
+        Instance = this;
+        DontDestroyOnLoad(gameObject);
+    }
 
     public void AddItem(ItemData item)
     {
@@ -16,12 +30,10 @@ public class Inventory
     public bool RemoveItem(ItemData item)
     {
         if (!_items.TryGetValue(item, out int current)) return false;
-
         if (current <= 1)
             _items.Remove(item);
         else
             _items[item] = current - 1;
-
         return true;
     }
 

@@ -2,9 +2,9 @@ using System.Collections.Generic;
 
 public class CraftingTable
 {
-    private List<ItemData> _slots = new();
     public int MaxSlots = 4;
 
+    private List<ItemData> _slots = new();
     public IReadOnlyList<ItemData> Slots => _slots;
 
     public bool TryAddIngredient(ItemData item)
@@ -15,5 +15,6 @@ public class CraftingTable
     }
 
     public void RemoveIngredient(ItemData item) => _slots.Remove(item);
+
     public void Clear() => _slots.Clear();
 }

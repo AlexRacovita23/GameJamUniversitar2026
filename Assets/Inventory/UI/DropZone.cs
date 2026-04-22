@@ -4,7 +4,7 @@ using UnityEngine.EventSystems;
 
 public class DropZone : MonoBehaviour, IDropHandler
 {
-    public event Action<ItemData> OnItemDropped;
+    public event Action<DraggableItem> OnItemDropped;
 
     public void OnDrop(PointerEventData e)
     {
@@ -12,6 +12,6 @@ public class DropZone : MonoBehaviour, IDropHandler
         if (draggable == null) return;
 
         draggable.WasAcceptedByDropZone = true;
-        OnItemDropped?.Invoke(draggable.Data);
+        OnItemDropped?.Invoke(draggable);
     }
 }
