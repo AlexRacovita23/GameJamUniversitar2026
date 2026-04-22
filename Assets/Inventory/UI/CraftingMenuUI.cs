@@ -47,6 +47,9 @@ public class CraftingMenuUI : MonoBehaviour
 
     private void OnDraggedToInventory(DraggableItem draggable)
     {
+        if (draggable.SourceZone != ItemSourceZone.CraftingTable)
+            return;
+
         ItemData item = draggable.Data;
 
         if (!_table.Slots.Contains(item))
@@ -55,7 +58,7 @@ public class CraftingMenuUI : MonoBehaviour
         _table.RemoveIngredient(item);
         _inventory.AddItem(item);
 
-        PlaceItemInZone(draggable, inventoryZone, inventoryPanel);
+        Destroy(draggable.gameObject);
 
         inventoryPanel.SoftRefresh();
         tablePanel.SoftRefresh();
@@ -63,6 +66,9 @@ public class CraftingMenuUI : MonoBehaviour
 
     private void OnDraggedToCrafting(DraggableItem draggable)
     {
+        if (draggable.SourceZone != ItemSourceZone.Inventory)
+            return;
+
         ItemData item = draggable.Data;
 
         if (_inventory.GetCount(item) <= 0)
@@ -73,29 +79,9 @@ public class CraftingMenuUI : MonoBehaviour
 
         _inventory.RemoveItem(item);
 
-        PlaceItemInZone(draggable, craftingZone, tablePanel);
-
         inventoryPanel.SoftRefresh();
         tablePanel.SoftRefresh();
     }
-
-    private void PlaceItemInZone(DraggableItem draggable, RectTransform zone, MonoBehaviour panel)
-    {
-        draggable.transform.SetParent(zone, true);
-
-        var existingRects = new List<RectTransform>();
-        foreach (Transform child in zone)
-        {
-            var rt = child.GetComponent<RectTransform>();
-            if (rt != null && rt != draggable.GetComponent<RectTransform>())
-                existingRects.Add(rt);
-        }
-
-        RectTransform draggableRect = draggable.GetComponent<RectTransform>();
-        Vector2 pos = _layoutManager.GetValidPosition(draggableRect, zone, existingRects);
-        draggableRect.localPosition = pos;
-    }
-
     private void OnCraftPressed()
     {
         var recipe = _resolver.TryResolve(_table.Slots);

@@ -41,7 +41,7 @@ public class InventoryPanelUI : MonoBehaviour
             int count = kvp.Value;
 
             DraggableItem slot = Instantiate(itemSlotPrefab, zone);
-            slot.Init(item, count);
+            slot.Init(item, count, ItemSourceZone.Inventory);
 
             RectTransform slotRect = slot.GetComponent<RectTransform>();
             Vector2 pos = _layoutManager.GetValidPosition(slotRect, zone, placedRects);
@@ -77,7 +77,7 @@ public class InventoryPanelUI : MonoBehaviour
             if (!_slotMap.ContainsKey(kvp.Key))
             {
                 DraggableItem slot = Instantiate(itemSlotPrefab, zone);
-                slot.Init(kvp.Key, kvp.Value);
+                slot.Init(kvp.Key, kvp.Value, ItemSourceZone.Inventory);
 
                 RectTransform slotRect = slot.GetComponent<RectTransform>();
 

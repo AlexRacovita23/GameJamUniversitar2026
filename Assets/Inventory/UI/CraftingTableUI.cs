@@ -47,7 +47,7 @@ public class CraftingTableUI : MonoBehaviour
         foreach (var item in _table.Slots)
         {
             DraggableItem slot = Instantiate(itemSlotPrefab, zone);
-            slot.Init(item, 1);
+            slot.Init(item, 1, ItemSourceZone.CraftingTable);
 
             RectTransform slotRect = slot.GetComponent<RectTransform>();
             Vector2 pos = _layoutManager.GetValidPosition(slotRect, zone, placedRects);
@@ -63,28 +63,34 @@ public class CraftingTableUI : MonoBehaviour
 
     public void SoftRefresh()
     {
-        var tableItems = new List<ItemData>(_table.Slots);
+        var neededItems = new List<ItemData>(_table.Slots);
+        var slotsToKeep = new List<DraggableItem>();
+        var slotsToRemove = new List<DraggableItem>();
 
-        var toRemove = new List<DraggableItem>();
         foreach (var slot in _slots)
         {
-            int idx = tableItems.IndexOf(slot.Data);
-            if (idx < 0)
-                toRemove.Add(slot);
+            int idx = neededItems.IndexOf(slot.Data);
+            if (idx >= 0)
+            {
+                slotsToKeep.Add(slot);
+                neededItems.RemoveAt(idx);
+            }
             else
-                tableItems.RemoveAt(idx);
+            {
+                slotsToRemove.Add(slot);
+            }
         }
 
-        foreach (var slot in toRemove)
+        foreach (var slot in slotsToRemove)
         {
             _slots.Remove(slot);
             Destroy(slot.gameObject);
         }
 
-        foreach (var item in tableItems)
+        foreach (var item in neededItems)
         {
             DraggableItem slot = Instantiate(itemSlotPrefab, zone);
-            slot.Init(item, 1);
+            slot.Init(item, 1, ItemSourceZone.CraftingTable);
 
             RectTransform slotRect = slot.GetComponent<RectTransform>();
 

@@ -4,6 +4,12 @@ using UnityEngine.UI;
 using UnityEngine.EventSystems;
 using TMPro;
 
+public enum ItemSourceZone
+{
+    Inventory,
+    CraftingTable
+}
+
 public class DraggableItem : MonoBehaviour,
     IBeginDragHandler, IDragHandler, IEndDragHandler
 {
@@ -11,6 +17,7 @@ public class DraggableItem : MonoBehaviour,
     [SerializeField] private TextMeshProUGUI countLabel;
 
     public ItemData Data { get; private set; }
+    public ItemSourceZone SourceZone { get; private set; }
     public List<RectTransform> OtherItems { get; set; } = new();
     public bool WasAcceptedByDropZone { get; set; } = false;
 
@@ -25,9 +32,10 @@ public class DraggableItem : MonoBehaviour,
         _rectTransform = GetComponent<RectTransform>();
     }
 
-    public void Init(ItemData data, int count)
+    public void Init(ItemData data, int count, ItemSourceZone sourceZone)
     {
         Data = data;
+        SourceZone = sourceZone;
         iconImage.sprite = data.icon;
         SetCount(count);
     }
@@ -59,7 +67,11 @@ public class DraggableItem : MonoBehaviour,
         _canvasGroup.blocksRaycasts = true;
 
         if (WasAcceptedByDropZone)
+        {
+            transform.SetParent(_originalParent, false);
+            transform.localPosition = _originalLocalPosition;
             return;
+        }
 
         transform.SetParent(_originalParent, true);
 

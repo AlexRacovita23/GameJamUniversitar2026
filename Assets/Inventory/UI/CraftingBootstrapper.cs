@@ -23,5 +23,6 @@ public class CraftingBootstrapper : MonoBehaviour
         }
 
         menuUI.Init(Inventory.Instance, table, resolver);
+        menuUI.OpenInventory();
     }
 }
