@@ -3,18 +3,23 @@ using UnityEngine.Rendering;
 using UnityEngine.Rendering.Universal;
 using UnityEngine.UI;
 
-public class PlayerStats : MonoBehaviour
+public class SanitySystem : MonoBehaviour
 {
-    public static PlayerStats Instance { get; private set; }
+    public static SanitySystem Instance { get; private set; }
     [SerializeField] private float sanity = 100;
     [SerializeField] private float sanityDecreaseRatePerSecond = 0.4f; // 0.4 sanity/seconds -> 98 sanity in 4 minutes
 
     [Header("Debug")]
     [SerializeField] private Slider debugSlider;
 
-    [Header("Post-Processing")]
+    [Header("Effects")]
     [SerializeField] private Volume volume;
     private Vignette vignette;
+    private ColorAdjustments colorAdjustments;
+    [SerializeField]private ParticleSystem sandstormParticles;
+    private ParticleSystem.EmissionModule sandstormEmission;
+    [SerializeField] private float maxParticleEmissionRate = 2500f;
+    [SerializeField] private float minParticleEmissionRate = 1000f;
 
     private void Awake()
     {
@@ -86,10 +91,16 @@ public class PlayerStats : MonoBehaviour
             {
                 // Decide on maximum insanity effect
                 Debug.Log("Player is in critical sanity state!");
+                vignette.intensity.value = 0.5f; // Max intensity
+                sandstormParticles.Play(); // Start sandstorm effect
+                float intensity = Mathf.Lerp(minParticleEmissionRate, maxParticleEmissionRate, sanity / 20); // Adjust particle emission based on sanity
+                sandstormEmission = sandstormParticles.emission;
+                sandstormEmission.rateOverTime = intensity;
             }
             else
             {
                 vignette.intensity.value = 0;
+                sandstormParticles.Stop(); // Stop sandstorm effect
             }
         }
     }    

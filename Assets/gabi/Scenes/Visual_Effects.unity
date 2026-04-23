@@ -211,6 +211,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 2034527670}
+  - {fileID: 1661068624}
   m_Father: {fileID: 1384477292}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &135017730
@@ -305,7 +306,7 @@ Transform:
   m_GameObject: {fileID: 258852366}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -4.81}
+  m_LocalPosition: {x: 0, y: 0, z: -1.03}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -356,6 +357,9 @@ MonoBehaviour:
   sanityDecreaseRatePerSecond: 0.4
   debugSlider: {fileID: 0}
   volume: {fileID: 1364413015}
+  sandstormParticles: {fileID: 1661068623}
+  maxParticleEmissionRate: 2500
+  minParticleEmissionRate: 1000
 --- !u!1 &377002380
 GameObject:
   m_ObjectHideFlags: 0
@@ -1853,7 +1857,7 @@ GameObject:
   - component: {fileID: 1661068623}
   - component: {fileID: 1661068622}
   m_Layer: 0
-  m_Name: Particle System
+  m_Name: DustStorm
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2193,7 +2197,7 @@ ParticleSystem:
     startSize:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 1
+      scalar: 0.04
       minScalar: 1
       maxCurve:
         serializedVersion: 2
@@ -2776,7 +2780,7 @@ ParticleSystem:
     rateOverTime:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 80
+      scalar: 2400
       minScalar: 10
       maxCurve:
         serializedVersion: 2
@@ -6671,11 +6675,11 @@ Transform:
   m_GameObject: {fileID: 1661068621}
   serializedVersion: 2
   m_LocalRotation: {x: 0.5, y: 0.5, z: -0.5, w: -0.5}
-  m_LocalPosition: {x: 0.939, y: 1.36, z: 1.25}
+  m_LocalPosition: {x: 0.939, y: -0.003000021, z: 0.854}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 135017729}
   m_LocalEulerAnglesHint: {x: 180, y: 90, z: -90}
 --- !u!1 &2034527669
 GameObject:
@@ -6930,5 +6934,4 @@ SceneRoots:
   - {fileID: 2076301558}
   - {fileID: 1141595229}
   - {fileID: 1364413016}
-  - {fileID: 1661068624}
   - {fileID: 1537519391}
