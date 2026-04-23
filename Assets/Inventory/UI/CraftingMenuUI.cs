@@ -55,10 +55,9 @@ public class CraftingMenuUI : MonoBehaviour
         _table.RemoveIngredient(item);
         _inventory.AddItem(item);
 
-        Destroy(draggable.gameObject);
+        tablePanel.RemoveSlot(draggable);
 
         inventoryPanel.SoftRefresh();
-        tablePanel.SoftRefresh();
     }
 
     private void OnDraggedToCrafting(DraggableItem draggable)
@@ -79,6 +78,7 @@ public class CraftingMenuUI : MonoBehaviour
         inventoryPanel.SoftRefresh();
         tablePanel.SoftRefresh();
     }
+
     private void OnCraftPressed()
     {
         var recipe = _resolver.TryResolve(_table.Slots);

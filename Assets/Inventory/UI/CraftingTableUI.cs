@@ -35,7 +35,10 @@ public class CraftingTableUI : MonoBehaviour
     public void RandomLayout()
     {
         foreach (var slot in _slots)
-            Destroy(slot.gameObject);
+        {
+            if (slot != null)
+                Destroy(slot.gameObject);
+        }
         _slots.Clear();
 
         var placedRects = new List<RectTransform>();
@@ -56,14 +59,28 @@ public class CraftingTableUI : MonoBehaviour
         RebuildOtherItemsLists();
     }
 
+    public void RemoveSlot(DraggableItem slot)
+    {
+        if (slot == null) return;
+
+        _slots.Remove(slot);
+        Destroy(slot.gameObject);
+        RebuildOtherItemsLists();
+    }
+
     public void SoftRefresh()
     {
+        _slots.RemoveAll(slot => slot == null);
+
         var neededItems = new List<ItemData>(_table.Slots);
         var slotsToKeep = new List<DraggableItem>();
         var slotsToRemove = new List<DraggableItem>();
 
         foreach (var slot in _slots)
         {
+            if (slot == null)
+                continue;
+
             int idx = neededItems.IndexOf(slot.Data);
             if (idx >= 0)
             {
@@ -79,7 +96,8 @@ public class CraftingTableUI : MonoBehaviour
         foreach (var slot in slotsToRemove)
         {
             _slots.Remove(slot);
-            Destroy(slot.gameObject);
+            if (slot != null)
+                Destroy(slot.gameObject);
         }
 
         foreach (var item in neededItems)
@@ -91,7 +109,10 @@ public class CraftingTableUI : MonoBehaviour
 
             var existingRects = new List<RectTransform>();
             foreach (var s in _slots)
-                existingRects.Add(s.GetComponent<RectTransform>());
+            {
+                if (s != null)
+                    existingRects.Add(s.GetComponent<RectTransform>());
+            }
 
             Vector2 pos = _layoutManager.GetValidPosition(slotRect, zone, existingRects);
             slotRect.localPosition = pos;
@@ -103,6 +124,8 @@ public class CraftingTableUI : MonoBehaviour
 
     private void RebuildOtherItemsLists()
     {
+        _slots.RemoveAll(slot => slot == null);
+
         var allRects = new List<RectTransform>();
         foreach (var slot in _slots)
             allRects.Add(slot.GetComponent<RectTransform>());
