@@ -210,6 +210,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::InventoryPanelUI
   itemSlotPrefab: {fileID: 1788174066381864314, guid: 516f4c4ab6769b54caaa03e01db32483, type: 3}
   zone: {fileID: 182623919}
+  craftingExclusionZone: {fileID: 1731798934}
 --- !u!114 &182623923
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -222,6 +223,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dde89eea15363074a86fb5a17083939d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::DropZone
+  zoneType: 0
 --- !u!1 &571018524
 GameObject:
   m_ObjectHideFlags: 0
@@ -541,7 +543,6 @@ GameObject:
   - component: {fileID: 1549162416}
   - component: {fileID: 1549162418}
   - component: {fileID: 1549162417}
-  - component: {fileID: 1549162419}
   - component: {fileID: 1549162420}
   m_Layer: 5
   m_Name: CraftingMat
@@ -609,18 +610,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1549162415}
   m_CullTransparentMesh: 1
---- !u!114 &1549162419
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1549162415}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 108921c060e228a47b456bae8f18b696, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::MatLayoutManager
 --- !u!114 &1549162420
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -786,6 +775,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dde89eea15363074a86fb5a17083939d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::DropZone
+  zoneType: 1
 --- !u!1 &1818698551
 GameObject:
   m_ObjectHideFlags: 0

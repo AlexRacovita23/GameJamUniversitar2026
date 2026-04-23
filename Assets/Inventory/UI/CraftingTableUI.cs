@@ -14,12 +14,10 @@ public class CraftingTableUI : MonoBehaviour
     private Action<DraggableItem> _onItemDroppedHere;
 
     private DropZone _dropZone;
-    private MatLayoutManager _layoutManager;
 
     private void Awake()
     {
         _dropZone = GetComponent<DropZone>();
-        _layoutManager = GetComponentInParent<MatLayoutManager>();
     }
 
     public void Init(
@@ -49,7 +47,7 @@ public class CraftingTableUI : MonoBehaviour
             slot.Init(item, 1, ItemSourceZone.CraftingTable);
 
             RectTransform slotRect = slot.GetComponent<RectTransform>();
-            Vector2 pos = _layoutManager.GetValidPosition(slotRect, zone, placedRects);
+            Vector2 pos = LayoutUtils.GetValidPosition(slotRect, zone, placedRects);
             slotRect.localPosition = pos;
 
             placedRects.Add(slotRect);
@@ -114,7 +112,7 @@ public class CraftingTableUI : MonoBehaviour
                     existingRects.Add(s.GetComponent<RectTransform>());
             }
 
-            Vector2 pos = _layoutManager.GetValidPosition(slotRect, zone, existingRects);
+            Vector2 pos = LayoutUtils.GetValidPosition(slotRect, zone, existingRects);
             slotRect.localPosition = pos;
             _slots.Add(slot);
         }

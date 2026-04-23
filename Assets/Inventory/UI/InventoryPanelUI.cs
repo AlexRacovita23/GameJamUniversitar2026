@@ -1,3 +1,4 @@
+
 using System;
 using System.Collections.Generic;
 using UnityEngine;
@@ -6,18 +7,17 @@ public class InventoryPanelUI : MonoBehaviour
 {
     [SerializeField] private DraggableItem itemSlotPrefab;
     [SerializeField] private RectTransform zone;
+    [SerializeField] private RectTransform craftingExclusionZone;
 
     private Inventory _inventory;
     private Action<DraggableItem> _onItemDroppedHere;
     private DropZone _dropZone;
-    private MatLayoutManager _layoutManager;
 
     private Dictionary<ItemData, DraggableItem> _slotMap = new();
 
     private void Awake()
     {
         _dropZone = GetComponent<DropZone>();
-        _layoutManager = GetComponentInParent<MatLayoutManager>();
     }
 
     public void Init(Inventory inventory, Action<DraggableItem> onItemDroppedHere)
@@ -42,9 +42,10 @@ public class InventoryPanelUI : MonoBehaviour
 
             DraggableItem slot = Instantiate(itemSlotPrefab, zone);
             slot.Init(item, count, ItemSourceZone.Inventory);
+            slot.ExclusionZone = craftingExclusionZone;
 
             RectTransform slotRect = slot.GetComponent<RectTransform>();
-            Vector2 pos = _layoutManager.GetValidPosition(slotRect, zone, placedRects);
+            Vector2 pos = LayoutUtils.GetValidPosition(slotRect, zone, placedRects, craftingExclusionZone);
             slotRect.localPosition = pos;
 
             placedRects.Add(slotRect);
@@ -78,6 +79,7 @@ public class InventoryPanelUI : MonoBehaviour
             {
                 DraggableItem slot = Instantiate(itemSlotPrefab, zone);
                 slot.Init(kvp.Key, kvp.Value, ItemSourceZone.Inventory);
+                slot.ExclusionZone = craftingExclusionZone;
 
                 RectTransform slotRect = slot.GetComponent<RectTransform>();
 
@@ -85,7 +87,7 @@ public class InventoryPanelUI : MonoBehaviour
                 foreach (var s in _slotMap.Values)
                     existingRects.Add(s.GetComponent<RectTransform>());
 
-                Vector2 pos = _layoutManager.GetValidPosition(slotRect, zone, existingRects);
+                Vector2 pos = LayoutUtils.GetValidPosition(slotRect, zone, existingRects, craftingExclusionZone);
                 slotRect.localPosition = pos;
 
                 _slotMap[kvp.Key] = slot;

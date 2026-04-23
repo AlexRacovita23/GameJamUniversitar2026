@@ -19,6 +19,7 @@ public class DraggableItem : MonoBehaviour,
     public ItemData Data { get; private set; }
     public ItemSourceZone SourceZone { get; private set; }
     public List<RectTransform> OtherItems { get; set; } = new();
+    public RectTransform ExclusionZone { get; set; }
     public bool WasAcceptedByDropZone { get; set; } = false;
     public bool ChangedZone { get; set; } = false;
 
@@ -88,18 +89,31 @@ public class DraggableItem : MonoBehaviour,
                 out localPos
             );
 
-            Vector2 half = _rectTransform.sizeDelta * 0.5f;
-            float clampedX = Mathf.Clamp(localPos.x, parentRect.rect.xMin + half.x, parentRect.rect.xMax - half.x);
-            float clampedY = Mathf.Clamp(localPos.y, parentRect.rect.yMin + half.y, parentRect.rect.yMax - half.y);
+            Vector2 size = _rectTransform.sizeDelta;
+            Vector2 pivot = _rectTransform.pivot;
+
+            float minX = parentRect.rect.xMin + size.x * pivot.x;
+            float maxX = parentRect.rect.xMax - size.x * (1f - pivot.x);
+            float minY = parentRect.rect.yMin + size.y * pivot.y;
+            float maxY = parentRect.rect.yMax - size.y * (1f - pivot.y);
+
+            float clampedX = Mathf.Clamp(localPos.x, minX, maxX);
+            float clampedY = Mathf.Clamp(localPos.y, minY, maxY);
             Vector2 clamped = new Vector2(clampedX, clampedY);
 
             _rectTransform.localPosition = clamped;
+
+            if (ExclusionZone != null && LayoutUtils.Overlaps(_rectTransform, ExclusionZone))
+            {
+                transform.localPosition = _originalLocalPosition;
+                return;
+            }
 
             bool overlaps = false;
             foreach (var other in OtherItems)
             {
                 if (other == null) continue;
-                if (RectOverlapChecker.Overlaps(_rectTransform, other))
+                if (LayoutUtils.Overlaps(_rectTransform, other))
                 {
                     overlaps = true;
                     break;
