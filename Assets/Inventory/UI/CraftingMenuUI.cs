@@ -10,16 +10,13 @@ public class CraftingMenuUI : MonoBehaviour
     [SerializeField] private RectTransform inventoryZone;
     [SerializeField] private RectTransform craftingZone;
     [SerializeField] private Button craftButton;
-    [SerializeField] private GameObject resultDisplay;
 
     private Inventory _inventory;
     private CraftingTable _table;
     private RecipeResolver _resolver;
-    private MatLayoutManager _layoutManager;
 
     private void Awake()
     {
-        _layoutManager = GetComponent<MatLayoutManager>();
     }
 
     public void Init(Inventory inventory, CraftingTable table, RecipeResolver resolver)
@@ -29,7 +26,7 @@ public class CraftingMenuUI : MonoBehaviour
         _resolver = resolver;
 
         inventoryPanel.Init(inventory, OnDraggedToInventory);
-        tablePanel.Init(table, resolver, OnDraggedToCrafting);
+        tablePanel.Init(table, OnDraggedToCrafting);
         craftButton.onClick.AddListener(OnCraftPressed);
     }
 

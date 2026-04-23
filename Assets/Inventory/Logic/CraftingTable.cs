@@ -2,7 +2,7 @@ using System.Collections.Generic;
 
 public class CraftingTable
 {
-    public int MaxSlots = 4;
+    public int MaxSlots = 3;
 
     private List<ItemData> _slots = new();
     public IReadOnlyList<ItemData> Slots => _slots;

@@ -443,7 +443,7 @@ RectTransform:
   m_LocalScale: {x: 0, y: 0, z: 0}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 1408646314}
+  - {fileID: 1549162416}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -451,61 +451,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
---- !u!1 &1408646313
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1408646314}
-  - component: {fileID: 1408646315}
-  m_Layer: 5
-  m_Name: CraftingMenu
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!224 &1408646314
-RectTransform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1408646313}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 1549162416}
-  m_Father: {fileID: 986538698}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 100, y: 100}
-  m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &1408646315
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1408646313}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c6ab94c3703108349b95635fdf1467f5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::CraftingMenuUI
-  inventoryPanel: {fileID: 182623922}
-  tablePanel: {fileID: 1731798937}
-  inventoryZone: {fileID: 182623919}
-  craftingZone: {fileID: 1731798934}
-  craftButton: {fileID: 2012264077}
-  resultDisplay: {fileID: 0}
 --- !u!1 &1505041317
 GameObject:
   m_ObjectHideFlags: 0
@@ -597,6 +542,7 @@ GameObject:
   - component: {fileID: 1549162418}
   - component: {fileID: 1549162417}
   - component: {fileID: 1549162419}
+  - component: {fileID: 1549162420}
   m_Layer: 5
   m_Name: CraftingMat
   m_TagString: Untagged
@@ -611,14 +557,14 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1549162415}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 182623919}
   - {fileID: 1731798934}
-  m_Father: {fileID: 1408646314}
+  m_Father: {fileID: 986538698}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -675,6 +621,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 108921c060e228a47b456bae8f18b696, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::MatLayoutManager
+--- !u!114 &1549162420
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1549162415}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c6ab94c3703108349b95635fdf1467f5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::CraftingMenuUI
+  inventoryPanel: {fileID: 182623922}
+  tablePanel: {fileID: 1731798937}
+  inventoryZone: {fileID: 182623919}
+  craftingZone: {fileID: 1731798934}
+  craftButton: {fileID: 2012264077}
 --- !u!1 &1662395649
 GameObject:
   m_ObjectHideFlags: 0
@@ -811,7 +774,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::CraftingTableUI
   itemSlotPrefab: {fileID: 1788174066381864314, guid: 516f4c4ab6769b54caaa03e01db32483, type: 3}
   zone: {fileID: 1731798934}
-  resultPreviewLabel: {fileID: 0}
 --- !u!114 &1731798938
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -880,7 +842,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 39377c64db1ee32479c3def874dc5034, type: 2}
   - {fileID: 11400000, guid: ad1c05286821cf642babeb84253094b6, type: 2}
   - {fileID: 11400000, guid: beff3ceee7fd1eb46a4283ef4505e71a, type: 2}
-  menuUI: {fileID: 1408646315}
+  menuUI: {fileID: 1549162420}
 --- !u!1 &1878329655
 GameObject:
   m_ObjectHideFlags: 0

@@ -7,13 +7,11 @@ public class CraftingTableUI : MonoBehaviour
 {
     [SerializeField] private DraggableItem itemSlotPrefab;
     [SerializeField] private RectTransform zone;
-    [SerializeField] private TextMeshProUGUI resultPreviewLabel;
 
     private List<DraggableItem> _slots = new();
 
     private CraftingTable _table;
-    private RecipeResolver _resolver;
-    private Action<DraggableItem> _onItemRemovedFromTable;
+    private Action<DraggableItem> _onItemDroppedHere;
 
     private DropZone _dropZone;
     private MatLayoutManager _layoutManager;
@@ -26,12 +24,10 @@ public class CraftingTableUI : MonoBehaviour
 
     public void Init(
         CraftingTable table,
-        RecipeResolver resolver,
-        Action<DraggableItem> onItemRemovedFromTable)
+        Action<DraggableItem> onItemDroppedHere)
     {
         _table = table;
-        _resolver = resolver;
-        _onItemRemovedFromTable = onItemRemovedFromTable;
+        _onItemDroppedHere = onItemDroppedHere;
         _dropZone.OnItemDropped += HandleDrop;
         RandomLayout();
     }
@@ -58,7 +54,6 @@ public class CraftingTableUI : MonoBehaviour
         }
 
         RebuildOtherItemsLists();
-        UpdatePreviewLabel();
     }
 
     public void SoftRefresh()
@@ -104,7 +99,6 @@ public class CraftingTableUI : MonoBehaviour
         }
 
         RebuildOtherItemsLists();
-        UpdatePreviewLabel();
     }
 
     private void RebuildOtherItemsLists()
@@ -121,16 +115,9 @@ public class CraftingTableUI : MonoBehaviour
         }
     }
 
-    private void UpdatePreviewLabel()
-    {
-        if (resultPreviewLabel == null) return;
-        var recipe = _resolver.TryResolve(_table.Slots);
-        resultPreviewLabel.text = recipe != null ? $"Will craft: {recipe.result.itemName}" : "";
-    }
-
     private void HandleDrop(DraggableItem draggable)
     {
-        _onItemRemovedFromTable?.Invoke(draggable);
+        _onItemDroppedHere?.Invoke(draggable);
     }
 
     private void OnDestroy()
