@@ -20,6 +20,7 @@ public class DraggableItem : MonoBehaviour,
     public ItemSourceZone SourceZone { get; private set; }
     public List<RectTransform> OtherItems { get; set; } = new();
     public bool WasAcceptedByDropZone { get; set; } = false;
+    public bool ChangedZone { get; set; } = false;
 
     private Transform _originalParent;
     private Vector3 _originalLocalPosition;
@@ -51,6 +52,7 @@ public class DraggableItem : MonoBehaviour,
         _originalParent = transform.parent;
         _originalLocalPosition = transform.localPosition;
         WasAcceptedByDropZone = false;
+        ChangedZone = false;
 
         Canvas rootCanvas = GetComponentInParent<Canvas>().rootCanvas;
         transform.SetParent(rootCanvas.transform, true);
@@ -66,7 +68,7 @@ public class DraggableItem : MonoBehaviour,
     {
         _canvasGroup.blocksRaycasts = true;
 
-        if (WasAcceptedByDropZone)
+        if (WasAcceptedByDropZone && ChangedZone)
         {
             transform.SetParent(_originalParent, false);
             transform.localPosition = _originalLocalPosition;
