@@ -7,6 +7,7 @@ public class CraftingTableUI : MonoBehaviour
 {
     [SerializeField] private DraggableItem itemSlotPrefab;
     [SerializeField] private RectTransform zone;
+    [SerializeField] private RectTransform craftButtonExclusionZone;
 
     private List<DraggableItem> _slots = new();
 
@@ -45,9 +46,10 @@ public class CraftingTableUI : MonoBehaviour
         {
             DraggableItem slot = Instantiate(itemSlotPrefab, zone);
             slot.Init(item, 1, ItemSourceZone.CraftingTable);
+            slot.ExclusionZone = craftButtonExclusionZone;
 
             RectTransform slotRect = slot.GetComponent<RectTransform>();
-            Vector2 pos = LayoutUtils.GetValidPosition(slotRect, zone, placedRects);
+            Vector2 pos = LayoutUtils.GetValidPosition(slotRect, zone, placedRects, craftButtonExclusionZone);
             slotRect.localPosition = pos;
 
             placedRects.Add(slotRect);
@@ -102,6 +104,7 @@ public class CraftingTableUI : MonoBehaviour
         {
             DraggableItem slot = Instantiate(itemSlotPrefab, zone);
             slot.Init(item, 1, ItemSourceZone.CraftingTable);
+            slot.ExclusionZone = craftButtonExclusionZone;
 
             RectTransform slotRect = slot.GetComponent<RectTransform>();
 
@@ -112,7 +115,7 @@ public class CraftingTableUI : MonoBehaviour
                     existingRects.Add(s.GetComponent<RectTransform>());
             }
 
-            Vector2 pos = LayoutUtils.GetValidPosition(slotRect, zone, existingRects);
+            Vector2 pos = LayoutUtils.GetValidPosition(slotRect, zone, existingRects, craftButtonExclusionZone);
             slotRect.localPosition = pos;
             _slots.Add(slot);
         }
