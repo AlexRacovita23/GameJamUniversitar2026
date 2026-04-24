@@ -20,11 +20,15 @@ public class InventoryPanelUI : MonoBehaviour
         _dropZone = GetComponent<DropZone>();
     }
 
+    private void OnEnable()
+    {
+        _dropZone.OnItemDropped += HandleDrop;
+    }
+
     public void Init(Inventory inventory, Action<DraggableItem> onItemDroppedHere)
     {
         _inventory = inventory;
         _onItemDroppedHere = onItemDroppedHere;
-        _dropZone.OnItemDropped += HandleDrop;
     }
 
     public void RandomLayout()

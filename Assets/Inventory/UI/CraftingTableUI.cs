@@ -21,13 +21,17 @@ public class CraftingTableUI : MonoBehaviour
         _dropZone = GetComponent<DropZone>();
     }
 
+    private void OnEnable()
+    {
+        _dropZone.OnItemDropped += HandleDrop;
+    }
+
     public void Init(
         CraftingTable table,
         Action<DraggableItem> onItemDroppedHere)
     {
         _table = table;
         _onItemDroppedHere = onItemDroppedHere;
-        _dropZone.OnItemDropped += HandleDrop;
         RandomLayout();
     }
 
