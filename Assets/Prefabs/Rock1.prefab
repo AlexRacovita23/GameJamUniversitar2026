@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 5292470460580877252}
   - component: {fileID: 1723084905964991236}
   - component: {fileID: 7296115031156018025}
+  - component: {fileID: 5061797410724351464}
   m_Layer: 0
   m_Name: Eeva3
   m_TagString: Untagged
@@ -90,6 +91,28 @@ MeshRenderer:
   m_SortingOrder: 0
   m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!64 &5061797410724351464
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1132768354039934857}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 5
+  m_Convex: 1
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 5608244537037782466, guid: 699bbc81b74e8a342a247de81f892b02, type: 3}
 --- !u!1 &3074040634271682272
 GameObject:
   m_ObjectHideFlags: 0
@@ -134,6 +157,7 @@ GameObject:
   - component: {fileID: 7326900990310765694}
   - component: {fileID: 49810665860637535}
   - component: {fileID: 8256194343201870475}
+  - component: {fileID: 4291910117414564023}
   m_Layer: 0
   m_Name: eva.003
   m_TagString: Untagged
@@ -213,3 +237,25 @@ MeshRenderer:
   m_SortingOrder: 0
   m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!64 &4291910117414564023
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4199222822176657399}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 5
+  m_Convex: 1
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 7554130219026687130, guid: 699bbc81b74e8a342a247de81f892b02, type: 3}
