@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.03.00">
+	<object class="AudioFile" id="{196e00b8-a9c3-4c66-918e-ab6c7a4cd21e}">
+		<property name="assetPath">
+			<value>SFX/Attacks/Bow Attacks Hits and Blocks/Bow Blocked 2.wav</value>
+		</property>
+		<property name="frequencyInKHz">
+			<value>44.0999985</value>
+		</property>
+		<property name="channelCount">
+			<value>2</value>
+		</property>
+		<property name="length">
+			<value>0.87501133786848073</value>
+		</property>
+		<relationship name="masterAssetFolder">
+			<destination>{599f59ee-7a8d-43d1-8507-11ae87e69e9b}</destination>
+		</relationship>
+	</object>
+</objects>

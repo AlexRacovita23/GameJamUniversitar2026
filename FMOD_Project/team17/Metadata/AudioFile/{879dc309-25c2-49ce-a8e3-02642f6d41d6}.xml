@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.03.00">
+	<object class="AudioFile" id="{879dc309-25c2-49ce-a8e3-02642f6d41d6}">
+		<property name="assetPath">
+			<value>SFX/Torch/Torch Impact 2.wav</value>
+		</property>
+		<property name="frequencyInKHz">
+			<value>44.0999985</value>
+		</property>
+		<property name="channelCount">
+			<value>2</value>
+		</property>
+		<property name="length">
+			<value>0.3076643990929705</value>
+		</property>
+		<relationship name="masterAssetFolder">
+			<destination>{599f59ee-7a8d-43d1-8507-11ae87e69e9b}</destination>
+		</relationship>
+	</object>
+</objects>
