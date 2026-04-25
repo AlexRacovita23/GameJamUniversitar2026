@@ -76,6 +76,8 @@ public class GridInventorySlot : MonoBehaviour, IPointerClickHandler
 
     public void OnPointerClick(PointerEventData eventData)
     {
+        Debug.Log($"Click detected on {gameObject.name}, button: {eventData.button}, count: {_currentCount}");
+
         if (eventData.button == PointerEventData.InputButton.Right && _currentCount > 0)
         {
             OnSlotRightClicked?.Invoke(this);
