@@ -1,25 +1,23 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class GridInventoryUI : MonoBehaviour
 {
-    [Header("Slots - Assign manually placed slots here")]
+    [Header("Slots")]
     [SerializeField] private GridInventorySlot[] slots;
-
-    [Header("Context Menu")]
-    [SerializeField] private InventoryContextMenu contextMenu;
 
     private Inventory _inventory;
     private Dictionary<ItemData, GridInventorySlot> _itemToSlot = new();
 
     public event Action<ItemData> OnItemConsumed;
 
-    private void Awake()
+    private void Update()
     {
-        if (contextMenu != null)
+        if (Mouse.current != null && Mouse.current.leftButton.wasPressedThisFrame)
         {
-            contextMenu.Init(HandleConsumeClicked);
+            HideAllConsumeButtons();
         }
     }
 
@@ -32,7 +30,9 @@ public class GridInventoryUI : MonoBehaviour
         {
             if (slot == null) continue;
 
-            slot.Init(this);
+            slot.Init();
+            slot.OnConsumeClicked += HandleConsumeClicked;
+            slot.OnSlotRightClicked += HandleSlotRightClicked;
 
             if (slot.AssignedItem != null)
             {
@@ -54,24 +54,42 @@ public class GridInventoryUI : MonoBehaviour
         }
     }
 
-    public void ShowContextMenu(GridInventorySlot slot, Vector2 position)
+    private void HandleSlotRightClicked(GridInventorySlot clickedSlot)
     {
-        if (contextMenu != null)
+        foreach (var slot in slots)
         {
-            contextMenu.Show(slot, position);
+            if (slot != null && slot != clickedSlot)
+            {
+                slot.HideConsumeButton();
+            }
         }
     }
 
-    public void HideContextMenu()
+    public void HideAllConsumeButtons()
     {
-        if (contextMenu != null)
+        foreach (var slot in slots)
         {
-            contextMenu.Hide();
+            if (slot != null)
+            {
+                slot.HideConsumeButton();
+            }
         }
     }
 
     private void HandleConsumeClicked(ItemData item)
     {
         OnItemConsumed?.Invoke(item);
+    }
+
+    private void OnDestroy()
+    {
+        foreach (var slot in slots)
+        {
+            if (slot != null)
+            {
+                slot.OnConsumeClicked -= HandleConsumeClicked;
+                slot.OnSlotRightClicked -= HandleSlotRightClicked;
+            }
+        }
     }
 }

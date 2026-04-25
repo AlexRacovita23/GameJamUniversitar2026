@@ -2,6 +2,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
 using TMPro;
+using System;
 
 public class GridInventorySlot : MonoBehaviour, IPointerClickHandler
 {
@@ -9,20 +10,30 @@ public class GridInventorySlot : MonoBehaviour, IPointerClickHandler
     [SerializeField] private Image itemIcon;
     [SerializeField] private TextMeshProUGUI countText;
     [SerializeField] private GameObject countContainer;
+    [SerializeField] private Button consumeButton;
 
     [Header("Configuration")]
     [SerializeField] private ItemData assignedItem;
 
     private int _currentCount;
-    private GridInventoryUI _parentUI;
 
     public ItemData AssignedItem => assignedItem;
     public int CurrentCount => _currentCount;
 
-    public void Init(GridInventoryUI parentUI)
-    {
-        _parentUI = parentUI;
+    public event Action<ItemData> OnConsumeClicked;
+    public event Action<GridInventorySlot> OnSlotRightClicked;
 
+    private void Awake()
+    {
+        if (consumeButton != null)
+        {
+            consumeButton.onClick.AddListener(HandleConsumeClicked);
+            consumeButton.gameObject.SetActive(false);
+        }
+    }
+
+    public void Init()
+    {
         if (assignedItem != null && itemIcon != null)
         {
             itemIcon.sprite = assignedItem.Icon;
@@ -51,13 +62,53 @@ public class GridInventorySlot : MonoBehaviour, IPointerClickHandler
         {
             countText.text = count.ToString();
         }
+
+        if (!hasItem && consumeButton != null)
+        {
+            consumeButton.gameObject.SetActive(false);
+        }
     }
 
     public void OnPointerClick(PointerEventData eventData)
     {
         if (eventData.button == PointerEventData.InputButton.Right && _currentCount > 0)
         {
-            _parentUI.ShowContextMenu(this, eventData.position);
+            OnSlotRightClicked?.Invoke(this);
+            ShowConsumeButton();
+        }
+    }
+
+    public void ShowConsumeButton()
+    {
+        if (consumeButton != null)
+        {
+            consumeButton.gameObject.SetActive(true);
+        }
+    }
+
+    public void HideConsumeButton()
+    {
+        if (consumeButton != null)
+        {
+            consumeButton.gameObject.SetActive(false);
+        }
+    }
+
+    private void HandleConsumeClicked()
+    {
+        if (assignedItem != null && _currentCount > 0)
+        {
+            OnConsumeClicked?.Invoke(assignedItem);
+        }
+
+        HideConsumeButton();
+    }
+
+    private void OnDestroy()
+    {
+        if (consumeButton != null)
+        {
+            consumeButton.onClick.RemoveListener(HandleConsumeClicked);
         }
     }
 }
