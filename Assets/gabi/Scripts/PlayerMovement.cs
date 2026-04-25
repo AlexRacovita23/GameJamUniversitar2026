@@ -56,6 +56,7 @@ public class PlayerMovement : MonoBehaviour
         inputActions.Player.Jump.performed += PerformJump;
         inputActions.Player.Interact.performed += PerformInteract;
         inputActions.Player.Inventory.performed += OpenInventory;
+        InventoryUIManager.OnInventoryStateChanged += OnInventoryToggled;
     }
 
     private void OpenInventory(InputAction.CallbackContext context)
@@ -97,6 +98,7 @@ public class PlayerMovement : MonoBehaviour
         inputActions.Player.Jump.performed -= PerformJump;
         inputActions.Player.Interact.performed -= PerformInteract;
         inputActions.Player.Inventory.performed -= OpenInventory;
+        InventoryUIManager.OnInventoryStateChanged -= OnInventoryToggled;
         inputActions.Disable();
     }
 
@@ -180,5 +182,9 @@ public class PlayerMovement : MonoBehaviour
             Cursor.visible = false;
             isMenuOpen = false;
         }
+    }
+    private void OnInventoryToggled(bool isOpen)
+    {
+        ChangeCoursorState();
     }
 }

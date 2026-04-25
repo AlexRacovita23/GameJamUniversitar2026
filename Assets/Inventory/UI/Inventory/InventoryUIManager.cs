@@ -1,4 +1,3 @@
-
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -7,6 +6,8 @@ public class InventoryUIManager : MonoBehaviour
     [SerializeField] private GameObject inventoryPanel;
 
     private PlayerInputActions _inputActions;
+
+    public static event System.Action<bool> OnInventoryStateChanged;
 
     private void Awake()
     {
@@ -35,7 +36,6 @@ public class InventoryUIManager : MonoBehaviour
         bool isOpen = !inventoryPanel.activeSelf;
         inventoryPanel.SetActive(isOpen);
 
-        Cursor.visible = isOpen;
-        Cursor.lockState = isOpen ? CursorLockMode.None : CursorLockMode.Locked;
+        OnInventoryStateChanged?.Invoke(isOpen);
     }
 }
