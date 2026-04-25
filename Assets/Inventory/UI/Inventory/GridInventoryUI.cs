@@ -40,6 +40,7 @@ public class GridInventoryUI : MonoBehaviour
             }
         }
 
+        _inventory.OnInventoryChanged += Refresh;
         Refresh();
     }
 
@@ -83,6 +84,11 @@ public class GridInventoryUI : MonoBehaviour
 
     private void OnDestroy()
     {
+        if (_inventory != null)
+        {
+            _inventory.OnInventoryChanged -= Refresh;
+        }
+
         foreach (var slot in slots)
         {
             if (slot != null)

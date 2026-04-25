@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -7,6 +8,8 @@ public class Inventory : MonoBehaviour
 
     private Dictionary<ItemData, int> _items = new();
     public IReadOnlyDictionary<ItemData, int> Items => _items;
+
+    public event Action OnInventoryChanged;
 
     private void Awake()
     {
@@ -25,6 +28,8 @@ public class Inventory : MonoBehaviour
             _items[item] = current + 1;
         else
             _items[item] = 1;
+
+        OnInventoryChanged?.Invoke();
     }
 
     public bool RemoveItem(ItemData item)
@@ -34,6 +39,8 @@ public class Inventory : MonoBehaviour
             _items.Remove(item);
         else
             _items[item] = current - 1;
+
+        OnInventoryChanged?.Invoke();
         return true;
     }
 
