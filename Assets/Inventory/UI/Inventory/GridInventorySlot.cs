@@ -1,3 +1,4 @@
+
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
@@ -53,9 +54,14 @@ public class GridInventorySlot : MonoBehaviour, IPointerClickHandler
 
         bool hasItem = count > 0;
 
+        gameObject.SetActive(hasItem);
+
+        if (!hasItem)
+            return;
+
         if (itemIcon != null)
         {
-            itemIcon.enabled = hasItem;
+            itemIcon.enabled = true;
         }
 
         if (countContainer != null)
@@ -63,14 +69,9 @@ public class GridInventorySlot : MonoBehaviour, IPointerClickHandler
             countContainer.SetActive(count > 1);
         }
 
-        if (countText != null && count > 1)
+        if (countText != null)
         {
             countText.text = count.ToString();
-        }
-
-        if (!hasItem && consumeButton != null)
-        {
-            consumeButton.gameObject.SetActive(false);
         }
     }
 

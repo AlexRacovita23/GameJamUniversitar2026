@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: LizardLeg
   m_EditorClassIdentifier: Assembly-CSharp::ItemData
   ItemName: LizardLeg
-  Icon: {fileID: 0}
+  Icon: {fileID: 21300000, guid: 8e366823fcfe0a4458f72daa819e143e, type: 3}

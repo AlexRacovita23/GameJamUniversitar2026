@@ -55,6 +55,7 @@ public class PlayerMovement : MonoBehaviour
         inputActions.Player.Interact.performed += PerformInteract;
         inputActions.Player.Inventory.performed += OpenInventory;
         InventoryUIManager.OnInventoryStateChanged += OnInventoryToggled;
+        CraftingManager.OnCraftingStateChanged += OnInventoryToggled;
     }
 
     private void OpenInventory(InputAction.CallbackContext context)
@@ -86,7 +87,7 @@ public class PlayerMovement : MonoBehaviour
             if (hit.collider.CompareTag("Crafting"))
             {
                 ChangeCoursorState();
-                craftingManager.ToggleMenu();
+                craftingManager.OnCraftingMenuOpened();
             }
         }
     }
@@ -97,6 +98,7 @@ public class PlayerMovement : MonoBehaviour
         inputActions.Player.Interact.performed -= PerformInteract;
         inputActions.Player.Inventory.performed -= OpenInventory;
         InventoryUIManager.OnInventoryStateChanged -= OnInventoryToggled;
+        CraftingManager.OnCraftingStateChanged -= OnInventoryToggled;
         inputActions.Disable();
     }
 
