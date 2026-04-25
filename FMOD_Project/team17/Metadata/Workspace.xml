@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.03.00">
+	<object class="Workspace" id="{8a0d93dc-3bfa-4da3-8f87-066bfddd5f29}">
+		<property name="builtBanksOutputDirectory">
+			<value>D:/Facultate/GameJamRGDA/Team17-RGDA/FMOD</value>
+		</property>
+		<relationship name="masterEventFolder">
+			<destination>{6859d57d-729f-4bb6-86eb-c508dc940b36}</destination>
+		</relationship>
+		<relationship name="masterTagFolder">
+			<destination>{90518922-5422-499b-946d-a5afd8b14f5d}</destination>
+		</relationship>
+		<relationship name="masterEffectPresetFolder">
+			<destination>{615e6cc9-da9b-4551-9880-1aaac5288e17}</destination>
+		</relationship>
+		<relationship name="masterParameterPresetFolder">
+			<destination>{91d3137d-6035-4227-ac8b-5d60864688fa}</destination>
+		</relationship>
+		<relationship name="masterBankFolder">
+			<destination>{65b10902-146b-47f6-b35c-199bc6ade979}</destination>
+		</relationship>
+		<relationship name="masterSandboxFolder">
+			<destination>{e1e7f950-9229-4181-8db5-7972e894be98}</destination>
+		</relationship>
+		<relationship name="masterAssetFolder">
+			<destination>{599f59ee-7a8d-43d1-8507-11ae87e69e9b}</destination>
+		</relationship>
+		<relationship name="mixer">
+			<destination>{57b2290d-abfd-49d6-a538-352e54c227f4}</destination>
+		</relationship>
+		<relationship name="profilerSessionFolder">
+			<destination>{8032c6a3-fa4c-42a5-8aee-2e720b585081}</destination>
+		</relationship>
+		<relationship name="platforms">
+			<destination>{6ebb927c-f2e6-403a-b49e-39908d916d81}</destination>
+		</relationship>
+	</object>
+</objects>
