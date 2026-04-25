@@ -5,7 +5,6 @@ using UnityEngine;
 public class CraftingBootstrapper : MonoBehaviour
 {
     [SerializeField] private List<RecipeData> allRecipes;
-    [SerializeField] private List<ItemData> startingItems;
     [SerializeField] private CraftingMenuUI menuUI;
 
     [SerializeField]private bool _isInventoryOpen = false;
@@ -18,12 +17,6 @@ public class CraftingBootstrapper : MonoBehaviour
     {
         var table = new CraftingTable();
         var resolver = new RecipeResolver(allRecipes);
-
-        foreach (var item in startingItems)
-        {
-            Inventory.Instance.AddItem(item);
-            Inventory.Instance.AddItem(item);
-        }
 
         menuUI.Init(Inventory.Instance, table, resolver);
         // menuUI.OpenInventory();

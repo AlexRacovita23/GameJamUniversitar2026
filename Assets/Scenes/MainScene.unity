@@ -1611,6 +1611,7 @@ GameObject:
   m_Component:
   - component: {fileID: 285664512}
   - component: {fileID: 285664513}
+  - component: {fileID: 285664514}
   m_Layer: 0
   m_Name: InventoryManager
   m_TagString: Untagged
@@ -1666,6 +1667,18 @@ MonoBehaviour:
   - {fileID: 1704541133}
   - {fileID: 524303241}
   - {fileID: 126258434}
+--- !u!114 &285664514
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 285664511}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7a02da5b2b240e04ca7fba33b9451b61, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Inventory
 --- !u!1001 &305215834
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1812,11 +1825,7 @@ MonoBehaviour:
   allRecipes:
   - {fileID: 11400000, guid: 22913365b662a7641976eb624319b46b, type: 2}
   - {fileID: 11400000, guid: 2430fe3536ea1f542949b8dd0668f244, type: 2}
-  startingItems:
-  - {fileID: 11400000, guid: 4c14d17472c621245b9eb8565d37623a, type: 2}
-  - {fileID: 11400000, guid: 39377c64db1ee32479c3def874dc5034, type: 2}
-  - {fileID: 11400000, guid: ad1c05286821cf642babeb84253094b6, type: 2}
-  - {fileID: 11400000, guid: beff3ceee7fd1eb46a4283ef4505e71a, type: 2}
+  - {fileID: 11400000, guid: 2430fe3536ea1f542949b8dd0668f244, type: 2}
   menuUI: {fileID: 1028541306}
   _isInventoryOpen: 0
 --- !u!224 &334091551
@@ -3713,11 +3722,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c6ab94c3703108349b95635fdf1467f5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CraftingMenuUI
-  inventoryPanel: {fileID: 0}
-  tablePanel: {fileID: 0}
-  inventoryZone: {fileID: 0}
-  craftingZone: {fileID: 0}
-  craftButton: {fileID: 0}
+  inventoryPanel: {fileID: 1714214230}
+  tablePanel: {fileID: 1770290756}
+  inventoryZone: {fileID: 1714214229}
+  craftingZone: {fileID: 1770290755}
+  craftButton: {fileID: 119042552}
 --- !u!114 &1028541307
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3768,9 +3777,9 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 1865732253}
   - {fileID: 1714214229}
   - {fileID: 1770290755}
+  - {fileID: 1865732253}
   m_Father: {fileID: 1053910049}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
@@ -4647,6 +4656,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1644501143}
+  - component: {fileID: 1644501144}
   m_Layer: 0
   m_Name: CraftingManager
   m_TagString: Untagged
@@ -4669,6 +4679,24 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1496885783}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1644501144
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1644501142}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 19444d98383811e4f90c35a29a60e4d5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::CraftingBootstrapper
+  allRecipes:
+  - {fileID: 11400000, guid: 2430fe3536ea1f542949b8dd0668f244, type: 2}
+  - {fileID: 11400000, guid: 22913365b662a7641976eb624319b46b, type: 2}
+  - {fileID: 11400000, guid: 5589e0033c2cd25499d83f0b42984591, type: 2}
+  menuUI: {fileID: 1028541306}
+  _isInventoryOpen: 0
 --- !u!1001 &1673822065
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -6444,7 +6472,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &2084775712
 RectTransform:
   m_ObjectHideFlags: 0
