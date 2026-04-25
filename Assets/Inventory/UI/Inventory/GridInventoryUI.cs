@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.InputSystem;
 
 public class GridInventoryUI : MonoBehaviour
 {
@@ -11,15 +10,7 @@ public class GridInventoryUI : MonoBehaviour
     private Inventory _inventory;
     private Dictionary<ItemData, GridInventorySlot> _itemToSlot = new();
 
-    public event Action<ItemData> OnItemConsumed;
-
-    private void Update()
-    {
-        if (Mouse.current != null && Mouse.current.leftButton.wasPressedThisFrame)
-        {
-            HideAllConsumeButtons();
-        }
-    }
+    public event Action<ItemData> OnConsumeRequested;
 
     public void Init(Inventory inventory)
     {
@@ -96,7 +87,7 @@ public class GridInventoryUI : MonoBehaviour
 
     private void HandleConsumeClicked(ItemData item)
     {
-        OnItemConsumed?.Invoke(item);
+        OnConsumeRequested?.Invoke(item);
     }
 
     private void OnDestroy()

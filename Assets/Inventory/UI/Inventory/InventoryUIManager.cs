@@ -1,15 +1,17 @@
+
 using UnityEngine;
 using UnityEngine.InputSystem;
 
 public class InventoryUIManager : MonoBehaviour
 {
     [SerializeField] private GameObject inventoryPanel;
+    [SerializeField] private GridInventoryUI gridInventoryUI;
     [SerializeField] private ItemData[] allItems;
-    [SerializeField] private GridInventorySlot[] slots;
 
     private PlayerInputActions _inputActions;
 
     public static event System.Action<bool> OnInventoryStateChanged;
+    public static event System.Action<ItemData> OnItemConsumed;
 
     private void Awake()
     {
@@ -34,7 +36,27 @@ public class InventoryUIManager : MonoBehaviour
 
     private void Start()
     {
+        if (gridInventoryUI != null)
+        {
+            gridInventoryUI.Init(Inventory.Instance);
+            gridInventoryUI.OnConsumeRequested += HandleConsumeRequested;
+        }
+
         inventoryPanel.SetActive(false);
+    }
+
+    private void OnDestroy()
+    {
+        if (gridInventoryUI != null)
+        {
+            gridInventoryUI.OnConsumeRequested -= HandleConsumeRequested;
+        }
+    }
+
+    private void HandleConsumeRequested(ItemData item)
+    {
+        Inventory.Instance.RemoveItem(item);
+        OnItemConsumed?.Invoke(item);
     }
 
     private void OnInventoryToggle(InputAction.CallbackContext context)

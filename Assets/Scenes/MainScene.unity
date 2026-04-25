@@ -1561,6 +1561,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::InventoryUIManager
   inventoryPanel: {fileID: 2084775711}
+  gridInventoryUI: {fileID: 1986401053}
   allItems:
   - {fileID: 11400000, guid: dae638ba79e951543ba9e5c482000df2, type: 2}
   - {fileID: 11400000, guid: 39377c64db1ee32479c3def874dc5034, type: 2}
@@ -1571,7 +1572,6 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 5a54188c4da8f274ca77a25ef82aea3c, type: 2}
   - {fileID: 11400000, guid: beff3ceee7fd1eb46a4283ef4505e71a, type: 2}
   - {fileID: 11400000, guid: dac79ddd8b17fbf41885f1a45b720be1, type: 2}
-  slots: []
 --- !u!114 &285664514
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5858,6 +5858,7 @@ GameObject:
   - component: {fileID: 1986401055}
   - component: {fileID: 1986401054}
   - component: {fileID: 1986401053}
+  - component: {fileID: 1986401056}
   m_Layer: 5
   m_Name: InventorySatchel
   m_TagString: Untagged
@@ -5954,6 +5955,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1986401051}
   m_CullTransparentMesh: 1
+--- !u!114 &1986401056
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1986401051}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2e070665650317247a1d7936347d3098, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::InventoryBackgroundClickHandler
+  gridInventoryUI: {fileID: 1986401053}
 --- !u!1001 &2003105280
 PrefabInstance:
   m_ObjectHideFlags: 0
