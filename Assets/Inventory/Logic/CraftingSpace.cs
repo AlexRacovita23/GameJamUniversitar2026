@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 
-public class CraftingTable
+public class CraftingSpace
 {
     public int MaxSlots = 3;
 

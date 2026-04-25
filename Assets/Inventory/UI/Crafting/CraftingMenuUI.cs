@@ -6,20 +6,20 @@ using UnityEngine.UI;
 public class CraftingMenuUI : MonoBehaviour
 {
     [SerializeField] private InventoryPanelUI inventoryPanel;
-    [SerializeField] private CraftingTableUI tablePanel;
+    [SerializeField] private CraftingPanelUI tablePanel;
     [SerializeField] private RectTransform inventoryZone;
     [SerializeField] private RectTransform craftingZone;
     [SerializeField] private Button craftButton;
 
     private Inventory _inventory;
-    private CraftingTable _table;
+    private CraftingSpace _table;
     private RecipeResolver _resolver;
 
     private void Awake()
     {
     }
 
-    public void Init(Inventory inventory, CraftingTable table, RecipeResolver resolver)
+    public void Init(Inventory inventory, CraftingSpace table, RecipeResolver resolver)
     {
         _inventory = inventory;
         _table = table;
@@ -44,7 +44,7 @@ public class CraftingMenuUI : MonoBehaviour
 
     private void OnDraggedToInventory(DraggableItem draggable)
     {
-        if (draggable.SourceZone != ItemSourceZone.CraftingTable)
+        if (draggable.SourceZone != ItemSourceZone.CraftingSpace)
             return;
 
         ItemData item = draggable.Data;

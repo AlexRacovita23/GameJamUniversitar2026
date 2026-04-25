@@ -15,7 +15,7 @@ public class CraftingBootstrapper : MonoBehaviour
     }
     private void Start()
     {
-        var table = new CraftingTable();
+        var table = new CraftingSpace();
         var resolver = new RecipeResolver(allRecipes);
 
         menuUI.Init(Inventory.Instance, table, resolver);
