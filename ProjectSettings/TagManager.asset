@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Collectable
   - Ground
+  - Crafting
   layers:
   - Default
   - TransparentFX

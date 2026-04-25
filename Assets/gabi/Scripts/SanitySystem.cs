@@ -10,7 +10,7 @@ public class SanitySystem : MonoBehaviour
     [SerializeField] private float sanityDecreaseRatePerSecond = 0.4f; // 0.4 sanity/seconds -> 98 sanity in 4 minutes
 
     [Header("Debug")]
-    [SerializeField] private Slider debugSlider;
+    [SerializeField] private Slider debugSlider = null;
 
     [Header("Effects")]
     [SerializeField] private Volume volume;
@@ -79,6 +79,7 @@ public class SanitySystem : MonoBehaviour
         {
             debugSlider.value = sanity;
         }
+
         if (vignette != null)
         {
             if (sanity < 50 && sanity >= 20)
