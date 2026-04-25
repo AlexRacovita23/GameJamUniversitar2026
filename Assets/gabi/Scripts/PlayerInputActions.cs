@@ -163,6 +163,15 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""DebugCrafting"",
+                    ""type"": ""Button"",
+                    ""id"": ""5d832aa6-5d6f-4517-bd44-945a444a7a61"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -297,6 +306,17 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                     ""action"": ""DebugAddAll"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""fb1647ed-4930-4349-b81d-0e20ce9186cd"",
+                    ""path"": ""<Keyboard>/leftBracket"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": "";Keyboard"",
+                    ""action"": ""DebugCrafting"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -325,6 +345,7 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         m_Player_Inventory = m_Player.FindAction("Inventory", throwIfNotFound: true);
         m_Player_DebugAddAll = m_Player.FindAction("DebugAddAll", throwIfNotFound: true);
         m_Player_DebugRemoveAll = m_Player.FindAction("DebugRemoveAll", throwIfNotFound: true);
+        m_Player_DebugCrafting = m_Player.FindAction("DebugCrafting", throwIfNotFound: true);
     }
 
     ~@PlayerInputActions()
@@ -413,6 +434,7 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
     private readonly InputAction m_Player_Inventory;
     private readonly InputAction m_Player_DebugAddAll;
     private readonly InputAction m_Player_DebugRemoveAll;
+    private readonly InputAction m_Player_DebugCrafting;
     /// <summary>
     /// Provides access to input actions defined in input action map "Player".
     /// </summary>
@@ -456,6 +478,10 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         /// Provides access to the underlying input action "Player/DebugRemoveAll".
         /// </summary>
         public InputAction @DebugRemoveAll => m_Wrapper.m_Player_DebugRemoveAll;
+        /// <summary>
+        /// Provides access to the underlying input action "Player/DebugCrafting".
+        /// </summary>
+        public InputAction @DebugCrafting => m_Wrapper.m_Player_DebugCrafting;
         /// <summary>
         /// Provides access to the underlying input action map instance.
         /// </summary>
@@ -506,6 +532,9 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
             @DebugRemoveAll.started += instance.OnDebugRemoveAll;
             @DebugRemoveAll.performed += instance.OnDebugRemoveAll;
             @DebugRemoveAll.canceled += instance.OnDebugRemoveAll;
+            @DebugCrafting.started += instance.OnDebugCrafting;
+            @DebugCrafting.performed += instance.OnDebugCrafting;
+            @DebugCrafting.canceled += instance.OnDebugCrafting;
         }
 
         /// <summary>
@@ -541,6 +570,9 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
             @DebugRemoveAll.started -= instance.OnDebugRemoveAll;
             @DebugRemoveAll.performed -= instance.OnDebugRemoveAll;
             @DebugRemoveAll.canceled -= instance.OnDebugRemoveAll;
+            @DebugCrafting.started -= instance.OnDebugCrafting;
+            @DebugCrafting.performed -= instance.OnDebugCrafting;
+            @DebugCrafting.canceled -= instance.OnDebugCrafting;
         }
 
         /// <summary>
@@ -650,5 +682,12 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
         void OnDebugRemoveAll(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "DebugCrafting" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnDebugCrafting(InputAction.CallbackContext context);
     }
 }

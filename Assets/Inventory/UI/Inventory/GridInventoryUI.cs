@@ -40,7 +40,8 @@ public class GridInventoryUI : MonoBehaviour
             }
         }
 
-        _inventory.OnInventoryChanged += Refresh;
+        _inventory.OnItemAdded += HandleItemAdded;
+        _inventory.OnItemRemoved += HandleItemRemoved;
         Refresh();
     }
 
@@ -52,6 +53,22 @@ public class GridInventoryUI : MonoBehaviour
         {
             int count = _inventory.GetCount(kvp.Key);
             kvp.Value.UpdateDisplay(count);
+        }
+    }
+
+    private void HandleItemAdded(ItemData item, int newCount)
+    {
+        if (_itemToSlot.TryGetValue(item, out GridInventorySlot slot))
+        {
+            slot.UpdateDisplay(newCount);
+        }
+    }
+
+    private void HandleItemRemoved(ItemData item, int remainingCount)
+    {
+        if (_itemToSlot.TryGetValue(item, out GridInventorySlot slot))
+        {
+            slot.UpdateDisplay(remainingCount);
         }
     }
 
@@ -86,7 +103,8 @@ public class GridInventoryUI : MonoBehaviour
     {
         if (_inventory != null)
         {
-            _inventory.OnInventoryChanged -= Refresh;
+            _inventory.OnItemAdded -= HandleItemAdded;
+            _inventory.OnItemRemoved -= HandleItemRemoved;
         }
 
         foreach (var slot in slots)

@@ -77,6 +77,15 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
+                },
+                {
+                    "name": "DebugCrafting",
+                    "type": "Button",
+                    "id": "5d832aa6-5d6f-4517-bd44-945a444a7a61",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -209,6 +218,17 @@
                     "processors": "",
                     "groups": ";Keyboard",
                     "action": "DebugAddAll",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "fb1647ed-4930-4349-b81d-0e20ce9186cd",
+                    "path": "<Keyboard>/leftBracket",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";Keyboard",
+                    "action": "DebugCrafting",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

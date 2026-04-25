@@ -1476,6 +1476,10 @@ PrefabInstance:
       value: PlayerPlaceholderPrefab
       objectReference: {fileID: 0}
     - target: {fileID: 2310087797638072591, guid: 236a483227f60c346934df08698fe5ee, type: 3}
+      propertyPath: craftingManager
+      value: 
+      objectReference: {fileID: 1644501144}
+    - target: {fileID: 2310087797638072591, guid: 236a483227f60c346934df08698fe5ee, type: 3}
       propertyPath: craftingBootstrapper
       value: 
       objectReference: {fileID: 334091550}
@@ -3529,7 +3533,7 @@ GameObject:
   - component: {fileID: 1028541307}
   - component: {fileID: 1028541306}
   m_Layer: 5
-  m_Name: CraftingMat
+  m_Name: CraftingMenu
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3548,9 +3552,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CraftingMenuUI
   inventoryPanel: {fileID: 1714214230}
-  tablePanel: {fileID: 1770290756}
-  inventoryZone: {fileID: 1714214229}
-  craftingZone: {fileID: 1770290755}
+  craftingPanel: {fileID: 1770290756}
   craftButton: {fileID: 119042552}
 --- !u!114 &1028541307
 MonoBehaviour:
@@ -4473,15 +4475,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 1644501142}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 19444d98383811e4f90c35a29a60e4d5, type: 3}
+  m_Script: {fileID: 11500000, guid: f0b661fbaeb717848ab64e2315b4d2eb, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::CraftingBootstrapper
+  m_EditorClassIdentifier: Assembly-CSharp::CraftingManager
   allRecipes:
   - {fileID: 11400000, guid: 2430fe3536ea1f542949b8dd0668f244, type: 2}
   - {fileID: 11400000, guid: 22913365b662a7641976eb624319b46b, type: 2}
   - {fileID: 11400000, guid: 5589e0033c2cd25499d83f0b42984591, type: 2}
   menuUI: {fileID: 1028541306}
-  _isInventoryOpen: 0
 --- !u!1001 &1673822065
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -5228,7 +5229,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::CraftingTableUI
   itemSlotPrefab: {fileID: 1788174066381864314, guid: 516f4c4ab6769b54caaa03e01db32483, type: 3}
   zone: {fileID: 1770290755}
-  craftButtonExclusionZone: {fileID: 0}
+  craftButtonExclusionZone: {fileID: 119042551}
 --- !u!114 &1770290757
 MonoBehaviour:
   m_ObjectHideFlags: 0
