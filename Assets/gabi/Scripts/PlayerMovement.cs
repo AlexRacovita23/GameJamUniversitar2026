@@ -19,6 +19,9 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float maxVerticalAngle = 80f;
     [SerializeField] private Transform cameraPivot;
 
+    [Header("Crafting -- assigned in Inspector")]
+    [SerializeField] private CraftingBootstrapper craftingBootstrapper;
+
     private Vector2 moveInput;
     private Vector2 lookInput;
 
@@ -26,6 +29,7 @@ public class PlayerMovement : MonoBehaviour
     private float pitch;
     private bool isRunning;
     private bool isGrounded;
+    private bool isMenuOpen;
 
     //public Action onCollected;
 
@@ -42,13 +46,21 @@ public class PlayerMovement : MonoBehaviour
 
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
+
+        isMenuOpen = false;
     }
 
     private void OnEnable()
     {
         inputActions.Enable();
         inputActions.Player.Jump.performed += PerformJump;
-        inputActions.Player.Interact.performed += CollectItem;
+        inputActions.Player.Interact.performed += PerformInteract;
+        inputActions.Player.Inventory.performed += OpenInventory;
+    }
+
+    private void OpenInventory(InputAction.CallbackContext context)
+    {
+        Debug.Log("Inventory performed");
     }
 
     private void PerformJump(InputAction.CallbackContext context)
@@ -61,10 +73,30 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
+    private void PerformInteract(InputAction.CallbackContext context)
+    {
+        Debug.Log("Interact performed");
+        Ray ray = new Ray(cameraPivot.position, cameraPivot.forward);
+        if (Physics.Raycast(ray, out RaycastHit hit, interactionRange))
+        {
+            if (hit.collider.CompareTag("Collectable"))
+            {
+                hit.collider.GetComponent<Collectable>()?.CollectItem();
+            }
+
+            if (hit.collider.CompareTag("Crafting"))
+            {
+                ChangeCoursorState();
+                craftingBootstrapper.ToggleInventory();
+            }
+        }
+    }
+
     private void OnDisable()
     {
         inputActions.Player.Jump.performed -= PerformJump;
-        inputActions.Player.Interact.performed -= CollectItem;
+        inputActions.Player.Interact.performed -= PerformInteract;
+        inputActions.Player.Inventory.performed -= OpenInventory;
         inputActions.Disable();
     }
 
@@ -93,8 +125,11 @@ public class PlayerMovement : MonoBehaviour
         pitch -= mouseY;
         pitch = Mathf.Clamp(pitch, -maxVerticalAngle, maxVerticalAngle);
 
-        cameraPivot.localRotation = Quaternion.Euler(pitch, 0f, 0f);
-        transform.rotation = Quaternion.Euler(0f, yaw, 0f);
+        if(!isMenuOpen)
+        {
+            cameraPivot.localRotation = Quaternion.Euler(pitch, 0f, 0f);
+            transform.rotation = Quaternion.Euler(0f, yaw, 0f);
+        }
     }
 
     private void MovePlayer()
@@ -104,7 +139,8 @@ public class PlayerMovement : MonoBehaviour
 
         float currentMoveSpeed = isRunning ? moveSpeed * runMultiplier : moveSpeed;
         Vector3 newPosition = rb.position + move * currentMoveSpeed * Time.fixedDeltaTime;
-        rb.MovePosition(newPosition);
+        if(!isMenuOpen)
+            rb.MovePosition(newPosition);
     }
 
     private void CheckHit()
@@ -115,7 +151,11 @@ public class PlayerMovement : MonoBehaviour
             if (hit.collider.CompareTag("Collectable"))
             {
                 Debug.Log("Hit: " + hit.collider.name);
-            }            
+            }
+            if (hit.collider.CompareTag("Crafting"))
+            {
+                Debug.Log("Hit: " + hit.collider.name);
+            }
         }
     }
 
@@ -126,16 +166,19 @@ public class PlayerMovement : MonoBehaviour
         //Debug.DrawRay(transform.position, Vector3.down * 0.1f, isGrounded ? Color.green : Color.red);
     }
 
-    private void CollectItem(InputAction.CallbackContext context)
+    public void ChangeCoursorState()
     {
-        Debug.Log("Interact performed");
-        Ray ray = new Ray(cameraPivot.position, cameraPivot.forward);
-        if (Physics.Raycast(ray, out RaycastHit hit, interactionRange))
+        if (Cursor.lockState == CursorLockMode.Locked)
         {
-            if (hit.collider.CompareTag("Collectable"))
-            {
-                hit.collider.GetComponent<Collectable>()?.CollectItem();
-            }
+            Cursor.lockState = CursorLockMode.None;
+            Cursor.visible = true;
+            isMenuOpen = true;
+        }
+        else
+        {
+            Cursor.lockState = CursorLockMode.Locked;
+            Cursor.visible = false;
+            isMenuOpen = false;
         }
     }
 }
