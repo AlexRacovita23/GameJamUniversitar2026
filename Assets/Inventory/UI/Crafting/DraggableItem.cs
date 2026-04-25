@@ -38,7 +38,7 @@ public class DraggableItem : MonoBehaviour,
     {
         Data = data;
         SourceZone = sourceZone;
-        iconImage.sprite = data.icon;
+        iconImage.sprite = data.Icon;
         SetCount(count);
     }
 
