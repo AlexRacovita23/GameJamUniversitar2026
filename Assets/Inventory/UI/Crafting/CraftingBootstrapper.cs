@@ -19,7 +19,6 @@ public class CraftingBootstrapper : MonoBehaviour
         var resolver = new RecipeResolver(allRecipes);
 
         menuUI.Init(Inventory.Instance, table, resolver);
-        // menuUI.OpenInventory();
     }
 
     public void ToggleInventory()
