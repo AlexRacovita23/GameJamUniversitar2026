@@ -8,6 +8,7 @@ public class SanitySystem : MonoBehaviour
     public static SanitySystem Instance { get; private set; }
     [SerializeField] private float sanity = 100;
     [SerializeField] private float sanityDecreaseRatePerSecond = 0.4f; // 0.4 sanity/seconds -> 98 sanity in 4 minutes
+    [SerializeField] private float sanityDecreaseOutsideBorder = 2f; // 2 sanity/seconds -> 0 sanity in 50 seconds
 
     [Header("Debug")]
     [SerializeField] private Slider debugSlider = null;
@@ -20,6 +21,10 @@ public class SanitySystem : MonoBehaviour
     private ParticleSystem.EmissionModule sandstormEmission;
     [SerializeField] private float maxParticleEmissionRate = 2500f;
     [SerializeField] private float minParticleEmissionRate = 1000f;
+    [SerializeField] private WorldBorder worldBorder;
+    private bool isOutsideBorder = false;
+
+    public float Sanity => sanity;
 
     private void Awake()
     {
@@ -29,6 +34,18 @@ public class SanitySystem : MonoBehaviour
             return;
         }
         Instance = this;
+    }
+
+    private void OnEnable()
+    {
+        worldBorder.exitBorder += HandleExitBorder;
+        worldBorder.enterBorder += HandleEnterBorder;
+    }
+
+    private void OnDisable()
+    {
+        worldBorder.exitBorder -= HandleExitBorder;
+        worldBorder.enterBorder -= HandleEnterBorder;
     }
 
     private void Start()
@@ -73,6 +90,26 @@ public class SanitySystem : MonoBehaviour
         debugSlider.value = sanity;
     }
 
+    private void HandleExitBorder()
+    {
+        isOutsideBorder = true;
+        sanityDecreaseRatePerSecond = sanityDecreaseOutsideBorder;
+        if (sanity > 20)
+        {
+            sandstormParticles.Play(); // Start sandstorm effect if sanity is above critical level
+        }
+    }
+
+    private void HandleEnterBorder()
+    {
+        isOutsideBorder = false;
+        sanityDecreaseRatePerSecond = 0.4f; // Reset to default rate
+        if (sanity > 20)
+        {
+            sandstormParticles.Stop(); // Stop sandstorm effect if sanity is above critical level
+        }
+    }
+
     private void UpdateVisuals()
     {
         if (debugSlider != null)
@@ -101,7 +138,8 @@ public class SanitySystem : MonoBehaviour
             else
             {
                 vignette.intensity.value = 0;
-                sandstormParticles.Stop(); // Stop sandstorm effect
+                if(!isOutsideBorder)
+                    sandstormParticles.Stop(); // Stop sandstorm effect
             }
         }
     }    

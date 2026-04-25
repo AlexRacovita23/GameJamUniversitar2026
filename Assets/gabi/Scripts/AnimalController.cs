@@ -10,10 +10,12 @@ public class AnimalController : MonoBehaviour
 
     private NavMeshAgent agent;
     private bool isWalking;
+    private Animator animator;
 
     private void Awake()
     {
         agent = GetComponent<NavMeshAgent>();
+        animator = GetComponentInChildren<Animator>();
     }
 
     void Start()
@@ -26,6 +28,7 @@ public class AnimalController : MonoBehaviour
         while (true)
         {
             isWalking = false;
+            animator.SetBool("isWalking", isWalking);
             yield return new WaitForSeconds(waitTime);
 
             Vector2 randomDirection = Random.insideUnitCircle * walkRadius;
@@ -34,6 +37,7 @@ public class AnimalController : MonoBehaviour
             NavMesh.SamplePosition(targetPosition, out hit, walkRadius, NavMesh.AllAreas);
             agent.SetDestination(hit.position);
             isWalking = true;
+            animator.SetBool("isWalking", isWalking);
 
             while (agent.remainingDistance > arrivalThreshold || agent.pathPending)
             {

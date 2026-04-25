@@ -100,6 +100,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1720136030351160789}
   - component: {fileID: 1303831629825735494}
+  - component: {fileID: 2971347763002198422}
   m_Layer: 0
   m_Name: CactusFlower
   m_TagString: Untagged
@@ -146,6 +147,19 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 0.9, y: 0.26, z: 0.91}
   m_Center: {x: 0, y: 0.86, z: 0}
+--- !u!114 &2971347763002198422
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5947785429110753176}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 18eba67a88ab63649ba9a4dc6a6d7375, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Collectable
+  itemData: {fileID: 0}
 --- !u!1 &6654437804672026021
 GameObject:
   m_ObjectHideFlags: 0

@@ -89,6 +89,11 @@ public class PlayerMovement : MonoBehaviour
                 ChangeCoursorState();
                 craftingBootstrapper.ToggleInventory();
             }
+
+            if (hit.collider.CompareTag("Temple"))
+            {
+                hit.collider.GetComponent<TempleController>()?.ActivateTemple();
+            }
         }
     }
 
