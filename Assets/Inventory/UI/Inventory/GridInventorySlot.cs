@@ -25,6 +25,11 @@ public class GridInventorySlot : MonoBehaviour, IPointerClickHandler
 
     private void Awake()
     {
+        if (itemIcon != null)
+        {
+            itemIcon.raycastTarget = true;
+        }
+
         if (consumeButton != null)
         {
             consumeButton.onClick.AddListener(HandleConsumeClicked);
