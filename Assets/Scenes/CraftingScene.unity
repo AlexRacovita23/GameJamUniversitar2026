@@ -1034,7 +1034,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::CraftingTableUI
   itemSlotPrefab: {fileID: 1788174066381864314, guid: 516f4c4ab6769b54caaa03e01db32483, type: 3}
   zone: {fileID: 1731798934}
-  craftButtonExclusionZone: {fileID: 0}
+  craftButtonExclusionZone: {fileID: 2012264076}
 --- !u!114 &1731798938
 MonoBehaviour:
   m_ObjectHideFlags: 0
