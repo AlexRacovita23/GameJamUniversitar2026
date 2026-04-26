@@ -8,6 +8,7 @@ TagManager:
   - Ground
   - Crafting
   - Temple
+  - Note
   layers:
   - Default
   - TransparentFX
