@@ -64,6 +64,7 @@ public class MandrakeIllusion : MonoBehaviour
         {
             SanitySystem.Instance?.DecreaseSanity(5f);
             IllusionsController.Instance?.NotifyNPCDestroyed();
+            AudioManager.Instance?.PlayFinalCue();
             Destroy(gameObject);
         }
     }   

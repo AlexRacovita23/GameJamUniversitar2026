@@ -39,7 +39,7 @@
 	</object>
 	<object class="MasterTrack" id="{43829c64-665d-42a4-beb7-e0a7e62025e3}">
 		<relationship name="automationTracks">
-			<destination>{a572c3f9-10fc-49d7-9e80-a108382ade41}</destination>
+			<destination>{d3922349-8366-42d8-bfdc-82eb229adb12}</destination>
 		</relationship>
 		<relationship name="modules">
 			<destination>{c11dc981-5910-4d0e-b196-4d588747e45c}</destination>
@@ -80,7 +80,7 @@
 			<destination>{f807169f-d249-4c48-a399-d03d67ee34c6}</destination>
 		</relationship>
 	</object>
-	<object class="AutomationTrack" id="{a572c3f9-10fc-49d7-9e80-a108382ade41}">
+	<object class="AutomationTrack" id="{d3922349-8366-42d8-bfdc-82eb229adb12}">
 		<relationship name="automator">
 			<destination>{35f31f49-62af-4239-9426-34b45d2cad15}</destination>
 		</relationship>
@@ -163,7 +163,7 @@
 			<value>0.90000000000000002</value>
 		</property>
 		<property name="value">
-			<value>0</value>
+			<value>-4</value>
 		</property>
 		<property name="curveShape">
 			<value>0.305205137</value>
@@ -174,7 +174,7 @@
 			<value>3.7000000000000002</value>
 		</property>
 		<property name="value">
-			<value>-10</value>
+			<value>-14</value>
 		</property>
 	</object>
 	<object class="AutomationPoint" id="{cbb1dfee-1b9b-458e-bc5e-34b0ae80d96d}">
@@ -182,7 +182,7 @@
 			<value>5.9973995271867606</value>
 		</property>
 		<property name="value">
-			<value>-38</value>
+			<value>-47.5</value>
 		</property>
 	</object>
 </objects>
