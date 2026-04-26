@@ -29,6 +29,7 @@ public class MandrakeIllusion : MonoBehaviour
         timeToDisappear -= Time.deltaTime;
         if (timeToDisappear <= 0f)
         {
+            IllusionsController.Instance?.NotifyNPCDestroyed();
             Destroy(gameObject);
         }
     }
@@ -49,10 +50,21 @@ public class MandrakeIllusion : MonoBehaviour
             isWalking = true;
             animator.SetBool("isWalking", isWalking);
 
-            while ((agent.remainingDistance > arrivalThreshold || agent.pathPending) && timeToDisappear > 0f)
+            while ((agent.remainingDistance > arrivalThreshold || agent.pathPending) && timeToDisappear > 0.2f)
             {
                 yield return null;
             }
         }
     }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        Debug.Log("Collided with: " + collision.gameObject.name);
+        if (collision.gameObject.CompareTag("Player"))
+        {
+            SanitySystem.Instance?.DecreaseSanity(5f);
+            IllusionsController.Instance?.NotifyNPCDestroyed();
+            Destroy(gameObject);
+        }
+    }   
 }

@@ -80,14 +80,20 @@ public class SanitySystem : MonoBehaviour
     {
         sanity += amount;
         sanity = Mathf.Clamp(sanity, 0, 100);
-        debugSlider.value = sanity;
+        if (debugSlider != null)
+        {
+            debugSlider.value = sanity;
+        }
     }
 
     public void DecreaseSanity(float amount)
     {
         sanity -= amount;
         sanity = Mathf.Clamp(sanity, 0, 100);
-        debugSlider.value = sanity;
+        if (debugSlider != null)
+        {
+            debugSlider.value = sanity;
+        }
     }
 
     private void HandleExitBorder()
