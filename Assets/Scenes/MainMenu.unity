@@ -615,20 +615,20 @@ MonoBehaviour:
 
     E to interact
 
-    I to open inventory
+    i to open inventory
 
-    Shift
-    to sprint
+    Shift to
+    sprint
 
     Space to jump
 
 
     Make potions on the altar
 
-    Survive the
-    stress
+    Survive the stress
 
-    Find the lost notes and check them in the inventory'
+    Find
+    the lost notes and check them in the inventory'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: b96aad9a1eab2034c96d10d1a7305df4, type: 2}
   m_sharedMaterial: {fileID: 5978061383000126337, guid: b96aad9a1eab2034c96d10d1a7305df4, type: 2}
@@ -1638,38 +1638,38 @@ MonoBehaviour:
     Neagu
     Gabriel-Andrei
 
-    
+
 
     Concept & 2D Art
 
     Vladimir Spasi Patrick Stancovici
 
-    
+
 
     3D
     Models & Animation
 
     Coroian Radu Dan
 
-    
+
 
     3D Models
 
-    Dirtu
-    Diana Larisa
+    Dirtu Diana Larisa
 
-    
 
-    Game Design & Management
+
+    Game
+    Design & Management
 
     Abrudan Maria
 
-    
 
-    Game
-    Design
 
-    Dragnea Amalia Andreea'
+    Game Design
+
+    Dragnea Amalia
+    Andreea'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: b96aad9a1eab2034c96d10d1a7305df4, type: 2}
   m_sharedMaterial: {fileID: 5978061383000126337, guid: b96aad9a1eab2034c96d10d1a7305df4, type: 2}
