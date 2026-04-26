@@ -56,8 +56,8 @@ public class PlayerMovement : MonoBehaviour
         inputActions.Player.Jump.performed += PerformJump;
         inputActions.Player.Interact.performed += PerformInteract;
         inputActions.Player.Inventory.performed += OpenInventory;
-        InventoryUIManager.OnInventoryStateChanged += OnInventoryToggled;
-        CraftingManager.OnCraftingStateChanged += OnInventoryToggled;
+        InventoryUIManager.OnInventoryStateChanged += OnMenuToggled;
+        CraftingManager.OnCraftingStateChanged += OnMenuToggled;
     }
 
     private void OpenInventory(InputAction.CallbackContext context)
@@ -89,7 +89,6 @@ public class PlayerMovement : MonoBehaviour
 
             if (hit.collider.CompareTag("Crafting"))
             {
-                ChangeCoursorState();
                 craftingManager.OnCraftingMenuOpened();
             }
 
@@ -105,8 +104,8 @@ public class PlayerMovement : MonoBehaviour
         inputActions.Player.Jump.performed -= PerformJump;
         inputActions.Player.Interact.performed -= PerformInteract;
         inputActions.Player.Inventory.performed -= OpenInventory;
-        InventoryUIManager.OnInventoryStateChanged -= OnInventoryToggled;
-        CraftingManager.OnCraftingStateChanged -= OnInventoryToggled;
+        InventoryUIManager.OnInventoryStateChanged -= OnMenuToggled;
+        CraftingManager.OnCraftingStateChanged -= OnMenuToggled;
         inputActions.Disable();
     }
 
@@ -199,7 +198,7 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
-    private void OnInventoryToggled(bool isOpen)
+    private void OnMenuToggled()
     {
         ChangeCoursorState();
     }

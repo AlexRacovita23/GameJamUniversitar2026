@@ -9,7 +9,7 @@ public class InventoryUIManager : MonoBehaviour
 
     private PlayerInputActions _inputActions;
 
-    public static event System.Action<bool> OnInventoryStateChanged;
+    public static event System.Action OnInventoryStateChanged;
     public static event System.Action<ItemData> OnItemConsumed;
 
     private void Awake()
@@ -56,9 +56,14 @@ public class InventoryUIManager : MonoBehaviour
     {
         Inventory.Instance.RemoveItem(item);
         OnItemConsumed?.Invoke(item);
-
         if (AudioManager.Instance != null)
-            AudioManager.Instance.PlayUIClick("Consume");
+        {
+            if (item.ItemName == "GoodPotion" || item.ItemName == "NeutralPotion" || item.ItemName == "BadPotion")
+            {
+                AudioManager.Instance.PlayUIClick("Drink");
+            }
+            else AudioManager.Instance.PlayUIClick("Consume");
+        }
     }
 
     private void OnInventoryToggle(InputAction.CallbackContext context)
@@ -66,7 +71,7 @@ public class InventoryUIManager : MonoBehaviour
         bool isOpen = !inventoryPanel.activeSelf;
         inventoryPanel.SetActive(isOpen);
 
-        OnInventoryStateChanged?.Invoke(isOpen);
+        OnInventoryStateChanged?.Invoke();
 
         if (isOpen && AudioManager.Instance != null)
             AudioManager.Instance.PlayUIClick("OpenUI");
