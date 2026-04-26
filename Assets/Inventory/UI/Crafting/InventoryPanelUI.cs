@@ -23,7 +23,9 @@ public class InventoryPanelUI : MonoBehaviour
     private void OnEnable()
     {
         if (_dropZone != null)
+        {
             _dropZone.OnItemDropped += HandleDrop;
+        }
 
         if (_initialized && _inventory != null)
         {
