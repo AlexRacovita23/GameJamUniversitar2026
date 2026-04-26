@@ -1090,7 +1090,7 @@ GameObject:
   - component: {fileID: 4353150158541163247}
   m_Layer: 0
   m_Name: LizzardGoodAnimation
-  m_TagString: Untagged
+  m_TagString: Collectable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1186,8 +1186,6 @@ MonoBehaviour:
     quantity: 1
   - item: {fileID: 11400000, guid: 5a54188c4da8f274ca77a25ef82aea3c, type: 2}
     quantity: 1
-  collectSound: {fileID: 0}
-  collectEffect: {fileID: 0}
 --- !u!1 &6079016783672976299
 GameObject:
   m_ObjectHideFlags: 0
