@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: ScorpionVenom
   m_EditorClassIdentifier: Assembly-CSharp::ItemData
   ItemName: ScorpionVenom
-  Icon: {fileID: 0}
+  Icon: {fileID: 21300000, guid: c194a565b328a224a836cda78a76787c, type: 3}

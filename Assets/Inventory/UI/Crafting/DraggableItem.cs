@@ -7,7 +7,7 @@ using TMPro;
 public enum ItemSourceZone
 {
     Inventory,
-    CraftingTable
+    CraftingSpace
 }
 
 public class DraggableItem : MonoBehaviour,

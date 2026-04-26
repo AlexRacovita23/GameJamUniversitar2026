@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: Fruit
   m_EditorClassIdentifier: Assembly-CSharp::ItemData
   ItemName: Fruit
-  Icon: {fileID: 0}
+  Icon: {fileID: 21300000, guid: 3a11ef814ad35a94bb5002861fcdd932, type: 3}

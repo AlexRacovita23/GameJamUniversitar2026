@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.InputSystem;
 
 public class GridInventoryUI : MonoBehaviour
 {
@@ -11,15 +10,7 @@ public class GridInventoryUI : MonoBehaviour
     private Inventory _inventory;
     private Dictionary<ItemData, GridInventorySlot> _itemToSlot = new();
 
-    public event Action<ItemData> OnItemConsumed;
-
-    private void Update()
-    {
-        if (Mouse.current != null && Mouse.current.leftButton.wasPressedThisFrame)
-        {
-            HideAllConsumeButtons();
-        }
-    }
+    public event Action<ItemData> OnConsumeRequested;
 
     public void Init(Inventory inventory)
     {
@@ -40,6 +31,8 @@ public class GridInventoryUI : MonoBehaviour
             }
         }
 
+        _inventory.OnItemAdded += HandleItemAdded;
+        _inventory.OnItemRemoved += HandleItemRemoved;
         Refresh();
     }
 
@@ -51,6 +44,22 @@ public class GridInventoryUI : MonoBehaviour
         {
             int count = _inventory.GetCount(kvp.Key);
             kvp.Value.UpdateDisplay(count);
+        }
+    }
+
+    private void HandleItemAdded(ItemData item, int newCount)
+    {
+        if (_itemToSlot.TryGetValue(item, out GridInventorySlot slot))
+        {
+            slot.UpdateDisplay(newCount);
+        }
+    }
+
+    private void HandleItemRemoved(ItemData item, int remainingCount)
+    {
+        if (_itemToSlot.TryGetValue(item, out GridInventorySlot slot))
+        {
+            slot.UpdateDisplay(remainingCount);
         }
     }
 
@@ -78,11 +87,17 @@ public class GridInventoryUI : MonoBehaviour
 
     private void HandleConsumeClicked(ItemData item)
     {
-        OnItemConsumed?.Invoke(item);
+        OnConsumeRequested?.Invoke(item);
     }
 
     private void OnDestroy()
     {
+        if (_inventory != null)
+        {
+            _inventory.OnItemAdded -= HandleItemAdded;
+            _inventory.OnItemRemoved -= HandleItemRemoved;
+        }
+
         foreach (var slot in slots)
         {
             if (slot != null)
