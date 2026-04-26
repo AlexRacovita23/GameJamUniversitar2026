@@ -1097,6 +1097,99 @@ Transform:
   - {fileID: 1079738501}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &149956558
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 149956560}
+  - component: {fileID: 149956559}
+  m_Layer: 0
+  m_Name: AudioManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &149956559
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 149956558}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3cbe2cac4b8c1d7439d83f2a61d39dad, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::AudioManager
+  footstepEvent:
+    Guid:
+      Data1: -584687539
+      Data2: 1253149254
+      Data3: 1081995664
+      Data4: -1087247636
+    Path: event:/Footsteps
+  jumpEvent:
+    Guid:
+      Data1: 866370560
+      Data2: 1268934548
+      Data3: 1974158989
+      Data4: -1189624669
+    Path: event:/Jump
+  ambientEvent:
+    Guid:
+      Data1: 1490977392
+      Data2: 1269300655
+      Data3: -1992523853
+      Data4: 1214316393
+    Path: event:/Ambience
+  backgroundEvent:
+    Guid:
+      Data1: 0
+      Data2: 0
+      Data3: 0
+      Data4: 0
+    Path: 
+  finalCue:
+    Guid:
+      Data1: 0
+      Data2: 0
+      Data3: 0
+      Data4: 0
+    Path: 
+  UI_Sounds:
+    Guid:
+      Data1: 700363131
+      Data2: 1288838918
+      Data3: -79601529
+      Data4: 465905181
+    Path: event:/UI
+  harvest:
+    Guid:
+      Data1: 2019563603
+      Data2: 1289488669
+      Data3: -1555075946
+      Data4: -2035813248
+    Path: event:/Harvest
+--- !u!4 &149956560
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 149956558}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -5.62752, y: 0.98934, z: -33.75839}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &179700337
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1416,6 +1509,10 @@ PrefabInstance:
     - target: {fileID: 1594565894196009544, guid: 236a483227f60c346934df08698fe5ee, type: 3}
       propertyPath: m_Name
       value: PlayerPlaceholderPrefab
+      objectReference: {fileID: 0}
+    - target: {fileID: 2310087797638072591, guid: 236a483227f60c346934df08698fe5ee, type: 3}
+      propertyPath: stepLength
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 2310087797638072591, guid: 236a483227f60c346934df08698fe5ee, type: 3}
       propertyPath: craftingBootstrapper
@@ -9469,3 +9566,4 @@ SceneRoots:
   - {fileID: 67291824}
   - {fileID: 232906788}
   - {fileID: 1584003374}
+  - {fileID: 149956560}

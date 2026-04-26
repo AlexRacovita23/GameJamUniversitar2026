@@ -13,6 +13,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float interactionRange = 2f;
     [SerializeField] private float jumpForce = 5f;
     [SerializeField] private float jumpBuffer = 0.2f;
+    [SerializeField] private float stepLength = 2f;
 
     [Header("Camera")]
     [SerializeField] private float mouseSensitivity = 10f;
@@ -30,6 +31,7 @@ public class PlayerMovement : MonoBehaviour
     private bool isRunning;
     private bool isGrounded;
     private bool isMenuOpen;
+    private float walkedDistance;
 
     //public Action onCollected;
 
@@ -68,6 +70,7 @@ public class PlayerMovement : MonoBehaviour
         Debug.Log("Jump performed");
         if (isGrounded)
         {
+            // AudioManager.Instance.PlayJump(true);
             rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
             isGrounded = false;
         }
@@ -146,6 +149,14 @@ public class PlayerMovement : MonoBehaviour
         Vector3 newPosition = rb.position + move * currentMoveSpeed * Time.fixedDeltaTime;
         if(!isMenuOpen)
             rb.MovePosition(newPosition);
+
+        walkedDistance += move.magnitude * currentMoveSpeed * Time.fixedDeltaTime;
+        Debug.Log("Walked Distance: " + walkedDistance);
+        if (walkedDistance >= stepLength && isGrounded)
+        {
+            AudioManager.Instance.PlayFootstep(isRunning);
+            walkedDistance = 0f;
+        }
     }
 
     private void CheckHit()
@@ -166,7 +177,12 @@ public class PlayerMovement : MonoBehaviour
 
     private void CheckGrounded()
     {
+        bool oldGrounded = isGrounded;
         isGrounded = Physics.Raycast(transform.position, Vector3.down, jumpBuffer);
+        if (oldGrounded == false && isGrounded == true)
+        {
+            // AudioManager.Instance.PlayJump(false);
+        }
         //isGrounded = Physics.SphereCast(transform.position, 0.5f, Vector3.down, out RaycastHit hit, 0.1f);
         //Debug.DrawRay(transform.position, Vector3.down * 0.1f, isGrounded ? Color.green : Color.red);
     }

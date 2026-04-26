@@ -97,6 +97,7 @@ public class SanitySystem : MonoBehaviour
         if (sanity > 20)
         {
             sandstormParticles.Play(); // Start sandstorm effect if sanity is above critical level
+            AudioManager.Instance.SetWindPower(20f);
         }
     }
 
@@ -107,6 +108,7 @@ public class SanitySystem : MonoBehaviour
         if (sanity > 20)
         {
             sandstormParticles.Stop(); // Stop sandstorm effect if sanity is above critical level
+            AudioManager.Instance.SetWindPower(0f);
         }
     }
 
@@ -119,11 +121,14 @@ public class SanitySystem : MonoBehaviour
 
         if (vignette != null)
         {
+            AudioManager.Instance.SetBackground(100 - sanity); // Adjust background music based on sanity
             if (sanity < 50 && sanity >= 20)
             {
                 // Increase vignette intensity as sanity decreases
                 float intensity = Mathf.Lerp(0, 0.5f, (50 - sanity) / 30);
                 vignette.intensity.value = intensity;
+                sandstormParticles.Stop(); // Stop sandstorm effect if sanity is above critical level
+                AudioManager.Instance.SetWindPower(0f);
             }
             else if (sanity < 20 && sanity > 0)
             {
@@ -134,12 +139,16 @@ public class SanitySystem : MonoBehaviour
                 float intensity = Mathf.Lerp(minParticleEmissionRate, maxParticleEmissionRate, sanity / 20); // Adjust particle emission based on sanity
                 sandstormEmission = sandstormParticles.emission;
                 sandstormEmission.rateOverTime = intensity;
+                AudioManager.Instance.SetWindPower(20f - sanity); // Increase wind sound as sanity decreases
             }
             else
             {
                 vignette.intensity.value = 0;
-                if(!isOutsideBorder)
+                if (!isOutsideBorder)
+                {
                     sandstormParticles.Stop(); // Stop sandstorm effect
+                    AudioManager.Instance.SetWindPower(0f);
+                }
             }
         }
     }    
