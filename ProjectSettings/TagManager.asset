@@ -7,6 +7,7 @@ TagManager:
   - Collectable
   - Ground
   - Crafting
+  - Temple
   layers:
   - Default
   - TransparentFX

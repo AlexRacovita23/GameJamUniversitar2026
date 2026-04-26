@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.03.00">
+	<object class="ParameterPreset" id="{3f879a2e-e55a-4458-8bad-83547620d5d8}">
+		<property name="name">
+			<value>WindPower</value>
+		</property>
+		<relationship name="folder">
+			<destination>{91d3137d-6035-4227-ac8b-5d60864688fa}</destination>
+		</relationship>
+		<relationship name="parameter">
+			<destination>{6c174753-fc53-46fd-ab24-6c784f896483}</destination>
+		</relationship>
+	</object>
+	<object class="GameParameter" id="{6c174753-fc53-46fd-ab24-6c784f896483}">
+		<property name="maximum">
+			<value>20</value>
+		</property>
+		<property name="initialValue">
+			<value>0</value>
+		</property>
+	</object>
+</objects>

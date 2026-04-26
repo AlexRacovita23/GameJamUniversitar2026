@@ -110,6 +110,12 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 7763d46916ad09d4cb36f15b2d7f883c, type: 3}
       insertIndex: -1
       addedObject: {fileID: 214356382518050931}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 7763d46916ad09d4cb36f15b2d7f883c, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: -3261958468111785221}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 7763d46916ad09d4cb36f15b2d7f883c, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 2605864335834371370}
   m_SourcePrefab: {fileID: 100100000, guid: 7763d46916ad09d4cb36f15b2d7f883c, type: 3}
 --- !u!1 &3572299535277207845 stripped
 GameObject:
@@ -159,3 +165,40 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 22.013924, y: 6.618305, z: 6.435893}
   m_Center: {x: -3.6847324, y: 3.3199081, z: 0.8208562}
+--- !u!195 &-3261958468111785221
+NavMeshAgent:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3572299535277207845}
+  m_Enabled: 1
+  m_AgentTypeID: -1372625422
+  m_Radius: 0.5
+  m_Speed: 3.5
+  m_Acceleration: 8
+  avoidancePriority: 50
+  m_AngularSpeed: 120
+  m_StoppingDistance: 0
+  m_AutoTraverseOffMeshLink: 1
+  m_AutoBraking: 1
+  m_AutoRepath: 1
+  m_Height: 2
+  m_BaseOffset: 0
+  m_WalkableMask: 4294967295
+  m_ObstacleAvoidanceType: 4
+--- !u!114 &2605864335834371370
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3572299535277207845}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 21cb4d824141cf74b86b1be9e434ffd6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::AnimalController
+  waitTime: 2
+  walkRadius: 10
+  arrivalThreshold: 0.5

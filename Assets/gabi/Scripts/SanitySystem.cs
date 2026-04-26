@@ -8,6 +8,7 @@ public class SanitySystem : MonoBehaviour
     public static SanitySystem Instance { get; private set; }
     [SerializeField] private float sanity = 100;
     [SerializeField] private float sanityDecreaseRatePerSecond = 0.4f; // 0.4 sanity/seconds -> 98 sanity in 4 minutes
+    [SerializeField] private float sanityDecreaseOutsideBorder = 2f; // 2 sanity/seconds -> 0 sanity in 50 seconds
 
     [Header("Debug")]
     [SerializeField] private Slider debugSlider = null;
@@ -20,6 +21,10 @@ public class SanitySystem : MonoBehaviour
     private ParticleSystem.EmissionModule sandstormEmission;
     [SerializeField] private float maxParticleEmissionRate = 2500f;
     [SerializeField] private float minParticleEmissionRate = 1000f;
+    [SerializeField] private WorldBorder worldBorder;
+    private bool isOutsideBorder = false;
+
+    public float Sanity => sanity;
 
     private void Awake()
     {
@@ -29,6 +34,18 @@ public class SanitySystem : MonoBehaviour
             return;
         }
         Instance = this;
+    }
+
+    private void OnEnable()
+    {
+        worldBorder.exitBorder += HandleExitBorder;
+        worldBorder.enterBorder += HandleEnterBorder;
+    }
+
+    private void OnDisable()
+    {
+        worldBorder.exitBorder -= HandleExitBorder;
+        worldBorder.enterBorder -= HandleEnterBorder;
     }
 
     private void Start()
@@ -73,6 +90,28 @@ public class SanitySystem : MonoBehaviour
         debugSlider.value = sanity;
     }
 
+    private void HandleExitBorder()
+    {
+        isOutsideBorder = true;
+        sanityDecreaseRatePerSecond = sanityDecreaseOutsideBorder;
+        if (sanity > 20)
+        {
+            sandstormParticles.Play(); // Start sandstorm effect if sanity is above critical level
+            AudioManager.Instance.SetWindPower(20f);
+        }
+    }
+
+    private void HandleEnterBorder()
+    {
+        isOutsideBorder = false;
+        sanityDecreaseRatePerSecond = 0.4f; // Reset to default rate
+        if (sanity > 20)
+        {
+            sandstormParticles.Stop(); // Stop sandstorm effect if sanity is above critical level
+            AudioManager.Instance.SetWindPower(0f);
+        }
+    }
+
     private void UpdateVisuals()
     {
         if (debugSlider != null)
@@ -82,11 +121,14 @@ public class SanitySystem : MonoBehaviour
 
         if (vignette != null)
         {
+            AudioManager.Instance.SetBackground(100 - sanity); // Adjust background music based on sanity
             if (sanity < 50 && sanity >= 20)
             {
                 // Increase vignette intensity as sanity decreases
                 float intensity = Mathf.Lerp(0, 0.5f, (50 - sanity) / 30);
                 vignette.intensity.value = intensity;
+                sandstormParticles.Stop(); // Stop sandstorm effect if sanity is above critical level
+                AudioManager.Instance.SetWindPower(0f);
             }
             else if (sanity < 20 && sanity > 0)
             {
@@ -97,11 +139,16 @@ public class SanitySystem : MonoBehaviour
                 float intensity = Mathf.Lerp(minParticleEmissionRate, maxParticleEmissionRate, sanity / 20); // Adjust particle emission based on sanity
                 sandstormEmission = sandstormParticles.emission;
                 sandstormEmission.rateOverTime = intensity;
+                AudioManager.Instance.SetWindPower(20f - sanity); // Increase wind sound as sanity decreases
             }
             else
             {
                 vignette.intensity.value = 0;
-                sandstormParticles.Stop(); // Stop sandstorm effect
+                if (!isOutsideBorder)
+                {
+                    sandstormParticles.Stop(); // Stop sandstorm effect
+                    AudioManager.Instance.SetWindPower(0f);
+                }
             }
         }
     }    
