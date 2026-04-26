@@ -1149,18 +1149,18 @@ MonoBehaviour:
     Path: event:/Ambience
   backgroundEvent:
     Guid:
-      Data1: 0
-      Data2: 0
-      Data3: 0
-      Data4: 0
-    Path: 
+      Data1: 1476247446
+      Data2: 1282038546
+      Data3: 1716754099
+      Data4: 1913327144
+    Path: event:/Background
   finalCue:
     Guid:
-      Data1: 0
-      Data2: 0
-      Data3: 0
-      Data4: 0
-    Path: 
+      Data1: -1597171650
+      Data2: 1311530268
+      Data3: -1149782129
+      Data4: -1172404088
+    Path: event:/FinalCue
   UI_Sounds:
     Guid:
       Data1: 700363131
@@ -1509,6 +1509,10 @@ PrefabInstance:
     - target: {fileID: 1594565894196009544, guid: 236a483227f60c346934df08698fe5ee, type: 3}
       propertyPath: m_Name
       value: PlayerPlaceholderPrefab
+      objectReference: {fileID: 0}
+    - target: {fileID: 2310087797638072591, guid: 236a483227f60c346934df08698fe5ee, type: 3}
+      propertyPath: jumpBuffer
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 2310087797638072591, guid: 236a483227f60c346934df08698fe5ee, type: 3}
       propertyPath: stepLength
