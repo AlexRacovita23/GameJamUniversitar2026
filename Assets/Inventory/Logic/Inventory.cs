@@ -33,9 +33,6 @@ public class Inventory : MonoBehaviour
 
         int newCount = _items[item];
 
-        Debug.Log($"[Inventory] Added item: {item.name}, new count: {newCount}");
-        LogInventoryContents();
-
         OnItemAdded?.Invoke(item, newCount);
         OnInventoryChanged?.Invoke();
     }
@@ -56,9 +53,6 @@ public class Inventory : MonoBehaviour
             remainingCount = _items[item];
         }
 
-        Debug.Log($"[Inventory] Removed item: {item.name}, remaining: {remainingCount}");
-        LogInventoryContents();
-
         OnItemRemoved?.Invoke(item, remainingCount);
         OnInventoryChanged?.Invoke();
         return true;
@@ -68,20 +62,5 @@ public class Inventory : MonoBehaviour
     {
         _items.TryGetValue(item, out int count);
         return count;
-    }
-
-    public void LogInventoryContents()
-    {
-        if (_items.Count == 0)
-        {
-            Debug.Log("[Inventory] Inventory is empty");
-            return;
-        }
-
-        Debug.Log($"[Inventory] Current contents ({_items.Count} unique items):");
-        foreach (var kvp in _items)
-        {
-            Debug.Log($"  - {kvp.Key.name}: x{kvp.Value}");
-        }
     }
 }

@@ -17,12 +17,16 @@ public class SanitySystem : MonoBehaviour
     [SerializeField] private Volume volume;
     private Vignette vignette;
     private ColorAdjustments colorAdjustments;
-    [SerializeField]private ParticleSystem sandstormParticles;
+    [SerializeField] private ParticleSystem sandstormParticles;
     private ParticleSystem.EmissionModule sandstormEmission;
     [SerializeField] private float maxParticleEmissionRate = 2500f;
     [SerializeField] private float minParticleEmissionRate = 1000f;
     [SerializeField] private WorldBorder worldBorder;
     private bool isOutsideBorder = false;
+
+    [SerializeField] private GameObject blurbOverlay;
+    private float blurbTimer = 0f;
+    private bool isBlurbActive = false;
 
     public float Sanity => sanity;
 
@@ -40,12 +44,14 @@ public class SanitySystem : MonoBehaviour
     {
         worldBorder.exitBorder += HandleExitBorder;
         worldBorder.enterBorder += HandleEnterBorder;
+        InventoryUIManager.OnItemConsumed += HandleItemConsumed;
     }
 
     private void OnDisable()
     {
         worldBorder.exitBorder -= HandleExitBorder;
         worldBorder.enterBorder -= HandleEnterBorder;
+        InventoryUIManager.OnItemConsumed -= HandleItemConsumed;
     }
 
     private void Start()
@@ -59,6 +65,10 @@ public class SanitySystem : MonoBehaviour
         if (volume.profile.TryGet<Vignette>(out var vignette))
         {
             this.vignette = vignette;
+        }
+        if (blurbOverlay != null)
+        {
+            blurbOverlay.SetActive(false);
         }
     }
 
@@ -74,20 +84,103 @@ public class SanitySystem : MonoBehaviour
         }
 
         UpdateVisuals();
+        UpdateBlurb();
+    }
+
+    private void HandleItemConsumed(ItemData item)
+    {
+        if (item == null) return;
+
+        switch (item.ItemName)
+        {
+            case "GoodPotion":
+                IncreaseSanity(30f * sanityDecreaseRatePerSecond);
+                Debug.Log("[SanitySystem] Good Potion consumed: +30 seconds of sanity");
+                Debug.Log($"[SanitySystem] Current Sanity Level: {sanity}");
+                break;
+
+            case "BadPotion":
+                DecreaseSanity(20f * sanityDecreaseRatePerSecond);
+                Debug.Log("[SanitySystem] Bad Potion consumed: -20 seconds of sanity");
+                Debug.Log($"[SanitySystem] Current Sanity Level: {sanity}");
+                break;
+
+            case "NeutralPotion":
+                StartBlurb(3f);
+                Debug.Log("[SanitySystem] Neutral Potion consumed: 3 second blurb effect");
+                Debug.Log($"[SanitySystem] Current Sanity Level: {sanity}");
+                break;
+
+            case "TemplePotion":
+                // Spawns the win condition, cannot be used on self/outside obelisk range
+                // TODO: Implement win condition spawn - requires obelisk range check
+                Debug.Log("[SanitySystem] Temple Potion consumed: Win condition trigger (not implemented)");
+                break;
+
+            case "CactusFlower":
+                IncreaseSanity(10f * sanityDecreaseRatePerSecond);
+                Debug.Log("[SanitySystem] Cactus Flower consumed: +10 seconds of sanity");
+                Debug.Log($"[SanitySystem] Current Sanity Level: {sanity}");
+                break;
+
+            case "ScorpionVenom":
+                DecreaseSanity(15f * sanityDecreaseRatePerSecond);
+                Debug.Log("[SanitySystem] Scorpion Venom consumed: -15 seconds of sanity");
+                Debug.Log($"[SanitySystem] Current Sanity Level: {sanity}");
+                break;
+
+            case "LizardBlood":
+                DecreaseSanity(10f * sanityDecreaseRatePerSecond);
+                Debug.Log("[SanitySystem] Lizard Blood consumed: -10 seconds of sanity");
+                Debug.Log($"[SanitySystem] Current Sanity Level: {sanity}");
+                break;
+
+            default:
+                Debug.Log($"[SanitySystem] Unknown item consumed: {item.ItemName}");
+                Debug.Log($"[SanitySystem] Current Sanity Level: {sanity}");
+                break;
+        }
+    }
+
+    private void StartBlurb(float duration)
+    {
+        blurbTimer = duration;
+        isBlurbActive = true;
+        if (blurbOverlay != null)
+        {
+            blurbOverlay.SetActive(true);
+        }
+    }
+
+    private void UpdateBlurb()
+    {
+        if (!isBlurbActive) return;
+
+        blurbTimer -= Time.deltaTime;
+        if (blurbTimer <= 0f)
+        {
+            isBlurbActive = false;
+            if (blurbOverlay != null)
+            {
+                blurbOverlay.SetActive(false);
+            }
+        }
     }
 
     public void IncreaseSanity(float amount)
     {
         sanity += amount;
         sanity = Mathf.Clamp(sanity, 0, 100);
-        debugSlider.value = sanity;
+        if (debugSlider != null)
+            debugSlider.value = sanity;
     }
 
     public void DecreaseSanity(float amount)
     {
         sanity -= amount;
         sanity = Mathf.Clamp(sanity, 0, 100);
-        debugSlider.value = sanity;
+        if (debugSlider != null)
+            debugSlider.value = sanity;
     }
 
     private void HandleExitBorder()
@@ -151,5 +244,5 @@ public class SanitySystem : MonoBehaviour
                 }
             }
         }
-    }    
+    }
 }
