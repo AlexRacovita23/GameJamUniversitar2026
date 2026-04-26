@@ -626,7 +626,9 @@ MonoBehaviour:
     Make potions on the altar
 
     Survive the
-    stress'
+    stress
+
+    Find the lost notes and check them in the inventory'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: b96aad9a1eab2034c96d10d1a7305df4, type: 2}
   m_sharedMaterial: {fileID: 5978061383000126337, guid: b96aad9a1eab2034c96d10d1a7305df4, type: 2}
@@ -659,7 +661,7 @@ MonoBehaviour:
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
   m_fontSizeMax: 72
-  m_fontStyle: 0
+  m_fontStyle: 1
   m_HorizontalAlignment: 1
   m_VerticalAlignment: 256
   m_textAlignment: 65535
