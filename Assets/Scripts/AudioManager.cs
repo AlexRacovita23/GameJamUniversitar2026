@@ -15,9 +15,11 @@ public class AudioManager : MonoBehaviour
     [SerializeField] private EventReference finalCue;
     [SerializeField] private EventReference UI_Sounds;
     [SerializeField] private EventReference harvest;
+    [SerializeField] private EventReference menuMusicEvent;
 
     private EventInstance ambientInstance;
     private EventInstance backgroundInstance;
+    private EventInstance menuMusicInstance;
 
     private void Awake()
     {
@@ -106,6 +108,23 @@ public class AudioManager : MonoBehaviour
         EventInstance finalCueInstance = RuntimeManager.CreateInstance(finalCue);
         finalCueInstance.start();
         finalCueInstance.release();
+    }
+
+    public void PlayMenuMusic()
+    {
+        if (menuMusicInstance.isValid() && IsEventInstancePlaying(menuMusicInstance))
+            return;
+        menuMusicInstance = RuntimeManager.CreateInstance(menuMusicEvent);
+        menuMusicInstance.start();
+    }
+
+    public void StopMenuMusic()
+    {
+        if (menuMusicInstance.isValid())
+        {
+            menuMusicInstance.stop(STOP_MODE.ALLOWFADEOUT);
+            menuMusicInstance.release();
+        }
     }
 
 }

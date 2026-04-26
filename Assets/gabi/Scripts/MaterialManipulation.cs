@@ -3,46 +3,71 @@ using UnityEngine;
 
 public class MaterialManipulation : MonoBehaviour
 {
-    public List<Material> materials;
     [Range(0f, 1f)]
-    public float alfa = 0f;
+    public float alfa = 1f;
+    [SerializeField] private float transparencyThreshold = 10f;
 
-    [Header("Stress values")]
-    [SerializeField] private float alfaIncreaseRate = 0.05f;
-    [SerializeField] private float stressMinVal = 20f;
-    [SerializeField] private float stressMaxVal = 50f;
-
+    private MandrakeIllusion illusionScript;
     private Collider objectCollider;
-    private bool isCollisionEnabled = false;
+    private bool isCollisionEnabled = true;
+
+    private readonly List<Material> instanceMaterials = new List<Material>();
+    private Renderer[] childRenderers;
 
     private void Awake()
     {
         objectCollider = GetComponent<Collider>();
         if (objectCollider != null)
             objectCollider.enabled = isCollisionEnabled;
+
+        childRenderers = GetComponentsInChildren<Renderer>();
+
+        foreach (Renderer renderer in childRenderers)
+        {
+            Material[] mats = renderer.materials; // creates per-renderer instances
+            foreach (Material mat in mats)
+            {
+                if (mat != null && !instanceMaterials.Contains(mat))
+                {
+                    instanceMaterials.Add(mat);
+                }
+            }
+        }
     }
 
-    // Update is called once per frame
-    void Update()
+    private void Start()
     {
-        if (alfa < 1f)
+        illusionScript = GetComponent<MandrakeIllusion>();
+    }
+
+    private void Update()
+    {
+        float timeToLive = illusionScript != null ? illusionScript.timeToDisappear : 0f;
+
+        if (timeToLive < transparencyThreshold)
         {
-            float stress = SanitySystem.Instance.Sanity;
-
-            if (stress >= stressMinVal && stress <= stressMaxVal)
-            {
-                alfa += alfaIncreaseRate * Time.deltaTime;
-                alfa = Mathf.Clamp(alfa, 0f, 1f);
-            }
-
-            foreach (Material material in materials)
-                material.color = new Color(material.color.r, material.color.g, material.color.b, alfa);
+            alfa = Mathf.Lerp(0f, 1f, timeToLive / transparencyThreshold);
+            objectCollider.enabled = timeToLive > 1f; // Disable collider when almost invisible
         }
-        else if (!isCollisionEnabled)
+        else
+            alfa = 1f;
+
+        ApplyAlpha(alfa);
+    }
+
+    private void ApplyAlpha(float alpha)
+    {
+        foreach (Material mat in instanceMaterials)
         {
-            isCollisionEnabled = true;
-            if (objectCollider != null)
-                objectCollider.enabled = true;
+            if (mat == null)
+                continue;
+
+            if (mat.HasProperty("_Color"))
+            {
+                Color color = mat.color;
+                color.a = alpha;
+                mat.color = color;
+            }
         }
     }
 }
