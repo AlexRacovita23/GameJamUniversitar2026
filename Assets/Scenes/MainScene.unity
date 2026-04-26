@@ -1555,6 +1555,13 @@ MonoBehaviour:
       Data3: -575040352
       Data4: -895836150
     Path: event:/ManuMusic
+  earthquakeEvent:
+    Guid:
+      Data1: -955034585
+      Data2: 1226164314
+      Data3: 428995260
+      Data4: 132668223
+    Path: event:/RisingTemple
 --- !u!4 &149956560
 Transform:
   m_ObjectHideFlags: 0
@@ -10399,10 +10406,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8b19eb180f466f349840d79123c2fc93, type: 3}
   m_Name: 
   m_EditorClassIdentifier: '::'
-  riseSpeed: 0.5
-  stressMinVal: 20
-  stressMaxVal: 50
+  riseSpeed: 2.5
   maxHeight: 1.09
+  isRising: 0
 --- !u!4 &1759063207 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1123470856531199143, guid: e248db34607fbbf4998b0d407dd3d987, type: 3}

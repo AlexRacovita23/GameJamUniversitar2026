@@ -1319,6 +1319,13 @@ MonoBehaviour:
       Data3: -575040352
       Data4: -895836150
     Path: event:/ManuMusic
+  earthquakeEvent:
+    Guid:
+      Data1: -955034585
+      Data2: 1226164314
+      Data3: 428995260
+      Data4: 132668223
+    Path: event:/RisingTemple
 --- !u!4 &1207814065
 Transform:
   m_ObjectHideFlags: 0

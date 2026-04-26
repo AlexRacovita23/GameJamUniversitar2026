@@ -3,26 +3,28 @@ using UnityEngine;
 
 public class TempleController : MonoBehaviour
 {
-    [Header("Stress values")]
+    [Header("Animation values")]
     [SerializeField] private float riseSpeed = 0.1f;
-    [SerializeField] private float stressMinVal = 20f;
-    [SerializeField] private float stressMaxVal = 50f;
     [SerializeField] private float maxHeight = 1.09f;
 
+    public bool isRising = false;
 
     // Update is called once per frame
     void Update()
     {
-        float stress = SanitySystem.Instance.Sanity;
+        if (!isRising)
+            return;
 
-        if (stress >= stressMinVal && stress <= stressMaxVal && transform.position.y < maxHeight)
+        if (transform.position.y < maxHeight)
         {
             transform.position += Vector3.up * riseSpeed * Time.deltaTime;
+            AudioManager.Instance.PlayEarthquake();
         }
 
         if (transform.position.y >= maxHeight)
         {
-            transform.position = new Vector3(transform.position.x, maxHeight, transform.position.z); 
+            transform.position = new Vector3(transform.position.x, maxHeight, transform.position.z);
+            AudioManager.Instance.StopEarthquake();
         }
     }
 

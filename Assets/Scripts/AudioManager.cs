@@ -16,10 +16,14 @@ public class AudioManager : MonoBehaviour
     [SerializeField] private EventReference UI_Sounds;
     [SerializeField] private EventReference harvest;
     [SerializeField] private EventReference menuMusicEvent;
+    [SerializeField] private EventReference earthquakeEvent;
 
     private EventInstance ambientInstance;
     private EventInstance backgroundInstance;
     private EventInstance menuMusicInstance;
+    private EventInstance earthquakeInstance;
+
+    private bool isEarthquakePlaying = false;
 
     private void Awake()
     {
@@ -125,6 +129,39 @@ public class AudioManager : MonoBehaviour
         {
             menuMusicInstance.stop(STOP_MODE.ALLOWFADEOUT);
             menuMusicInstance.release();
+        }
+    }
+
+    public void PlayEarthquake()
+    {
+        if (earthquakeInstance.isValid() && IsEventInstancePlaying(earthquakeInstance) && isEarthquakePlaying)
+            return;
+        earthquakeInstance = RuntimeManager.CreateInstance(earthquakeEvent);
+        earthquakeInstance.start();
+        isEarthquakePlaying = true;
+    }
+
+    public void StopEarthquake()
+    {
+        if (earthquakeInstance.isValid() && isEarthquakePlaying)
+        {
+            earthquakeInstance.stop(STOP_MODE.ALLOWFADEOUT);
+            earthquakeInstance.release();
+            isEarthquakePlaying = false;
+        }
+    }
+    
+    private void OnDestroy()
+    {
+        if (ambientInstance.isValid())
+        {
+            ambientInstance.stop(STOP_MODE.IMMEDIATE);
+            ambientInstance.release();
+        }
+        if (backgroundInstance.isValid())
+        {
+            backgroundInstance.stop(STOP_MODE.IMMEDIATE);
+            backgroundInstance.release();
         }
     }
 
