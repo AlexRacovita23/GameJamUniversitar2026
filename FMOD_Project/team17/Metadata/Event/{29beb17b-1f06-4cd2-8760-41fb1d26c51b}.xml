@@ -5,7 +5,7 @@
 			<value>UI</value>
 		</property>
 		<property name="outputFormat">
-			<value>0</value>
+			<value>1</value>
 		</property>
 		<relationship name="folder">
 			<destination>{6859d57d-729f-4bb6-86eb-c508dc940b36}</destination>
@@ -47,6 +47,8 @@
 			<destination>{cf527c65-a45a-435f-ae93-8ad7563f41ba}</destination>
 			<destination>{2bd44a70-6f7c-484f-8155-2127556f6666}</destination>
 			<destination>{8530c7c9-aa9e-4dea-9c26-7747addd30e1}</destination>
+			<destination>{85e71e5e-3b19-4b42-ad25-6007d6d349a5}</destination>
+			<destination>{6fc82f67-fbce-4260-b42a-40f22ce1f542}</destination>
 		</relationship>
 		<relationship name="mixerGroup">
 			<destination>{86f403cf-7602-4f03-9683-80221ba117cd}</destination>
@@ -77,6 +79,8 @@
 			<destination>{cf527c65-a45a-435f-ae93-8ad7563f41ba}</destination>
 			<destination>{2bd44a70-6f7c-484f-8155-2127556f6666}</destination>
 			<destination>{8530c7c9-aa9e-4dea-9c26-7747addd30e1}</destination>
+			<destination>{85e71e5e-3b19-4b42-ad25-6007d6d349a5}</destination>
+			<destination>{6fc82f67-fbce-4260-b42a-40f22ce1f542}</destination>
 		</relationship>
 		<relationship name="preset">
 			<destination>{cba76ddd-a1f0-4096-9837-5d8218525d3a}</destination>
@@ -128,6 +132,25 @@
 		</property>
 		<relationship name="audioFile">
 			<destination>{b4188224-7077-4da1-85a4-bb2034a4b154}</destination>
+		</relationship>
+	</object>
+	<object class="SingleSound" id="{85e71e5e-3b19-4b42-ad25-6007d6d349a5}">
+		<property name="start">
+			<value>6</value>
+		</property>
+		<property name="volume">
+			<value>5.5</value>
+		</property>
+		<relationship name="audioFile">
+			<destination>{7f26f433-48fb-4f09-8735-b6ee89ca382c}</destination>
+		</relationship>
+	</object>
+	<object class="SingleSound" id="{6fc82f67-fbce-4260-b42a-40f22ce1f542}">
+		<property name="start">
+			<value>5</value>
+		</property>
+		<relationship name="audioFile">
+			<destination>{d50181f7-40e6-41dc-ad19-dd443fcf5b74}</destination>
 		</relationship>
 	</object>
 	<object class="MixerBusEffectChain" id="{7714883a-535c-4e2e-a28b-f7c2f6857812}">

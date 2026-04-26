@@ -16,7 +16,7 @@
 			<value>2</value>
 		</property>
 		<property name="maximum">
-			<value>5</value>
+			<value>7</value>
 		</property>
 		<property name="enumerationLabels">
 			<value>Click</value>
@@ -24,6 +24,8 @@
 			<value>OpenUI</value>
 			<value>Writing</value>
 			<value>Consume</value>
+			<value>Drink</value>
+			<value>BreakPotion</value>
 		</property>
 		<property name="initialValue">
 			<value>0</value>
