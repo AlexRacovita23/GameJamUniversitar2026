@@ -9,6 +9,7 @@ TagManager:
   - Crafting
   - Temple
   - Note
+  - Obelisk
   layers:
   - Default
   - TransparentFX

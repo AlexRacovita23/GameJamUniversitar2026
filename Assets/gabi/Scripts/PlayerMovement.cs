@@ -96,6 +96,10 @@ public class PlayerMovement : MonoBehaviour
             {
                 hit.collider.GetComponent<TempleController>()?.ActivateTemple();
             }
+            if (hit.collider.CompareTag("Obelisk"))
+            {
+                hit.collider.GetComponent<ObeliskController>()?.TryActivate();
+            }
         }
     }
 

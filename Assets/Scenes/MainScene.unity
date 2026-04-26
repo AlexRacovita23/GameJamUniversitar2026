@@ -7295,15 +7295,45 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5959097811999793430, guid: c8ff911a653ab1a40868189a9d5f3c39, type: 3}
+      propertyPath: m_TagString
+      value: Obelisk
+      objectReference: {fileID: 0}
     - target: {fileID: 7838095723025983819, guid: c8ff911a653ab1a40868189a9d5f3c39, type: 3}
       propertyPath: m_Name
+      value: Obelisk
+      objectReference: {fileID: 0}
+    - target: {fileID: 7838095723025983819, guid: c8ff911a653ab1a40868189a9d5f3c39, type: 3}
+      propertyPath: m_TagString
       value: Obelisk
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 5959097811999793430, guid: c8ff911a653ab1a40868189a9d5f3c39, type: 3}
+      insertIndex: 3
+      addedObject: {fileID: 1163206248}
   m_SourcePrefab: {fileID: 100100000, guid: c8ff911a653ab1a40868189a9d5f3c39, type: 3}
+--- !u!1 &1163206247 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5959097811999793430, guid: c8ff911a653ab1a40868189a9d5f3c39, type: 3}
+  m_PrefabInstance: {fileID: 1163206246}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1163206248
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1163206247}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a623a4122dc77b84fbe7f0b75355bb98, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ObeliskController
+  requiredPotion: {fileID: 11400000, guid: 44bb8e43f2088de49b8d0b4a9bf4676b, type: 2}
+  templeController: {fileID: 1758198317}
 --- !u!1001 &1176095449
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -13225,6 +13255,14 @@ PrefabInstance:
     - target: {fileID: 2543652898254645695, guid: 9a04cad5080c5f442ba154ebb6adb17a, type: 3}
       propertyPath: m_Name
       value: ObeliskPictograms
+      objectReference: {fileID: 0}
+    - target: {fileID: 2543652898254645695, guid: 9a04cad5080c5f442ba154ebb6adb17a, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2543652898254645695, guid: 9a04cad5080c5f442ba154ebb6adb17a, type: 3}
+      propertyPath: m_TagString
+      value: Obelisk
       objectReference: {fileID: 0}
     - target: {fileID: 2549850395787316431, guid: 9a04cad5080c5f442ba154ebb6adb17a, type: 3}
       propertyPath: m_LocalPosition.x
