@@ -7,8 +7,8 @@ public class SanitySystem : MonoBehaviour
 {
     public static SanitySystem Instance { get; private set; }
     [SerializeField] private float sanity = 100;
-    [SerializeField] private float sanityDecreaseRatePerSecond = 0.4f;
-    [SerializeField] private float sanityDecreaseOutsideBorder = 2f;
+    [SerializeField] private float sanityDecreaseRatePerSecond = 0.4f; // 0.4 sanity/seconds -> 98 sanity in 4 minutes
+    [SerializeField] private float sanityDecreaseOutsideBorder = 2f; // 2 sanity/seconds -> 0 sanity in 50 seconds
 
     [Header("Debug")]
     [SerializeField] private Slider debugSlider = null;
@@ -24,17 +24,12 @@ public class SanitySystem : MonoBehaviour
     [SerializeField] private WorldBorder worldBorder;
     private bool isOutsideBorder = false;
 
-    [Header("Ambient Light")]
-    [SerializeField] private Light ambientLight;
-    [SerializeField] private float defaultLightIntensity = 1f;
-    [SerializeField] private float maxLightIntensity = 1.5f;
-
     [SerializeField] private GameObject blurbOverlay;
     private float blurbTimer = 0f;
     private bool isBlurbActive = false;
 
-    private int frameCounter = 0;
-    private const int UPDATE_INTERVAL = 3;
+    public GameObject LoseScreen;
+    [SerializeField] private PlayerMovement playerMovement;
 
     public float Sanity => sanity;
 
@@ -70,22 +65,13 @@ public class SanitySystem : MonoBehaviour
             debugSlider.maxValue = 100;
             debugSlider.value = sanity;
         }
-        if (volume.profile.TryGet<Vignette>(out var vig))
+        if (volume.profile.TryGet<Vignette>(out var vignette))
         {
-            vignette = vig;
+            this.vignette = vignette;
         }
         if (blurbOverlay != null)
         {
             blurbOverlay.SetActive(false);
-        }
-        if (ambientLight != null)
-        {
-            defaultLightIntensity = ambientLight.intensity;
-        }
-
-        if (sandstormParticles != null)
-        {
-            sandstormEmission = sandstormParticles.emission;
         }
     }
 
@@ -96,7 +82,13 @@ public class SanitySystem : MonoBehaviour
 
         if (sanity <= 0)
         {
+            // Handle player death or game over logic here
             Debug.Log("Player has lost all sanity!");
+            if (LoseScreen != null && !LoseScreen.activeSelf)
+            {
+                LoseScreen.SetActive(true);
+                playerMovement.ChangeCoursorState();
+            }
         }
 
         UpdateVisuals();
@@ -128,6 +120,8 @@ public class SanitySystem : MonoBehaviour
                 break;
 
             case "TemplePotion":
+                // Spawns the win condition, cannot be used on self/outside obelisk range
+                // TODO: Implement win condition spawn - requires obelisk range check
                 Debug.Log("[SanitySystem] Temple Potion consumed: Win condition trigger (not implemented)");
                 break;
 
@@ -201,92 +195,62 @@ public class SanitySystem : MonoBehaviour
     {
         isOutsideBorder = true;
         sanityDecreaseRatePerSecond = sanityDecreaseOutsideBorder;
+        if (sanity > 20)
+        {
+            sandstormParticles.Play(); // Start sandstorm effect if sanity is above critical level
+            AudioManager.Instance.SetWindPower(20f);
+        }
     }
 
     private void HandleEnterBorder()
     {
         isOutsideBorder = false;
-        sanityDecreaseRatePerSecond = 0.4f;
+        sanityDecreaseRatePerSecond = 0.4f; // Reset to default rate
+        if (sanity > 20)
+        {
+            sandstormParticles.Stop(); // Stop sandstorm effect if sanity is above critical level
+            AudioManager.Instance.SetWindPower(0f);
+        }
     }
 
     private void UpdateVisuals()
     {
         if (debugSlider != null)
+        {
             debugSlider.value = sanity;
-
-        frameCounter++;
-        if (frameCounter < UPDATE_INTERVAL) return;
-        frameCounter = 0;
-
-        float sanityNormalized = sanity / 100f; // 0 to 1
-
-        UpdateSandstorm(sanityNormalized);
-        UpdateVignette(sanityNormalized);
-        UpdateAmbientLight();
-        UpdateAudio(sanityNormalized);
-    }
-
-    private void UpdateSandstorm(float sanityNormalized)
-    {
-        if (sandstormParticles == null) return;
-
-        // High sanity = intense sandstorm, Low sanity = mild sandstorm
-        float emissionRate = Mathf.Lerp(minParticleEmissionRate, maxParticleEmissionRate, sanityNormalized);
-        sandstormEmission.rateOverTime = emissionRate;
-
-        if (!sandstormParticles.isPlaying)
-        {
-            sandstormParticles.Play();
-        }
-    }
-
-    private void UpdateVignette(float sanityNormalized)
-    {
-        if (vignette == null) return;
-
-        // Low sanity = intense vignette (max 0.6 at 0 sanity)
-        // High sanity = no vignette
-        float vignetteIntensity = Mathf.Lerp(0.6f, 0f, sanityNormalized);
-        vignette.intensity.value = vignetteIntensity;
-    }
-
-    private void UpdateAmbientLight()
-    {
-        if (ambientLight == null) return;
-
-        float lightIntensity;
-
-        if (sanity > 50f)
-        {
-            lightIntensity = defaultLightIntensity;
-        }
-        else if (sanity > 35f)
-        {
-            float t = (50f - sanity) / 15f;
-            lightIntensity = Mathf.Lerp(defaultLightIntensity, maxLightIntensity, t);
-        }
-        else if (sanity > 20f)
-        {
-            float t = (35f - sanity) / 15f;
-            lightIntensity = Mathf.Lerp(maxLightIntensity, defaultLightIntensity, t);
-        }
-        else
-        {
-            lightIntensity = defaultLightIntensity;
         }
 
-        ambientLight.intensity = lightIntensity;
-    }
-
-    private void UpdateAudio(float sanityNormalized)
-    {
-        if (AudioManager.Instance == null) return;
-
-        // Background intensity inversely proportional to sanity
-        AudioManager.Instance.SetBackground(100f - sanity);
-
-        // Wind power: higher at high sanity (matches sandstorm intensity)
-        float windPower = sanityNormalized * 20f;
-        AudioManager.Instance.SetWindPower(windPower);
+        if (vignette != null)
+        {
+            AudioManager.Instance.SetBackground(100 - sanity); // Adjust background music based on sanity
+            if (sanity < 50 && sanity >= 20)
+            {
+                // Increase vignette intensity as sanity decreases
+                float intensity = Mathf.Lerp(0, 0.5f, (50 - sanity) / 30);
+                vignette.intensity.value = intensity;
+                sandstormParticles.Stop(); // Stop sandstorm effect if sanity is above critical level
+                AudioManager.Instance.SetWindPower(0f);
+            }
+            else if (sanity < 20 && sanity > 0)
+            {
+                // Decide on maximum insanity effect
+                Debug.Log("Player is in critical sanity state!");
+                vignette.intensity.value = 0.5f; // Max intensity
+                sandstormParticles.Play(); // Start sandstorm effect
+                float intensity = Mathf.Lerp(minParticleEmissionRate, maxParticleEmissionRate, sanity / 20); // Adjust particle emission based on sanity
+                sandstormEmission = sandstormParticles.emission;
+                sandstormEmission.rateOverTime = intensity;
+                AudioManager.Instance.SetWindPower(20f - sanity); // Increase wind sound as sanity decreases
+            }
+            else
+            {
+                vignette.intensity.value = 0;
+                if (!isOutsideBorder)
+                {
+                    sandstormParticles.Stop(); // Stop sandstorm effect
+                    AudioManager.Instance.SetWindPower(0f);
+                }
+            }
+        }
     }
 }
