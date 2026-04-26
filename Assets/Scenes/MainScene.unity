@@ -5364,6 +5364,28 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: fb85e58e29a842049b752db5683789db, type: 3}
+--- !u!1 &919108451 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2543652898254645695, guid: 9a04cad5080c5f442ba154ebb6adb17a, type: 3}
+  m_PrefabInstance: {fileID: 1362125952316436384}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &919108456
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 919108451}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6d0d871c1864c7244a9841a7ba13f2c0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PictogramMaterialManipulation
+  alfa: 0
+  alfaMinIncreaseRate: 0.05
+  alfaMaxIncreaseRate: 0.1
+  stressMinVal: 20
+  stressMaxVal: 50
 --- !u!4 &931748703 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2248342876762986028, guid: efb015f12819d504193f0ed5d5186bcc, type: 3}
@@ -13100,7 +13122,10 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 2543652898254645695, guid: 9a04cad5080c5f442ba154ebb6adb17a, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 919108456}
   m_SourcePrefab: {fileID: 100100000, guid: 9a04cad5080c5f442ba154ebb6adb17a, type: 3}
 --- !u!1001 &6286060941544438030
 PrefabInstance:
