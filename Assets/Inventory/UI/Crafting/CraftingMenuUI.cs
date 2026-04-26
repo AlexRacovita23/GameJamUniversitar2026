@@ -1,3 +1,4 @@
+
 using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
@@ -31,9 +32,6 @@ public class CraftingMenuUI : MonoBehaviour
         gameObject.SetActive(true);
         inventoryPanel.RandomLayout();
         craftingPanel.RandomLayout();
-
-        if (AudioManager.Instance != null)
-            AudioManager.Instance.PlayUIClick("OpenUI");
     }
 
     public void CloseMenu()
@@ -79,17 +77,14 @@ public class CraftingMenuUI : MonoBehaviour
 
     private void OnCraftPressed()
     {
-        var recipe = _recipeResolver.TryResolve(_craftingSpace.Slots);
-        if (recipe == null) return;
+        ItemData result = _recipeResolver.TryResolve(_craftingSpace.Slots);
+        if (result == null) return;
 
         _craftingSpace.Clear();
-        _inventory.AddItem(recipe.result);
+        _inventory.AddItem(result);
 
         inventoryPanel.SoftRefresh();
         craftingPanel.SoftRefresh();
-
-        if (AudioManager.Instance != null)
-            AudioManager.Instance.PlayUIClick("Craft");
     }
 
     private void OnDestroy()

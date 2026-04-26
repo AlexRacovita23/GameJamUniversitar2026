@@ -6017,7 +6017,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1027993630
 RectTransform:
   m_ObjectHideFlags: 0
@@ -7229,6 +7229,8 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 2430fe3536ea1f542949b8dd0668f244, type: 2}
   - {fileID: 11400000, guid: 22913365b662a7641976eb624319b46b, type: 2}
   - {fileID: 11400000, guid: 5589e0033c2cd25499d83f0b42984591, type: 2}
+  defaultCraftingResult: {fileID: 11400000, guid: dac79ddd8b17fbf41885f1a45b720be1, type: 2}
+  minimumIngredientsForDefault: 2
   craftingMenu: {fileID: 1508509070}
   menuUI: {fileID: 1508509072}
 --- !u!1001 &1176095449
@@ -8588,7 +8590,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1508509071
 RectTransform:
   m_ObjectHideFlags: 0
