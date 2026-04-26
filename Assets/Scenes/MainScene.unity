@@ -2050,6 +2050,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1406389986}
     - target: {fileID: 2310087797638072591, guid: 236a483227f60c346934df08698fe5ee, type: 3}
+      propertyPath: mouseSensitivity
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 2310087797638072591, guid: 236a483227f60c346934df08698fe5ee, type: 3}
       propertyPath: craftingBootstrapper
       value: 
       objectReference: {fileID: 0}
@@ -9697,6 +9701,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 5a54188c4da8f274ca77a25ef82aea3c, type: 2}
   - {fileID: 11400000, guid: beff3ceee7fd1eb46a4283ef4505e71a, type: 2}
   - {fileID: 11400000, guid: dac79ddd8b17fbf41885f1a45b720be1, type: 2}
+  craftingManager: {fileID: 1406389986}
 --- !u!4 &1322777088 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2248342876762986028, guid: efb015f12819d504193f0ed5d5186bcc, type: 3}
@@ -10395,6 +10400,7 @@ MonoBehaviour:
   minimumIngredientsForDefault: 2
   craftingMenu: {fileID: 998900998}
   menuUI: {fileID: 998901000}
+  _isCraftingMenuOpen: 0
 --- !u!4 &1409767948 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7587439074195810345, guid: 15ab633b8b1da89498ef9abba0cc8bd8, type: 3}

@@ -10,6 +10,8 @@ public class CraftingManager : MonoBehaviour
     [SerializeField] private GameObject craftingMenu;
     [SerializeField] private CraftingMenuUI menuUI;
 
+    public bool _isCraftingMenuOpen = false;
+
     private CraftingSpace _craftingSpace;
     private RecipeResolver _recipeResolver;
     private PlayerInputActions _inputActions;
@@ -37,26 +39,17 @@ public class CraftingManager : MonoBehaviour
     private void OnEnable()
     {
         _inputActions.Player.Enable();
-        _inputActions.Player.DebugCrafting.performed += OnDebugCraftingPressed;
     }
 
     private void OnDisable()
     {
-        _inputActions.Player.DebugCrafting.performed -= OnDebugCraftingPressed;
         _inputActions.Player.Disable();
     }
 
-    private void OnDebugCraftingPressed(InputAction.CallbackContext context)
-    {
-        bool isOpen = !craftingMenu.activeSelf;
-        craftingMenu.SetActive(isOpen);
-
-        OnCraftingStateChanged?.Invoke();
-    }
     public void OnCraftingMenuOpened()
     {
-        bool isOpen = !craftingMenu.activeSelf;
-        craftingMenu.SetActive(isOpen);
+        _isCraftingMenuOpen = !craftingMenu.activeSelf;
+        craftingMenu.SetActive(_isCraftingMenuOpen);
 
         OnCraftingStateChanged?.Invoke();
     }

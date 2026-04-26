@@ -6,6 +6,7 @@ public class InventoryUIManager : MonoBehaviour
     [SerializeField] private GameObject inventoryPanel;
     [SerializeField] private GridInventoryUI gridInventoryUI;
     [SerializeField] private ItemData[] allItems;
+    [SerializeField] private CraftingManager craftingManager;
 
     private PlayerInputActions _inputActions;
 
@@ -21,15 +22,11 @@ public class InventoryUIManager : MonoBehaviour
     {
         _inputActions.Player.Enable();
         _inputActions.Player.Inventory.performed += OnInventoryToggle;
-        _inputActions.Player.DebugAddAll.performed += OnAddAllItemsDebug;
-        _inputActions.Player.DebugRemoveAll.performed += OnRemoveAllItemsDebug;
     }
 
     private void OnDisable()
     {
         _inputActions.Player.Inventory.performed -= OnInventoryToggle;
-        _inputActions.Player.DebugAddAll.performed -= OnAddAllItemsDebug;
-        _inputActions.Player.DebugRemoveAll.performed -= OnRemoveAllItemsDebug;
         _inputActions.Player.Disable();
     }
 
@@ -68,6 +65,9 @@ public class InventoryUIManager : MonoBehaviour
 
     private void OnInventoryToggle(InputAction.CallbackContext context)
     {
+        if (craftingManager._isCraftingMenuOpen)
+            return;
+
         bool isOpen = !inventoryPanel.activeSelf;
         inventoryPanel.SetActive(isOpen);
 
@@ -75,27 +75,5 @@ public class InventoryUIManager : MonoBehaviour
 
         if (isOpen && AudioManager.Instance != null)
             AudioManager.Instance.PlayUIClick("OpenUI");
-    }
-
-    public void OnAddAllItemsDebug(InputAction.CallbackContext context)
-    {
-        foreach (var item in allItems)
-        {
-            for (int i = 0; i < 10; i++)
-            {
-                Inventory.Instance.AddItem(item);
-            }
-        }
-    }
-
-    public void OnRemoveAllItemsDebug(InputAction.CallbackContext context)
-    {
-        foreach (var item in allItems)
-        {
-            while (Inventory.Instance.GetCount(item) > 0)
-            {
-                Inventory.Instance.RemoveItem(item);
-            }
-        }
     }
 }

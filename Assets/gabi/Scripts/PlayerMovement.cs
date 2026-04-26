@@ -8,16 +8,16 @@ public class PlayerMovement : MonoBehaviour
     private Rigidbody rb;
 
     [Header("Movement")]
-    [SerializeField] private float moveSpeed = 5f;
-    [SerializeField] private float runMultiplier = 1.5f;
-    [SerializeField] private float interactionRange = 2f;
-    [SerializeField] private float jumpForce = 5f;
-    [SerializeField] private float jumpBuffer = 0.2f;
-    [SerializeField] private float stepLength = 2f;
+    [SerializeField] private float moveSpeed;
+    [SerializeField] private float runMultiplier;
+    [SerializeField] private float interactionRange;
+    [SerializeField] private float jumpForce;
+    [SerializeField] private float jumpBuffer;
+    [SerializeField] private float stepLength;
 
     [Header("Camera")]
-    [SerializeField] private float mouseSensitivity = 10f;
-    [SerializeField] private float maxVerticalAngle = 80f;
+    [SerializeField] private float mouseSensitivity;
+    [SerializeField] private float maxVerticalAngle;
     [SerializeField] private Transform cameraPivot;
     public GameObject pressText;
     public GameObject runtimeUI;
