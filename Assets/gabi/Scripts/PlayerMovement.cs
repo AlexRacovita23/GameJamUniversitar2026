@@ -32,6 +32,7 @@ public class PlayerMovement : MonoBehaviour
     private bool isGrounded;
     private bool isMenuOpen;
     private float walkedDistance;
+    private bool obeliskAlreadyActivated;
 
     private void Awake()
     {
@@ -48,6 +49,7 @@ public class PlayerMovement : MonoBehaviour
         Cursor.visible = false;
 
         isMenuOpen = false;
+        obeliskAlreadyActivated = false;
     }
 
     private void OnEnable()
@@ -60,6 +62,24 @@ public class PlayerMovement : MonoBehaviour
         CraftingManager.OnCraftingStateChanged += OnMenuToggled;
 
         Time.timeScale = 1f; // Ensure the game is not paused when enabled
+        ObeliskController.OnObeliskActivated += OnObeliskActivated;
+    }
+
+    private void OnDisable()
+    {
+        inputActions.Player.Jump.performed -= PerformJump;
+        inputActions.Player.Interact.performed -= PerformInteract;
+        inputActions.Player.Inventory.performed -= OpenInventory;
+        InventoryUIManager.OnInventoryStateChanged -= OnMenuToggled;
+        CraftingManager.OnCraftingStateChanged -= OnMenuToggled;
+        ObeliskController.OnObeliskActivated -= OnObeliskActivated;
+        inputActions.Disable();
+    }
+
+    private void OnObeliskActivated()
+    {
+        obeliskAlreadyActivated = true;
+        Debug.Log("Obelisk has been activated - further obelisk interactions disabled");
     }
 
     private void OpenInventory(InputAction.CallbackContext context)
@@ -72,7 +92,6 @@ public class PlayerMovement : MonoBehaviour
         Debug.Log("Jump performed");
         if (isGrounded)
         {
-            // AudioManager.Instance.PlayJump(true);
             rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
             isGrounded = false;
         }
@@ -98,21 +117,18 @@ public class PlayerMovement : MonoBehaviour
             {
                 //hit.collider.GetComponent<TempleController>()?.ActivateTemple();
             }
-            if (hit.collider.CompareTag("Obelisk"))
+
+            if (hit.collider.CompareTag("Obelisk") && !obeliskAlreadyActivated)
             {
-                hit.collider.GetComponent<ObeliskController>()?.TryActivate();
+                var obelisk = hit.collider.GetComponent<ObeliskController>();
+                if (obelisk == null)
+                {
+                    Debug.LogError($"'{hit.collider.name}' has Obelisk tag but no ObeliskController!");
+                    return;
+                }
+                obelisk.TryActivate();
             }
         }
-    }
-
-    private void OnDisable()
-    {
-        inputActions.Player.Jump.performed -= PerformJump;
-        inputActions.Player.Interact.performed -= PerformInteract;
-        inputActions.Player.Inventory.performed -= OpenInventory;
-        InventoryUIManager.OnInventoryStateChanged -= OnMenuToggled;
-        CraftingManager.OnCraftingStateChanged -= OnMenuToggled;
-        inputActions.Disable();
     }
 
     private void Update()
@@ -158,7 +174,6 @@ public class PlayerMovement : MonoBehaviour
             rb.MovePosition(newPosition);
 
         walkedDistance += move.magnitude * currentMoveSpeed * Time.fixedDeltaTime;
-        // Debug.Log("Walked Distance: " + walkedDistance);
         if (walkedDistance >= stepLength && isGrounded)
         {
             AudioManager.Instance.PlayFootstep(isRunning);
