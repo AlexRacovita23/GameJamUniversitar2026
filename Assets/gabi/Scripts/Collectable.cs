@@ -1,18 +1,48 @@
-using NUnit.Framework;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Collectable : MonoBehaviour
-{ 
-    public List<ItemData> itemList;
+{
+    [Header("Items to Add")]
+    [SerializeField] private CollectableEntry[] itemsToCollect;
+
+    [System.Serializable]
+    public class CollectableEntry
+    {
+        public ItemData item;
+        public int quantity = 1;
+    }
 
     public void CollectItem()
     {
-        Debug.Log("Collecting item: " + gameObject.name);
-        AudioManager.Instance.PlayHarvest();
-        foreach (ItemData itemData in itemList)
-            Inventory.Instance.AddItem(itemData);
-        // Add any additional logic for collecting the item here (e.g., updating score, playing sound, etc.)
+        if (Inventory.Instance == null)
+        {
+            Debug.LogError("[Collectable] Inventory.Instance is null! Make sure Inventory exists in the scene.");
+            return;
+        }
+
+        foreach (var entry in itemsToCollect)
+        {
+            if (entry.item == null)
+            {
+                Debug.LogWarning("[Collectable] Null item in collectable entry, skipping.");
+                continue;
+            }
+
+            for (int i = 0; i < entry.quantity; i++)
+            {
+                Inventory.Instance.AddItem(entry.item);
+            }
+
+            Debug.Log($"[Collectable] Collected {entry.quantity}x {entry.item.ItemName}");
+        }
+
+        PlayCollectEffects();
         Destroy(gameObject);
+    }
+
+    private void PlayCollectEffects()
+    {
+        if (AudioManager.Instance != null)
+            AudioManager.Instance.PlayUIClick("Click");
     }
 }
