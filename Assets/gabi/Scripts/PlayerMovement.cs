@@ -153,7 +153,7 @@ public class PlayerMovement : MonoBehaviour
             rb.MovePosition(newPosition);
 
         walkedDistance += move.magnitude * currentMoveSpeed * Time.fixedDeltaTime;
-        Debug.Log("Walked Distance: " + walkedDistance);
+        // Debug.Log("Walked Distance: " + walkedDistance);
         if (walkedDistance >= stepLength && isGrounded)
         {
             AudioManager.Instance.PlayFootstep(isRunning);
