@@ -3664,7 +3664,7 @@ GameObject:
   - component: {fileID: 7729197424756494682}
   m_Layer: 0
   m_Name: ScorpionGoodAnimation
-  m_TagString: Untagged
+  m_TagString: Collectable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -3755,5 +3755,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 18eba67a88ab63649ba9a4dc6a6d7375, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Collectable
-  itemList:
-  - {fileID: 11400000, guid: ad1c05286821cf642babeb84253094b6, type: 2}
+  itemsToCollect:
+  - item: {fileID: 11400000, guid: ad1c05286821cf642babeb84253094b6, type: 2}
+    quantity: 1
