@@ -89,6 +89,18 @@ PrefabInstance:
       propertyPath: 'itemList.Array.data[0]'
       value: 
       objectReference: {fileID: 11400000, guid: 39377c64db1ee32479c3def874dc5034, type: 2}
+    - target: {fileID: 2971347763002198422, guid: 797c475056c56c644ae93346b3d0611e, type: 3}
+      propertyPath: itemsToCollect.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2971347763002198422, guid: 797c475056c56c644ae93346b3d0611e, type: 3}
+      propertyPath: itemsToCollect.Array.data[0].item
+      value: 
+      objectReference: {fileID: 11400000, guid: 39377c64db1ee32479c3def874dc5034, type: 2}
+    - target: {fileID: 2971347763002198422, guid: 797c475056c56c644ae93346b3d0611e, type: 3}
+      propertyPath: itemsToCollect.Array.data[0].quantity
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5947785429110753176, guid: 797c475056c56c644ae93346b3d0611e, type: 3}
       propertyPath: m_Name
       value: Flower

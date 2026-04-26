@@ -1,4 +1,3 @@
-
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -57,6 +56,9 @@ public class InventoryUIManager : MonoBehaviour
     {
         Inventory.Instance.RemoveItem(item);
         OnItemConsumed?.Invoke(item);
+
+        if (AudioManager.Instance != null)
+            AudioManager.Instance.PlayUIClick("Consume");
     }
 
     private void OnInventoryToggle(InputAction.CallbackContext context)
@@ -65,6 +67,9 @@ public class InventoryUIManager : MonoBehaviour
         inventoryPanel.SetActive(isOpen);
 
         OnInventoryStateChanged?.Invoke(isOpen);
+
+        if (isOpen && AudioManager.Instance != null)
+            AudioManager.Instance.PlayUIClick("OpenUI");
     }
 
     public void OnAddAllItemsDebug(InputAction.CallbackContext context)
