@@ -28,6 +28,9 @@ public class SanitySystem : MonoBehaviour
     private float blurbTimer = 0f;
     private bool isBlurbActive = false;
 
+    public GameObject LoseScreen;
+    [SerializeField] private PlayerMovement playerMovement;
+
     public float Sanity => sanity;
 
     private void Awake()
@@ -81,6 +84,11 @@ public class SanitySystem : MonoBehaviour
         {
             // Handle player death or game over logic here
             Debug.Log("Player has lost all sanity!");
+            if (LoseScreen != null && !LoseScreen.activeSelf)
+            {
+                LoseScreen.SetActive(true);
+                playerMovement.ChangeCoursorState();
+            }
         }
 
         UpdateVisuals();

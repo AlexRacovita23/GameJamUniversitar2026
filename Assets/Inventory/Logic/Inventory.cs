@@ -21,7 +21,7 @@ public class Inventory : MonoBehaviour
             return;
         }
         Instance = this;
-        DontDestroyOnLoad(gameObject);
+        // DontDestroyOnLoad(gameObject);
     }
 
     public void AddItem(ItemData item)
