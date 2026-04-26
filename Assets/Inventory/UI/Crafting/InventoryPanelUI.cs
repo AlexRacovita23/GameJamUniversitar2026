@@ -1,4 +1,3 @@
-
 using System;
 using System.Collections.Generic;
 using UnityEngine;
@@ -12,6 +11,7 @@ public class InventoryPanelUI : MonoBehaviour
     private Inventory _inventory;
     private Action<DraggableItem> _onItemDroppedHere;
     private DropZone _dropZone;
+    private bool _initialized = false;
 
     private Dictionary<ItemData, DraggableItem> _slotMap = new();
 
@@ -22,13 +22,38 @@ public class InventoryPanelUI : MonoBehaviour
 
     private void OnEnable()
     {
-        _dropZone.OnItemDropped += HandleDrop;
+        if (_dropZone != null)
+            _dropZone.OnItemDropped += HandleDrop;
+
+        if (_initialized && _inventory != null)
+        {
+            _inventory.OnInventoryChanged += HandleInventoryChanged;
+            SoftRefresh();
+        }
+    }
+
+    private void OnDisable()
+    {
+        if (_dropZone != null)
+            _dropZone.OnItemDropped -= HandleDrop;
+
+        if (_inventory != null)
+            _inventory.OnInventoryChanged -= HandleInventoryChanged;
     }
 
     public void Init(Inventory inventory, Action<DraggableItem> onItemDroppedHere)
     {
         _inventory = inventory;
         _onItemDroppedHere = onItemDroppedHere;
+        _initialized = true;
+
+        if (gameObject.activeInHierarchy)
+            _inventory.OnInventoryChanged += HandleInventoryChanged;
+    }
+
+    private void HandleInventoryChanged()
+    {
+        SoftRefresh();
     }
 
     public void RandomLayout()
@@ -61,6 +86,8 @@ public class InventoryPanelUI : MonoBehaviour
 
     public void SoftRefresh()
     {
+        if (_inventory == null) return;
+
         var toRemove = new List<ItemData>();
         foreach (var kvp in _slotMap)
         {
@@ -124,5 +151,8 @@ public class InventoryPanelUI : MonoBehaviour
     {
         if (_dropZone != null)
             _dropZone.OnItemDropped -= HandleDrop;
+
+        if (_inventory != null)
+            _inventory.OnInventoryChanged -= HandleInventoryChanged;
     }
 }

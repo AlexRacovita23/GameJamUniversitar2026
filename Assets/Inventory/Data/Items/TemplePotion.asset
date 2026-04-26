@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: TemplePotion
   m_EditorClassIdentifier: Assembly-CSharp::ItemData
   ItemName: TemplePotion
-  Icon: {fileID: 0}
+  Icon: {fileID: 21300000, guid: 412acf9adaef4634d956c34efd25036f, type: 3}

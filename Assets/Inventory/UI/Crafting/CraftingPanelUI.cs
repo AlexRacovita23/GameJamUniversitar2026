@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 
-public class CraftingTableUI : MonoBehaviour
+public class CraftingPanelUI : MonoBehaviour
 {
     [SerializeField] private DraggableItem itemSlotPrefab;
     [SerializeField] private RectTransform zone;
@@ -11,7 +11,7 @@ public class CraftingTableUI : MonoBehaviour
 
     private List<DraggableItem> _slots = new();
 
-    private CraftingTable _table;
+    private CraftingSpace _table;
     private Action<DraggableItem> _onItemDroppedHere;
 
     private DropZone _dropZone;
@@ -27,7 +27,7 @@ public class CraftingTableUI : MonoBehaviour
     }
 
     public void Init(
-        CraftingTable table,
+        CraftingSpace table,
         Action<DraggableItem> onItemDroppedHere)
     {
         _table = table;
@@ -49,7 +49,7 @@ public class CraftingTableUI : MonoBehaviour
         foreach (var item in _table.Slots)
         {
             DraggableItem slot = Instantiate(itemSlotPrefab, zone);
-            slot.Init(item, 1, ItemSourceZone.CraftingTable);
+            slot.Init(item, 1, ItemSourceZone.CraftingSpace);
             slot.ExclusionZone = craftButtonExclusionZone;
 
             RectTransform slotRect = slot.GetComponent<RectTransform>();
@@ -107,7 +107,7 @@ public class CraftingTableUI : MonoBehaviour
         foreach (var item in neededItems)
         {
             DraggableItem slot = Instantiate(itemSlotPrefab, zone);
-            slot.Init(item, 1, ItemSourceZone.CraftingTable);
+            slot.Init(item, 1, ItemSourceZone.CraftingSpace);
             slot.ExclusionZone = craftButtonExclusionZone;
 
             RectTransform slotRect = slot.GetComponent<RectTransform>();

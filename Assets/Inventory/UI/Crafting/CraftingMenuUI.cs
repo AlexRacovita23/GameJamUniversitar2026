@@ -1,62 +1,57 @@
-using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class CraftingMenuUI : MonoBehaviour
 {
+    [Header("Panels")]
     [SerializeField] private InventoryPanelUI inventoryPanel;
-    [SerializeField] private CraftingTableUI tablePanel;
-    [SerializeField] private RectTransform inventoryZone;
-    [SerializeField] private RectTransform craftingZone;
+    [SerializeField] private CraftingPanelUI craftingPanel;
+
+    [Header("UI Elements")]
     [SerializeField] private Button craftButton;
 
     private Inventory _inventory;
-    private CraftingTable _table;
-    private RecipeResolver _resolver;
+    private CraftingSpace _craftingSpace;
+    private RecipeResolver _recipeResolver;
 
-    private void Awake()
-    {
-    }
-
-    public void Init(Inventory inventory, CraftingTable table, RecipeResolver resolver)
+    public void Init(Inventory inventory, CraftingSpace craftingSpace, RecipeResolver recipeResolver)
     {
         _inventory = inventory;
-        _table = table;
-        _resolver = resolver;
+        _craftingSpace = craftingSpace;
+        _recipeResolver = recipeResolver;
 
         inventoryPanel.Init(inventory, OnDraggedToInventory);
-        tablePanel.Init(table, OnDraggedToCrafting);
+        craftingPanel.Init(craftingSpace, OnDraggedToCrafting);
         craftButton.onClick.AddListener(OnCraftPressed);
     }
 
-    public void OpenInventory()
+    public void OpenMenu()
     {
         gameObject.SetActive(true);
         inventoryPanel.RandomLayout();
-        tablePanel.RandomLayout();
+        craftingPanel.RandomLayout();
     }
 
-    public void CloseInventory()
+    public void CloseMenu()
     {
         gameObject.SetActive(false);
     }
 
     private void OnDraggedToInventory(DraggableItem draggable)
     {
-        if (draggable.SourceZone != ItemSourceZone.CraftingTable)
+        if (draggable.SourceZone != ItemSourceZone.CraftingSpace)
             return;
 
         ItemData item = draggable.Data;
 
-        if (!_table.Slots.Contains(item))
+        if (!_craftingSpace.Slots.Contains(item))
             return;
 
-        _table.RemoveIngredient(item);
+        _craftingSpace.RemoveIngredient(item);
         _inventory.AddItem(item);
 
-        tablePanel.RemoveSlot(draggable);
-
+        craftingPanel.RemoveSlot(draggable);
         inventoryPanel.SoftRefresh();
     }
 
@@ -70,24 +65,30 @@ public class CraftingMenuUI : MonoBehaviour
         if (_inventory.GetCount(item) <= 0)
             return;
 
-        if (!_table.TryAddIngredient(item))
+        if (!_craftingSpace.TryAddIngredient(item))
             return;
 
         _inventory.RemoveItem(item);
 
         inventoryPanel.SoftRefresh();
-        tablePanel.SoftRefresh();
+        craftingPanel.SoftRefresh();
     }
 
     private void OnCraftPressed()
     {
-        var recipe = _resolver.TryResolve(_table.Slots);
+        var recipe = _recipeResolver.TryResolve(_craftingSpace.Slots);
         if (recipe == null) return;
 
-        _table.Clear();
+        _craftingSpace.Clear();
         _inventory.AddItem(recipe.result);
 
         inventoryPanel.SoftRefresh();
-        tablePanel.SoftRefresh();
+        craftingPanel.SoftRefresh();
+    }
+
+    private void OnDestroy()
+    {
+        if (craftButton != null)
+            craftButton.onClick.RemoveListener(OnCraftPressed);
     }
 }

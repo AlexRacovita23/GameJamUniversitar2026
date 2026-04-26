@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: BadPotion
   m_EditorClassIdentifier: Assembly-CSharp::ItemData
   ItemName: BadPotion
-  Icon: {fileID: 0}
+  Icon: {fileID: 21300000, guid: 055ca77f06876c14ca6ce7fa62ab7733, type: 3}

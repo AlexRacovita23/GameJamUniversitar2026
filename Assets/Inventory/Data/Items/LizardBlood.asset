@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: LizardBlood
   m_EditorClassIdentifier: Assembly-CSharp::ItemData
   ItemName: LizardBlood
-  Icon: {fileID: 0}
+  Icon: {fileID: 21300000, guid: aa6ea55fcd2a0bd489c5735a868c141f, type: 3}

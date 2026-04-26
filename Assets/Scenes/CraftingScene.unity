@@ -894,8 +894,8 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1125731451}
-  - {fileID: 1027148807}
   - {fileID: 1806331226}
+  - {fileID: 1027148807}
   - {fileID: 1461090773}
   - {fileID: 555439292}
   - {fileID: 1515139233}
@@ -3809,8 +3809,8 @@ PrefabInstance:
       value: 'Carefully harvested from the top of cacti. Its nutritive and medicinal
         properties are often used in common remedies.
 
-        It is one of the
-        ingredients to make a restoration potion.'
+        It is one of the ingredients
+        to make a restoration potion.'
       objectReference: {fileID: 0}
     - target: {fileID: 6337926862633075972, guid: 51b5b8eca28d7f743abb894870702557, type: 3}
       propertyPath: m_fontSize

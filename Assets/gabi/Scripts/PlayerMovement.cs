@@ -19,8 +19,8 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float maxVerticalAngle = 80f;
     [SerializeField] private Transform cameraPivot;
 
-    [Header("Crafting -- assigned in Inspector")]
-    [SerializeField] private CraftingBootstrapper craftingBootstrapper;
+    [Header("Crafting")]
+    [SerializeField] private CraftingManager craftingManager;
 
     private Vector2 moveInput;
     private Vector2 lookInput;
@@ -30,8 +30,6 @@ public class PlayerMovement : MonoBehaviour
     private bool isRunning;
     private bool isGrounded;
     private bool isMenuOpen;
-
-    //public Action onCollected;
 
     private void Awake()
     {
@@ -56,6 +54,8 @@ public class PlayerMovement : MonoBehaviour
         inputActions.Player.Jump.performed += PerformJump;
         inputActions.Player.Interact.performed += PerformInteract;
         inputActions.Player.Inventory.performed += OpenInventory;
+        InventoryUIManager.OnInventoryStateChanged += OnInventoryToggled;
+        CraftingManager.OnCraftingStateChanged += OnInventoryToggled;
     }
 
     private void OpenInventory(InputAction.CallbackContext context)
@@ -87,7 +87,7 @@ public class PlayerMovement : MonoBehaviour
             if (hit.collider.CompareTag("Crafting"))
             {
                 ChangeCoursorState();
-                craftingBootstrapper.ToggleInventory();
+                craftingManager.OnCraftingMenuOpened();
             }
         }
     }
@@ -97,6 +97,8 @@ public class PlayerMovement : MonoBehaviour
         inputActions.Player.Jump.performed -= PerformJump;
         inputActions.Player.Interact.performed -= PerformInteract;
         inputActions.Player.Inventory.performed -= OpenInventory;
+        InventoryUIManager.OnInventoryStateChanged -= OnInventoryToggled;
+        CraftingManager.OnCraftingStateChanged -= OnInventoryToggled;
         inputActions.Disable();
     }
 
@@ -125,7 +127,7 @@ public class PlayerMovement : MonoBehaviour
         pitch -= mouseY;
         pitch = Mathf.Clamp(pitch, -maxVerticalAngle, maxVerticalAngle);
 
-        if(!isMenuOpen)
+        if (!isMenuOpen)
         {
             cameraPivot.localRotation = Quaternion.Euler(pitch, 0f, 0f);
             transform.rotation = Quaternion.Euler(0f, yaw, 0f);
@@ -139,7 +141,7 @@ public class PlayerMovement : MonoBehaviour
 
         float currentMoveSpeed = isRunning ? moveSpeed * runMultiplier : moveSpeed;
         Vector3 newPosition = rb.position + move * currentMoveSpeed * Time.fixedDeltaTime;
-        if(!isMenuOpen)
+        if (!isMenuOpen)
             rb.MovePosition(newPosition);
     }
 
@@ -162,8 +164,6 @@ public class PlayerMovement : MonoBehaviour
     private void CheckGrounded()
     {
         isGrounded = Physics.Raycast(transform.position, Vector3.down, jumpBuffer);
-        //isGrounded = Physics.SphereCast(transform.position, 0.5f, Vector3.down, out RaycastHit hit, 0.1f);
-        //Debug.DrawRay(transform.position, Vector3.down * 0.1f, isGrounded ? Color.green : Color.red);
     }
 
     public void ChangeCoursorState()
@@ -180,5 +180,10 @@ public class PlayerMovement : MonoBehaviour
             Cursor.visible = false;
             isMenuOpen = false;
         }
+    }
+
+    private void OnInventoryToggled(bool isOpen)
+    {
+        ChangeCoursorState();
     }
 }
