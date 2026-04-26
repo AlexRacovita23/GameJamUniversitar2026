@@ -84,6 +84,8 @@ public class AudioManager : MonoBehaviour
         harvestInstance.release();
     }
 
+    // This method can be used for any UI click sound, the "Action" parameter can be set to differentiate between different types of clicks:
+    // Click, Craft, OpenUI, Writing, Consume
     public void PlayUIClick(string action)
     {
         EventInstance uiInstance = RuntimeManager.CreateInstance(UI_Sounds);
