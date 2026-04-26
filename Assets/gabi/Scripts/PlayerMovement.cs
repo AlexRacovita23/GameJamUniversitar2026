@@ -94,7 +94,7 @@ public class PlayerMovement : MonoBehaviour
 
             if (hit.collider.CompareTag("Temple"))
             {
-                hit.collider.GetComponent<TempleController>()?.ActivateTemple();
+                //hit.collider.GetComponent<TempleController>()?.ActivateTemple();
             }
             if (hit.collider.CompareTag("Obelisk"))
             {
