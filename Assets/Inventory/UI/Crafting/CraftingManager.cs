@@ -18,7 +18,7 @@ public class CraftingManager : MonoBehaviour
     public RecipeResolver RecipeResolver => _recipeResolver;
     public bool IsOpen => menuUI.gameObject.activeSelf;
 
-    public static event System.Action<bool> OnCraftingStateChanged;
+    public static event System.Action OnCraftingStateChanged;
 
     private void Awake()
     {
@@ -51,13 +51,13 @@ public class CraftingManager : MonoBehaviour
         bool isOpen = !craftingMenu.activeSelf;
         craftingMenu.SetActive(isOpen);
 
-        OnCraftingStateChanged?.Invoke(isOpen);
+        OnCraftingStateChanged?.Invoke();
     }
     public void OnCraftingMenuOpened()
     {
         bool isOpen = !craftingMenu.activeSelf;
         craftingMenu.SetActive(isOpen);
 
-        OnCraftingStateChanged?.Invoke(isOpen);
+        OnCraftingStateChanged?.Invoke();
     }
 }

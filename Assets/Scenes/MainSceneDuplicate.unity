@@ -2062,6 +2062,10 @@ PrefabInstance:
       value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 2310087797638072591, guid: 236a483227f60c346934df08698fe5ee, type: 3}
+      propertyPath: craftingManager
+      value: 
+      objectReference: {fileID: 1173212750}
+    - target: {fileID: 2310087797638072591, guid: 236a483227f60c346934df08698fe5ee, type: 3}
       propertyPath: craftingBootstrapper
       value: 
       objectReference: {fileID: 0}

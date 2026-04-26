@@ -9,7 +9,7 @@ public class InventoryUIManager : MonoBehaviour
 
     private PlayerInputActions _inputActions;
 
-    public static event System.Action<bool> OnInventoryStateChanged;
+    public static event System.Action OnInventoryStateChanged;
     public static event System.Action<ItemData> OnItemConsumed;
 
     private void Awake()
@@ -71,7 +71,7 @@ public class InventoryUIManager : MonoBehaviour
         bool isOpen = !inventoryPanel.activeSelf;
         inventoryPanel.SetActive(isOpen);
 
-        OnInventoryStateChanged?.Invoke(isOpen);
+        OnInventoryStateChanged?.Invoke();
 
         if (isOpen && AudioManager.Instance != null)
             AudioManager.Instance.PlayUIClick("OpenUI");
