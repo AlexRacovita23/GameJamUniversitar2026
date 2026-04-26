@@ -5,8 +5,6 @@ public class MaterialManipulationDebug : MonoBehaviour
 {
     [Range(0f, 1f)]
     public float alfa = 1f;
-    [SerializeField] private float transparencyThreshold = 10f;
-
 
     private readonly List<Material> instanceMaterials = new List<Material>();
     private Renderer[] childRenderers;

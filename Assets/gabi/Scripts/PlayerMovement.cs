@@ -92,10 +92,10 @@ public class PlayerMovement : MonoBehaviour
                 craftingManager.OnCraftingMenuOpened();
             }
 
-            if (hit.collider.CompareTag("Temple"))
-            {
-                hit.collider.GetComponent<TempleController>()?.ActivateTemple();
-            }
+            //if (hit.collider.CompareTag("Temple"))
+            //{
+            //    hit.collider.GetComponent<TempleController>()?.ActivateTemple();
+            //}
         }
     }
 

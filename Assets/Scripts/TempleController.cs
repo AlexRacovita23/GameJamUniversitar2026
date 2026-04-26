@@ -7,6 +7,8 @@ public class TempleController : MonoBehaviour
     [SerializeField] private float riseSpeed = 0.1f;
     [SerializeField] private float maxHeight = 1.09f;
 
+    public GameObject finalCard;
+
     public bool isRising = false;
 
     // Update is called once per frame
@@ -28,13 +30,20 @@ public class TempleController : MonoBehaviour
         }
     }
 
-    public void ActivateTemple()
+    private void OnTriggerEnter(Collider other)
     {
-        if (transform.position.y < maxHeight)
+        Debug.Log("Temple triggered by: " + other.name);
+        if (other.CompareTag("Player"))
         {
-            Debug.Log("Temple is not fully risen yet. Current height: " + transform.position.y);
-            return;
+            if (transform.position.y < maxHeight)
+            {
+                Debug.Log("Temple is not fully risen yet. Current height: " + transform.position.y);
+                return;
+            }
+            Debug.Log("Temple activated! Game Over!");
+            finalCard.SetActive(true);
+            other.GetComponentInParent<PlayerMovement>()?.ChangeCoursorState();
+            // Time.timeScale = 0f; // Pause the game
         }
-        Debug.Log("Temple activated! Game Over!");
     }
 }
