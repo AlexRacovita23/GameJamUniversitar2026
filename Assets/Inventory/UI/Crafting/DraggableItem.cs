@@ -58,6 +58,10 @@ public class DraggableItem : MonoBehaviour,
         Canvas rootCanvas = GetComponentInParent<Canvas>().rootCanvas;
         transform.SetParent(rootCanvas.transform, true);
         _canvasGroup.blocksRaycasts = false;
+
+        if (AudioManager.Instance != null)
+            AudioManager.Instance.PlayUIClick("Click");
+        return;
     }
 
     public void OnDrag(PointerEventData e)
@@ -73,7 +77,6 @@ public class DraggableItem : MonoBehaviour,
         {
             transform.SetParent(_originalParent, false);
             transform.localPosition = _originalLocalPosition;
-            return;
         }
 
         transform.SetParent(_originalParent, true);
@@ -127,5 +130,8 @@ public class DraggableItem : MonoBehaviour,
         {
             transform.localPosition = _originalLocalPosition;
         }
+        if (AudioManager.Instance != null)
+            AudioManager.Instance.PlayUIClick("Click");
+        return;
     }
 }
