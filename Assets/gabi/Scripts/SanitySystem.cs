@@ -20,7 +20,7 @@ public class SanitySystem : MonoBehaviour
     [SerializeField] private ParticleSystem sandstormParticles;
     private ParticleSystem.EmissionModule sandstormEmission;
     [SerializeField] private float maxParticleEmissionRate = 2500f;
-    [SerializeField] private float minParticleEmissionRate = 1000f;
+    [SerializeField] private float minParticleEmissionRate = 500f;
     [SerializeField] private WorldBorder worldBorder;
     private bool isOutsideBorder = false;
 
@@ -119,12 +119,6 @@ public class SanitySystem : MonoBehaviour
                 Debug.Log($"[SanitySystem] Current Sanity Level: {sanity}");
                 break;
 
-            case "TemplePotion":
-                // Spawns the win condition, cannot be used on self/outside obelisk range
-                // TODO: Implement win condition spawn - requires obelisk range check
-                Debug.Log("[SanitySystem] Temple Potion consumed: Win condition trigger (not implemented)");
-                break;
-
             case "CactusFlower":
                 IncreaseSanity(10f * sanityDecreaseRatePerSecond);
                 Debug.Log("[SanitySystem] Cactus Flower consumed: +10 seconds of sanity");
@@ -206,7 +200,7 @@ public class SanitySystem : MonoBehaviour
     {
         isOutsideBorder = false;
         sanityDecreaseRatePerSecond = 0.4f; // Reset to default rate
-        if (sanity > 20)
+        if (sanity > 50)
         {
             sandstormParticles.Stop(); // Stop sandstorm effect if sanity is above critical level
             AudioManager.Instance.SetWindPower(0f);
@@ -223,23 +217,52 @@ public class SanitySystem : MonoBehaviour
         if (vignette != null)
         {
             AudioManager.Instance.SetBackground(100 - sanity); // Adjust background music based on sanity
+            if (sanity < 70 && sanity >= 50)
+            {
+                if (!sandstormParticles.isPlaying)
+                {
+                    sandstormParticles.Play();
+                }
+                float particleIntensity = Mathf.Lerp(minParticleEmissionRate, 1000f, (50 - sanity) / 30);
+                sandstormEmission = sandstormParticles.emission;
+                sandstormEmission.rateOverTime = particleIntensity;
+
+                float windPower = Mathf.Lerp(0f, 5f, (70 - sanity) / 30);
+                AudioManager.Instance.SetWindPower(windPower);
+            }
             if (sanity < 50 && sanity >= 20)
             {
                 // Increase vignette intensity as sanity decreases
                 float intensity = Mathf.Lerp(0, 0.5f, (50 - sanity) / 30);
                 vignette.intensity.value = intensity;
-                sandstormParticles.Stop(); // Stop sandstorm effect if sanity is above critical level
-                AudioManager.Instance.SetWindPower(0f);
+
+                if (!sandstormParticles.isPlaying)
+                {
+                    sandstormParticles.Play();
+                }
+
+                float particleIntensity = Mathf.Lerp(1000f, 2000f, (50 - sanity) / 30);
+                sandstormEmission = sandstormParticles.emission;
+                sandstormEmission.rateOverTime = particleIntensity;
+
+                float windPower = Mathf.Lerp(0f, 10f, (50 - sanity) / 30);
+                AudioManager.Instance.SetWindPower(windPower);
             }
             else if (sanity < 20 && sanity > 0)
             {
                 // Decide on maximum insanity effect
                 Debug.Log("Player is in critical sanity state!");
                 vignette.intensity.value = 0.5f; // Max intensity
-                sandstormParticles.Play(); // Start sandstorm effect
-                float intensity = Mathf.Lerp(minParticleEmissionRate, maxParticleEmissionRate, sanity / 20); // Adjust particle emission based on sanity
+
+                if (!sandstormParticles.isPlaying)
+                {
+                    sandstormParticles.Play();
+                }
+
+                float particleIntensity = Mathf.Lerp(2000f, maxParticleEmissionRate, (20 - sanity) / 20);
                 sandstormEmission = sandstormParticles.emission;
-                sandstormEmission.rateOverTime = intensity;
+                sandstormEmission.rateOverTime = particleIntensity;
+
                 AudioManager.Instance.SetWindPower(20f - sanity); // Increase wind sound as sanity decreases
             }
             else
