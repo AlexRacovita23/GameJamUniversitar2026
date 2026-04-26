@@ -19,6 +19,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float mouseSensitivity = 10f;
     [SerializeField] private float maxVerticalAngle = 80f;
     [SerializeField] private Transform cameraPivot;
+    public GameObject pressText;
 
     [Header("Crafting")]
     [SerializeField] private CraftingManager craftingManager;
@@ -186,14 +187,17 @@ public class PlayerMovement : MonoBehaviour
         Ray ray = new Ray(cameraPivot.position, cameraPivot.forward);
         if (Physics.Raycast(ray, out RaycastHit hit, interactionRange))
         {
-            if (hit.collider.CompareTag("Collectable"))
+            if (hit.collider.CompareTag("Collectable") || hit.collider.CompareTag("Crafting") || hit.collider.CompareTag("Obelisk") || hit.collider.CompareTag("Note"))
             {
                 Debug.Log("Hit: " + hit.collider.name);
+                if (pressText != null)
+                    pressText.SetActive(true);
             }
-            if (hit.collider.CompareTag("Crafting"))
-            {
-                Debug.Log("Hit: " + hit.collider.name);
-            }
+        }
+        else
+        {
+            if (pressText != null)
+                pressText.SetActive(false);
         }
     }
 
