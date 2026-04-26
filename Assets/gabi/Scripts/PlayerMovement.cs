@@ -58,6 +58,8 @@ public class PlayerMovement : MonoBehaviour
         inputActions.Player.Inventory.performed += OpenInventory;
         InventoryUIManager.OnInventoryStateChanged += OnMenuToggled;
         CraftingManager.OnCraftingStateChanged += OnMenuToggled;
+
+        Time.timeScale = 1f; // Ensure the game is not paused when enabled
     }
 
     private void OpenInventory(InputAction.CallbackContext context)
@@ -193,11 +195,13 @@ public class PlayerMovement : MonoBehaviour
             Cursor.lockState = CursorLockMode.None;
             Cursor.visible = true;
             isMenuOpen = true;
+            Time.timeScale = 0f; // Pause the game
         }
         else
         {
             Cursor.lockState = CursorLockMode.Locked;
             Cursor.visible = false;
+            Time.timeScale = 1f; // Resume the game
             isMenuOpen = false;
         }
     }

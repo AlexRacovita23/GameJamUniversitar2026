@@ -1,4 +1,5 @@
 using System;
+using TMPro;
 using UnityEngine;
 
 public class TempleController : MonoBehaviour
@@ -11,9 +12,20 @@ public class TempleController : MonoBehaviour
 
     public bool isRising = false;
 
+    public float timer = 0f;
+    public TMP_Text timerTextWin;
+    public TMP_Text timerTextLose;
+
+    private void Start()
+    {
+        timer = 0f;
+    }
+
     // Update is called once per frame
     void Update()
     {
+        timer += Time.deltaTime;
+        UpdateTimer();
         if (!isRising)
             return;
 
@@ -45,5 +57,12 @@ public class TempleController : MonoBehaviour
             other.GetComponentInParent<PlayerMovement>()?.ChangeCoursorState();
             // Time.timeScale = 0f; // Pause the game
         }
+    }
+
+    private void UpdateTimer()
+    {
+        TimeSpan timeSpan = TimeSpan.FromSeconds(timer);
+        timerTextWin.text = $"Time: {timeSpan.Minutes:D2}:{timeSpan.Seconds:D2}";
+        timerTextLose.text = $"Time: {timeSpan.Minutes:D2}:{timeSpan.Seconds:D2}";
     }
 }
