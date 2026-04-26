@@ -2051,7 +2051,7 @@ PrefabInstance:
       objectReference: {fileID: 1406389986}
     - target: {fileID: 2310087797638072591, guid: 236a483227f60c346934df08698fe5ee, type: 3}
       propertyPath: mouseSensitivity
-      value: 5
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 2310087797638072591, guid: 236a483227f60c346934df08698fe5ee, type: 3}
       propertyPath: craftingBootstrapper
