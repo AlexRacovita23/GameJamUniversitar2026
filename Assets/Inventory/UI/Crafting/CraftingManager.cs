@@ -5,6 +5,8 @@ using UnityEngine.InputSystem;
 public class CraftingManager : MonoBehaviour
 {
     [SerializeField] private List<RecipeData> allRecipes;
+    [SerializeField] private ItemData defaultCraftingResult;
+    [SerializeField] private int minimumIngredientsForDefault = 2;
     [SerializeField] private GameObject craftingMenu;
     [SerializeField] private CraftingMenuUI menuUI;
 
@@ -16,7 +18,7 @@ public class CraftingManager : MonoBehaviour
     public RecipeResolver RecipeResolver => _recipeResolver;
     public bool IsOpen => menuUI.gameObject.activeSelf;
 
-    public static event System.Action<bool> OnCraftingStateChanged;
+    public static event System.Action OnCraftingStateChanged;
 
     private void Awake()
     {
@@ -26,7 +28,7 @@ public class CraftingManager : MonoBehaviour
     private void Start()
     {
         _craftingSpace = new CraftingSpace();
-        _recipeResolver = new RecipeResolver(allRecipes);
+        _recipeResolver = new RecipeResolver(allRecipes, defaultCraftingResult, minimumIngredientsForDefault);
 
         menuUI.Init(Inventory.Instance, _craftingSpace, _recipeResolver);
         menuUI.gameObject.SetActive(false);
@@ -49,13 +51,13 @@ public class CraftingManager : MonoBehaviour
         bool isOpen = !craftingMenu.activeSelf;
         craftingMenu.SetActive(isOpen);
 
-        OnCraftingStateChanged?.Invoke(isOpen);
+        OnCraftingStateChanged?.Invoke();
     }
     public void OnCraftingMenuOpened()
     {
         bool isOpen = !craftingMenu.activeSelf;
         craftingMenu.SetActive(isOpen);
 
-        OnCraftingStateChanged?.Invoke(isOpen);
+        OnCraftingStateChanged?.Invoke();
     }
 }

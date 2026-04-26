@@ -23,7 +23,17 @@ public class CraftingPanelUI : MonoBehaviour
 
     private void OnEnable()
     {
-        _dropZone.OnItemDropped += HandleDrop;
+        if (_dropZone != null)
+        {
+            _dropZone.OnItemDropped += HandleDrop;
+        }
+    }
+    private void OnDisable()
+    {
+        if (_dropZone != null)
+        {
+            _dropZone.OnItemDropped -= HandleDrop;
+        }
     }
 
     public void Init(
