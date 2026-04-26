@@ -31,6 +31,9 @@ public class CraftingMenuUI : MonoBehaviour
         gameObject.SetActive(true);
         inventoryPanel.RandomLayout();
         craftingPanel.RandomLayout();
+
+        if (AudioManager.Instance != null)
+            AudioManager.Instance.PlayUIClick("OpenUI");
     }
 
     public void CloseMenu()
@@ -84,6 +87,9 @@ public class CraftingMenuUI : MonoBehaviour
 
         inventoryPanel.SoftRefresh();
         craftingPanel.SoftRefresh();
+
+        if (AudioManager.Instance != null)
+            AudioManager.Instance.PlayUIClick("Craft");
     }
 
     private void OnDestroy()
