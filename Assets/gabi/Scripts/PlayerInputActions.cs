@@ -145,6 +145,24 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""ToggleSandstorm"",
+                    ""type"": ""Button"",
+                    ""id"": ""27157778-3311-44ed-965e-7750bdd912a0"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""ToggleRockCollapse"",
+                    ""type"": ""Button"",
+                    ""id"": ""7bd69a33-535c-4f09-926b-8c676c4b2f24"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -257,6 +275,28 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                     ""action"": ""Inventory"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""ac06d183-fdd9-4441-903a-80565964b71b"",
+                    ""path"": ""<Keyboard>/o"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""ToggleSandstorm"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""53c452f1-830d-42a6-84bd-3adce5e2f76f"",
+                    ""path"": ""<Keyboard>/p"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""ToggleRockCollapse"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -283,6 +323,8 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         m_Player_Interact = m_Player.FindAction("Interact", throwIfNotFound: true);
         m_Player_Jump = m_Player.FindAction("Jump", throwIfNotFound: true);
         m_Player_Inventory = m_Player.FindAction("Inventory", throwIfNotFound: true);
+        m_Player_ToggleSandstorm = m_Player.FindAction("ToggleSandstorm", throwIfNotFound: true);
+        m_Player_ToggleRockCollapse = m_Player.FindAction("ToggleRockCollapse", throwIfNotFound: true);
     }
 
     ~@PlayerInputActions()
@@ -369,6 +411,8 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
     private readonly InputAction m_Player_Interact;
     private readonly InputAction m_Player_Jump;
     private readonly InputAction m_Player_Inventory;
+    private readonly InputAction m_Player_ToggleSandstorm;
+    private readonly InputAction m_Player_ToggleRockCollapse;
     /// <summary>
     /// Provides access to input actions defined in input action map "Player".
     /// </summary>
@@ -404,6 +448,14 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         /// Provides access to the underlying input action "Player/Inventory".
         /// </summary>
         public InputAction @Inventory => m_Wrapper.m_Player_Inventory;
+        /// <summary>
+        /// Provides access to the underlying input action "Player/ToggleSandstorm".
+        /// </summary>
+        public InputAction @ToggleSandstorm => m_Wrapper.m_Player_ToggleSandstorm;
+        /// <summary>
+        /// Provides access to the underlying input action "Player/ToggleRockCollapse".
+        /// </summary>
+        public InputAction @ToggleRockCollapse => m_Wrapper.m_Player_ToggleRockCollapse;
         /// <summary>
         /// Provides access to the underlying input action map instance.
         /// </summary>
@@ -448,6 +500,12 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
             @Inventory.started += instance.OnInventory;
             @Inventory.performed += instance.OnInventory;
             @Inventory.canceled += instance.OnInventory;
+            @ToggleSandstorm.started += instance.OnToggleSandstorm;
+            @ToggleSandstorm.performed += instance.OnToggleSandstorm;
+            @ToggleSandstorm.canceled += instance.OnToggleSandstorm;
+            @ToggleRockCollapse.started += instance.OnToggleRockCollapse;
+            @ToggleRockCollapse.performed += instance.OnToggleRockCollapse;
+            @ToggleRockCollapse.canceled += instance.OnToggleRockCollapse;
         }
 
         /// <summary>
@@ -477,6 +535,12 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
             @Inventory.started -= instance.OnInventory;
             @Inventory.performed -= instance.OnInventory;
             @Inventory.canceled -= instance.OnInventory;
+            @ToggleSandstorm.started -= instance.OnToggleSandstorm;
+            @ToggleSandstorm.performed -= instance.OnToggleSandstorm;
+            @ToggleSandstorm.canceled -= instance.OnToggleSandstorm;
+            @ToggleRockCollapse.started -= instance.OnToggleRockCollapse;
+            @ToggleRockCollapse.performed -= instance.OnToggleRockCollapse;
+            @ToggleRockCollapse.canceled -= instance.OnToggleRockCollapse;
         }
 
         /// <summary>
@@ -572,5 +636,19 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
         void OnInventory(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "ToggleSandstorm" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnToggleSandstorm(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "ToggleRockCollapse" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnToggleRockCollapse(InputAction.CallbackContext context);
     }
 }
