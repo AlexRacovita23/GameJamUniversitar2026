@@ -1165,6 +1165,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: LizzardGoodAnimation (2)
       objectReference: {fileID: 0}
+    - target: {fileID: 6048155720468094552, guid: 7f1304133e926704591e5c031f0dedda, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -1275,7 +1279,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &145946151
 Transform:
   m_ObjectHideFlags: 0
@@ -1603,6 +1607,10 @@ PrefabInstance:
     - target: {fileID: 9195547984903970395, guid: be03ca4d888d3594a9f9295ad225af1d, type: 3}
       propertyPath: m_Name
       value: ScorpionGoodAnimation
+      objectReference: {fileID: 0}
+    - target: {fileID: 9195547984903970395, guid: be03ca4d888d3594a9f9295ad225af1d, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -2028,6 +2036,10 @@ PrefabInstance:
     - target: {fileID: 1594565894196009544, guid: 236a483227f60c346934df08698fe5ee, type: 3}
       propertyPath: m_Name
       value: PlayerPlaceholderPrefab
+      objectReference: {fileID: 0}
+    - target: {fileID: 1594565894196009544, guid: 236a483227f60c346934df08698fe5ee, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1594565894196009544, guid: 236a483227f60c346934df08698fe5ee, type: 3}
       propertyPath: m_TagString
@@ -3737,6 +3749,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: LizzardGoodAnimation (3)
       objectReference: {fileID: 0}
+    - target: {fileID: 6048155720468094552, guid: 7f1304133e926704591e5c031f0dedda, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -4119,6 +4135,10 @@ PrefabInstance:
     - target: {fileID: 6048155720468094552, guid: 7f1304133e926704591e5c031f0dedda, type: 3}
       propertyPath: m_Name
       value: LizzardGoodAnimation (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 6048155720468094552, guid: 7f1304133e926704591e5c031f0dedda, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -5304,6 +5324,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: LizzardGoodAnimation
       objectReference: {fileID: 0}
+    - target: {fileID: 6048155720468094552, guid: 7f1304133e926704591e5c031f0dedda, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -5891,6 +5915,10 @@ PrefabInstance:
     - target: {fileID: 9195547984903970395, guid: be03ca4d888d3594a9f9295ad225af1d, type: 3}
       propertyPath: m_Name
       value: ScorpionGoodAnimation (2)
+      objectReference: {fileID: 0}
+    - target: {fileID: 9195547984903970395, guid: be03ca4d888d3594a9f9295ad225af1d, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -8118,6 +8146,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: LizzardGoodAnimation
       objectReference: {fileID: 0}
+    - target: {fileID: 6048155720468094552, guid: 7f1304133e926704591e5c031f0dedda, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -9326,6 +9358,10 @@ PrefabInstance:
       value: Obelisk
       objectReference: {fileID: 0}
     - target: {fileID: 7838095723025983819, guid: c8ff911a653ab1a40868189a9d5f3c39, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7838095723025983819, guid: c8ff911a653ab1a40868189a9d5f3c39, type: 3}
       propertyPath: m_TagString
       value: Obelisk
       objectReference: {fileID: 0}
@@ -9499,7 +9535,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1207288829
 Transform:
   m_ObjectHideFlags: 0
@@ -11459,7 +11495,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1536948633
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -11549,7 +11585,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1569270403
 Transform:
   m_ObjectHideFlags: 0
@@ -19358,6 +19394,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: ScorpionGoodAnimation (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 9195547984903970395, guid: be03ca4d888d3594a9f9295ad225af1d, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -19779,7 +19819,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5838248782885117689, guid: e7cc10501a58a2a46925bb56b662863a, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -20012,6 +20052,10 @@ PrefabInstance:
     - target: {fileID: 9195547984903970395, guid: be03ca4d888d3594a9f9295ad225af1d, type: 3}
       propertyPath: m_Name
       value: ScorpionGoodAnimation
+      objectReference: {fileID: 0}
+    - target: {fileID: 9195547984903970395, guid: be03ca4d888d3594a9f9295ad225af1d, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
