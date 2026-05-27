@@ -163,6 +163,15 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""ChangeRenderMode"",
+                    ""type"": ""Button"",
+                    ""id"": ""b154873b-be6b-41ee-b839-26a78aeb3b26"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -297,6 +306,17 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                     ""action"": ""ToggleRockCollapse"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""8dc8d537-e0b5-4c92-b3f2-01191ae4b93b"",
+                    ""path"": ""<Keyboard>/k"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""ChangeRenderMode"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -325,6 +345,7 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         m_Player_Inventory = m_Player.FindAction("Inventory", throwIfNotFound: true);
         m_Player_ToggleSandstorm = m_Player.FindAction("ToggleSandstorm", throwIfNotFound: true);
         m_Player_ToggleRockCollapse = m_Player.FindAction("ToggleRockCollapse", throwIfNotFound: true);
+        m_Player_ChangeRenderMode = m_Player.FindAction("ChangeRenderMode", throwIfNotFound: true);
     }
 
     ~@PlayerInputActions()
@@ -413,6 +434,7 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
     private readonly InputAction m_Player_Inventory;
     private readonly InputAction m_Player_ToggleSandstorm;
     private readonly InputAction m_Player_ToggleRockCollapse;
+    private readonly InputAction m_Player_ChangeRenderMode;
     /// <summary>
     /// Provides access to input actions defined in input action map "Player".
     /// </summary>
@@ -456,6 +478,10 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         /// Provides access to the underlying input action "Player/ToggleRockCollapse".
         /// </summary>
         public InputAction @ToggleRockCollapse => m_Wrapper.m_Player_ToggleRockCollapse;
+        /// <summary>
+        /// Provides access to the underlying input action "Player/ChangeRenderMode".
+        /// </summary>
+        public InputAction @ChangeRenderMode => m_Wrapper.m_Player_ChangeRenderMode;
         /// <summary>
         /// Provides access to the underlying input action map instance.
         /// </summary>
@@ -506,6 +532,9 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
             @ToggleRockCollapse.started += instance.OnToggleRockCollapse;
             @ToggleRockCollapse.performed += instance.OnToggleRockCollapse;
             @ToggleRockCollapse.canceled += instance.OnToggleRockCollapse;
+            @ChangeRenderMode.started += instance.OnChangeRenderMode;
+            @ChangeRenderMode.performed += instance.OnChangeRenderMode;
+            @ChangeRenderMode.canceled += instance.OnChangeRenderMode;
         }
 
         /// <summary>
@@ -541,6 +570,9 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
             @ToggleRockCollapse.started -= instance.OnToggleRockCollapse;
             @ToggleRockCollapse.performed -= instance.OnToggleRockCollapse;
             @ToggleRockCollapse.canceled -= instance.OnToggleRockCollapse;
+            @ChangeRenderMode.started -= instance.OnChangeRenderMode;
+            @ChangeRenderMode.performed -= instance.OnChangeRenderMode;
+            @ChangeRenderMode.canceled -= instance.OnChangeRenderMode;
         }
 
         /// <summary>
@@ -650,5 +682,12 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
         void OnToggleRockCollapse(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "ChangeRenderMode" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnChangeRenderMode(InputAction.CallbackContext context);
     }
 }

@@ -70,12 +70,13 @@ public class RockCollapseParticleSystem : MonoBehaviour
     {
         _input.Enable();
         _input.Player.ToggleSandstorm.performed += OnToggle;
+        _input.Player.ChangeRenderMode.performed += OnChangeRenderMode;
     }
 
     private void OnDisable()
     {
         _input.Player.ToggleSandstorm.performed -= OnToggle;
-        _input.Disable();
+        _input.Player.ChangeRenderMode.performed -= OnChangeRenderMode;
     }
 
     private void OnDestroy()
@@ -99,6 +100,22 @@ public class RockCollapseParticleSystem : MonoBehaviour
     {
         if (_isActive) StopCollapse();
         else StartCollapse();
+    }
+    
+    private void OnChangeRenderMode(InputAction.CallbackContext ctx) {
+        switch (renderMode) {
+            case RockRenderMode.Mesh3D:
+                renderMode = RockRenderMode.FlatBillboard;
+                break;
+            case RockRenderMode.FlatBillboard:
+                renderMode = RockRenderMode.Impostor;
+                break;
+            case RockRenderMode.Impostor:
+                renderMode = RockRenderMode.Mesh3D;
+                break;
+        }
+        
+        ApplyRenderMode();
     }
 
     private void StartCollapse()
