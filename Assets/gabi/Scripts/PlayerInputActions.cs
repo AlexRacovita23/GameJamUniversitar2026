@@ -145,6 +145,33 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""ToggleRockCollapse"",
+                    ""type"": ""Button"",
+                    ""id"": ""27157778-3311-44ed-965e-7750bdd912a0"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""ChangeShader"",
+                    ""type"": ""Button"",
+                    ""id"": ""7bd69a33-535c-4f09-926b-8c676c4b2f24"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""ChangeRenderMode"",
+                    ""type"": ""Button"",
+                    ""id"": ""b154873b-be6b-41ee-b839-26a78aeb3b26"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -257,6 +284,39 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                     ""action"": ""Inventory"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""ac06d183-fdd9-4441-903a-80565964b71b"",
+                    ""path"": ""<Keyboard>/o"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""ToggleRockCollapse"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""53c452f1-830d-42a6-84bd-3adce5e2f76f"",
+                    ""path"": ""<Keyboard>/p"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""ChangeShader"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""8dc8d537-e0b5-4c92-b3f2-01191ae4b93b"",
+                    ""path"": ""<Keyboard>/k"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""ChangeRenderMode"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -283,6 +343,9 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         m_Player_Interact = m_Player.FindAction("Interact", throwIfNotFound: true);
         m_Player_Jump = m_Player.FindAction("Jump", throwIfNotFound: true);
         m_Player_Inventory = m_Player.FindAction("Inventory", throwIfNotFound: true);
+        m_Player_ToggleRockCollapse = m_Player.FindAction("ToggleRockCollapse", throwIfNotFound: true);
+        m_Player_ChangeShader = m_Player.FindAction("ChangeShader", throwIfNotFound: true);
+        m_Player_ChangeRenderMode = m_Player.FindAction("ChangeRenderMode", throwIfNotFound: true);
     }
 
     ~@PlayerInputActions()
@@ -369,6 +432,9 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
     private readonly InputAction m_Player_Interact;
     private readonly InputAction m_Player_Jump;
     private readonly InputAction m_Player_Inventory;
+    private readonly InputAction m_Player_ToggleRockCollapse;
+    private readonly InputAction m_Player_ChangeShader;
+    private readonly InputAction m_Player_ChangeRenderMode;
     /// <summary>
     /// Provides access to input actions defined in input action map "Player".
     /// </summary>
@@ -404,6 +470,18 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         /// Provides access to the underlying input action "Player/Inventory".
         /// </summary>
         public InputAction @Inventory => m_Wrapper.m_Player_Inventory;
+        /// <summary>
+        /// Provides access to the underlying input action "Player/ToggleRockCollapse".
+        /// </summary>
+        public InputAction @ToggleRockCollapse => m_Wrapper.m_Player_ToggleRockCollapse;
+        /// <summary>
+        /// Provides access to the underlying input action "Player/ChangeShader".
+        /// </summary>
+        public InputAction @ChangeShader => m_Wrapper.m_Player_ChangeShader;
+        /// <summary>
+        /// Provides access to the underlying input action "Player/ChangeRenderMode".
+        /// </summary>
+        public InputAction @ChangeRenderMode => m_Wrapper.m_Player_ChangeRenderMode;
         /// <summary>
         /// Provides access to the underlying input action map instance.
         /// </summary>
@@ -448,6 +526,15 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
             @Inventory.started += instance.OnInventory;
             @Inventory.performed += instance.OnInventory;
             @Inventory.canceled += instance.OnInventory;
+            @ToggleRockCollapse.started += instance.OnToggleRockCollapse;
+            @ToggleRockCollapse.performed += instance.OnToggleRockCollapse;
+            @ToggleRockCollapse.canceled += instance.OnToggleRockCollapse;
+            @ChangeShader.started += instance.OnChangeShader;
+            @ChangeShader.performed += instance.OnChangeShader;
+            @ChangeShader.canceled += instance.OnChangeShader;
+            @ChangeRenderMode.started += instance.OnChangeRenderMode;
+            @ChangeRenderMode.performed += instance.OnChangeRenderMode;
+            @ChangeRenderMode.canceled += instance.OnChangeRenderMode;
         }
 
         /// <summary>
@@ -477,6 +564,15 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
             @Inventory.started -= instance.OnInventory;
             @Inventory.performed -= instance.OnInventory;
             @Inventory.canceled -= instance.OnInventory;
+            @ToggleRockCollapse.started -= instance.OnToggleRockCollapse;
+            @ToggleRockCollapse.performed -= instance.OnToggleRockCollapse;
+            @ToggleRockCollapse.canceled -= instance.OnToggleRockCollapse;
+            @ChangeShader.started -= instance.OnChangeShader;
+            @ChangeShader.performed -= instance.OnChangeShader;
+            @ChangeShader.canceled -= instance.OnChangeShader;
+            @ChangeRenderMode.started -= instance.OnChangeRenderMode;
+            @ChangeRenderMode.performed -= instance.OnChangeRenderMode;
+            @ChangeRenderMode.canceled -= instance.OnChangeRenderMode;
         }
 
         /// <summary>
@@ -572,5 +668,26 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
         void OnInventory(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "ToggleRockCollapse" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnToggleRockCollapse(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "ChangeShader" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnChangeShader(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "ChangeRenderMode" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnChangeRenderMode(InputAction.CallbackContext context);
     }
 }

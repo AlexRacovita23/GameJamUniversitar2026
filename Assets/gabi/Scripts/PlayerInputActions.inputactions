@@ -59,6 +59,33 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
+                },
+                {
+                    "name": "ToggleRockCollapse",
+                    "type": "Button",
+                    "id": "27157778-3311-44ed-965e-7750bdd912a0",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "ChangeShader",
+                    "type": "Button",
+                    "id": "7bd69a33-535c-4f09-926b-8c676c4b2f24",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "ChangeRenderMode",
+                    "type": "Button",
+                    "id": "b154873b-be6b-41ee-b839-26a78aeb3b26",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -169,6 +196,39 @@
                     "processors": "",
                     "groups": "",
                     "action": "Inventory",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "ac06d183-fdd9-4441-903a-80565964b71b",
+                    "path": "<Keyboard>/o",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "ToggleRockCollapse",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "53c452f1-830d-42a6-84bd-3adce5e2f76f",
+                    "path": "<Keyboard>/p",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "ChangeShader",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "8dc8d537-e0b5-4c92-b3f2-01191ae4b93b",
+                    "path": "<Keyboard>/k",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "ChangeRenderMode",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
