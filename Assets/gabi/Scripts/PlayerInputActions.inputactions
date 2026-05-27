@@ -61,7 +61,7 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "ToggleSandstorm",
+                    "name": "ToggleRockCollapse",
                     "type": "Button",
                     "id": "27157778-3311-44ed-965e-7750bdd912a0",
                     "expectedControlType": "",
@@ -70,7 +70,7 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "ToggleRockCollapse",
+                    "name": "ChangeShader",
                     "type": "Button",
                     "id": "7bd69a33-535c-4f09-926b-8c676c4b2f24",
                     "expectedControlType": "",
@@ -206,7 +206,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "ToggleSandstorm",
+                    "action": "ToggleRockCollapse",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -217,7 +217,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "ToggleRockCollapse",
+                    "action": "ChangeShader",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },

@@ -6,9 +6,6 @@ public static class ProceduralRockMesh
     public static Mesh Generate(int seed = 0, float roughness = 0.25f,
                                 float squash = 1f, int subdivisions = 0)
     {
-        Random.State prev = Random.state;
-        Random.InitState(seed);
-
         Mesh mesh = BuildIcosphere(subdivisions);
         Vector3[] verts = mesh.vertices;
 
@@ -26,7 +23,6 @@ public static class ProceduralRockMesh
         mesh.RecalculateBounds();
         mesh.Optimize();
 
-        Random.state = prev;
         return mesh;
     }
 

@@ -17,7 +17,8 @@ public class RockImpostorBaker : MonoBehaviour
     public bool logBakeTime = true;
 
     public Texture2D Atlas { get; private set; }
-    public Material ImpostorMaterial { get; private set; }
+    public Material[] ImpostorMaterials { get; private set; } = new Material[3];
+    public Material ImpostorMaterial => ImpostorMaterials[0];
     public bool IsBaked { get; private set; }
 
     public event System.Action OnBakeComplete;
@@ -36,7 +37,38 @@ public class RockImpostorBaker : MonoBehaviour
         BakeAtlas();
     }
 
-    [ContextMenu("Bake Atlas Now")]
+    private static void DilateAtlas(Texture2D tex, int passes)
+    {
+        Color[] pixels = tex.GetPixels();
+        int w = tex.width, h = tex.height;
+        Color[] buffer = new Color[pixels.Length];
+
+        for (int p = 0; p < passes; p++)
+        {
+            System.Array.Copy(pixels, buffer, pixels.Length);
+
+            for (int y = 0; y < h; y++)
+                for (int x = 0; x < w; x++)
+                {
+                    int i = y * w + x;
+                    if (pixels[i].a > 0.01f) continue;
+
+                    float rSum = 0, gSum = 0, bSum = 0;
+                    int count = 0;
+                    if (x > 0 && pixels[i - 1].a > 0.01f) { var c = pixels[i - 1]; rSum += c.r; gSum += c.g; bSum += c.b; count++; }
+                    if (x < w - 1 && pixels[i + 1].a > 0.01f) { var c = pixels[i + 1]; rSum += c.r; gSum += c.g; bSum += c.b; count++; }
+                    if (y > 0 && pixels[i - w].a > 0.01f) { var c = pixels[i - w]; rSum += c.r; gSum += c.g; bSum += c.b; count++; }
+                    if (y < h - 1 && pixels[i + w].a > 0.01f) { var c = pixels[i + w]; rSum += c.r; gSum += c.g; bSum += c.b; count++; }
+
+                    if (count > 0)
+                        buffer[i] = new Color(rSum / count, gSum / count, bSum / count, 0f);
+                }
+
+            System.Array.Copy(buffer, pixels, pixels.Length);
+        }
+
+        tex.SetPixels(pixels);
+    }
     public void BakeAtlas()
     {
         if (meshLibrary == null)
@@ -89,6 +121,8 @@ public class RockImpostorBaker : MonoBehaviour
         Atlas = new Texture2D(atlasSize, atlasSize, TextureFormat.RGBA32, false);
         Atlas.name = "RockImpostorAtlas";
 
+        var frame = new Texture2D(frameResolution, frameResolution, TextureFormat.RGBA32, false);
+
         for (int row = 0; row < framesPerAxis; row++)
         {
             for (int col = 0; col < framesPerAxis; col++)
@@ -96,7 +130,7 @@ public class RockImpostorBaker : MonoBehaviour
                 float u = (col + 0.5f) / framesPerAxis;
                 float v = (row + 0.5f) / framesPerAxis;
                 float theta = u * Mathf.PI * 2f;
-                float phi = v * Mathf.PI * 0.5f;
+                float phi = v * Mathf.PI;
 
                 Vector3 dir = new Vector3(
                     Mathf.Sin(phi) * Mathf.Cos(theta),
@@ -109,34 +143,39 @@ public class RockImpostorBaker : MonoBehaviour
                 cam.Render();
 
                 RenderTexture.active = rt;
-                var frame = new Texture2D(frameResolution, frameResolution, TextureFormat.RGBA32, false);
                 frame.ReadPixels(new Rect(0, 0, frameResolution, frameResolution), 0, 0);
                 frame.Apply();
 
                 int destRow = framesPerAxis - 1 - row;
                 Atlas.SetPixels(col * frameResolution, destRow * frameResolution,
                                 frameResolution, frameResolution, frame.GetPixels());
-                Destroy(frame);
             }
         }
+        Destroy(frame);
 
         RenderTexture.active = null;
+        //DilateAtlas(Atlas, passes: 2);
         Atlas.Apply();
 
-        Destroy(rockGO);
-        Destroy(camGO);
+        DestroyImmediate(rockGO);
+        DestroyImmediate(camGO);
         rt.Release();
 
-        var shader = Shader.Find("ParticleEffects/ImpostorBillboard");
-        if (shader == null)
-        {
-            Debug.LogError("[ImpostorBaker] Shader 'ParticleEffects/ImpostorBillboard' not found.");
-            return;
-        }
+        string[] shaderNames = {
+            "ParticleEffects/ImpostorBillboard",
+            "ParticleEffects/ImpostorBillboardBlendH",
+            "ParticleEffects/ImpostorBillboardBlendFull"
+        };
 
-        ImpostorMaterial = new Material(shader) { name = "RockImpostorMat_Runtime" };
-        ImpostorMaterial.mainTexture = Atlas;
-        ImpostorMaterial.SetFloat("_FramesPerAxis", framesPerAxis);
+        for (int s = 0; s < shaderNames.Length; s++)
+        {
+            var shader = Shader.Find(shaderNames[s]);
+            if (shader == null) { Debug.LogError($"[ImpostorBaker] Shader not found: {shaderNames[s]}"); continue; }
+
+            ImpostorMaterials[s] = new Material(shader) { name = $"RockImpostorMat_{s}_Runtime" };
+            ImpostorMaterials[s].mainTexture = Atlas;
+            ImpostorMaterials[s].SetFloat("_FramesPerAxis", framesPerAxis);
+        }
 
         IsBaked = true;
 

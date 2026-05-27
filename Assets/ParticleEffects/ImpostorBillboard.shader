@@ -12,7 +12,6 @@ Shader "ParticleEffects/ImpostorBillboard"
     {
         Tags { "RenderType"="TransparentCutout" "Queue"="AlphaTest" }
         LOD 200
-        Cull Off
 
         Pass
         {
@@ -95,6 +94,7 @@ Shader "ParticleEffects/ImpostorBillboard"
 
                 float2 tileOrigin = float2(frameCol * frameSize, frameRow * frameSize);
                 o.atlasUV = tileOrigin + v.uv * frameSize;
+                o.color *= fixed4(ShadeSH9(float4(0,1,0,1)), 1);
 
                 UNITY_TRANSFER_FOG(o, o.pos);
                 return o;

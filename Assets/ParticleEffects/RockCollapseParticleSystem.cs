@@ -36,6 +36,7 @@ public class RockCollapseParticleSystem : MonoBehaviour
     private PlayerInputActions _input;
     private bool _isActive;
     private RockRenderMode _appliedMode = (RockRenderMode)(-1);
+    private int _impostorShaderIndex = 0;
 
     private void Awake()
     {
@@ -69,14 +70,16 @@ public class RockCollapseParticleSystem : MonoBehaviour
     private void OnEnable()
     {
         _input.Enable();
-        _input.Player.ToggleSandstorm.performed += OnToggle;
+        _input.Player.ToggleRockCollapse.performed += OnToggle;
         _input.Player.ChangeRenderMode.performed += OnChangeRenderMode;
+        _input.Player.ChangeShader.performed += OnChangeShader;
     }
 
     private void OnDisable()
     {
-        _input.Player.ToggleSandstorm.performed -= OnToggle;
+        _input.Player.ToggleRockCollapse.performed -= OnToggle;
         _input.Player.ChangeRenderMode.performed -= OnChangeRenderMode;
+        _input.Player.ChangeShader.performed -= OnChangeShader;
     }
 
     private void OnDestroy()
@@ -112,10 +115,29 @@ public class RockCollapseParticleSystem : MonoBehaviour
                 break;
             case RockRenderMode.Impostor:
                 renderMode = RockRenderMode.Mesh3D;
+                _impostorShaderIndex = 0;
                 break;
         }
         
         ApplyRenderMode();
+    }
+
+    private void OnChangeShader(InputAction.CallbackContext ctx)
+    {
+        if (renderMode != RockRenderMode.Impostor) return;
+        if (impostorBaker == null || !impostorBaker.IsBaked) return;
+
+        _impostorShaderIndex = (_impostorShaderIndex + 1) % impostorBaker.ImpostorMaterials.Length;
+
+        var mat = impostorBaker.ImpostorMaterials[_impostorShaderIndex];
+        if (mat == null)
+        {
+            Debug.LogWarning($"[RockCollapse] ImpostorMaterials[{_impostorShaderIndex}] is null — shader may have failed to load.");
+            return;
+        }
+
+        _psr.material = mat;
+        Debug.Log($"[RockCollapse] Switched to impostor shader [{_impostorShaderIndex}]: {mat.shader.name}");
     }
 
     private void StartCollapse()
